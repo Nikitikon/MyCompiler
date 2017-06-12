@@ -8,8 +8,7 @@
 
 #include "heap.hpp"
 #include "list.hpp"
-
-#define MAXRANGE 20
+#include "DefaultSetting.hpp"
 
 class Hash
 {

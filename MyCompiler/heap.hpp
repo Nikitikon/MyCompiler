@@ -1,5 +1,4 @@
-#define SEGMENTSIZE 65536
-#define SEGMENTCOUNT 1024
+#include "DefaultSetting.hpp"
 
 #ifndef HEAP_H
 #define HEAP_H

@@ -7,6 +7,7 @@
 //
 
 #include "heap.hpp"
+#include "DefaultSetting.hpp"
 
 #ifndef LIST_H
 #define LIST_H
@@ -14,7 +15,6 @@
 #include <iostream>
 
 using namespace std;
-#define LISTSIZE 64
 class List
 //Û‰‡ÎˇÚ¸, Ò‡ÁÛ ÒÊËÏ‡Ú¸
 //first_index ‡·ÓÚ‡ÂÚ Í‡Í ÌÛÎÂ‚ÓÈ ˝ÎÂÏÂÌÚ Ï‡ÒÒË‚‡
