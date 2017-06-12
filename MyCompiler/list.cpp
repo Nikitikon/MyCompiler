@@ -176,14 +176,13 @@ void List::new_segment()
     tempSegment->prev = NULL;
     tempSegment->data = _heap->get_mem(element_size * element_count);
     
-    if (first == NULL)
+    if (!first)
         first = tempSegment;
-    
-    if (last == NULL)
+    if (!last)
         last = tempSegment;
     else
     {
-        last->next = last;
+        last->next = tempSegment;
         tempSegment->prev = last;
         last = tempSegment;
     }

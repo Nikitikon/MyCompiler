@@ -7,16 +7,20 @@
 //
 
 #include <iostream>
-#include "FileReader.hpp"
+#include "Parser.hpp"
 #include "DefaultSetting.hpp"
+#include "list.hpp"
 
 using namespace std;
 
 int main()
 {
-    FileReader* f = new FileReader("Automat.txt");
+    Parser* p = new Parser("Automat.txt");
+
+    char* o = (char*)p->GetStartCondition();
+    o = p->GetStartCondition();
+    o = p->Find("newLine", "mmm");
     
-    cout << f->ReadLine();
     return 0;
 }
 

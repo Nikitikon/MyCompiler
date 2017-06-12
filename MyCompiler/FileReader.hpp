@@ -12,7 +12,6 @@
 #include <fstream>
 #include "Exceptions.h"
 #include "DefaultSetting.hpp"
-#include <iostream>
 #include <cstring>
 
 using namespace std;
@@ -21,10 +20,10 @@ class FileReader
 {
 private:
     ifstream* fileIO;
-    void OpenFile(char*);
+    void OpenFile(char* FileName);
     
 public:
-    FileReader(char*);
+    FileReader(char* FileName);
     ~FileReader();
     char* ReadLine();
     char* ReadFile();

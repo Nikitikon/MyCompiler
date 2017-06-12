@@ -17,7 +17,7 @@
 using namespace std;
 class List
 //Û‰‡ÎˇÚ¸, Ò‡ÁÛ ÒÊËÏ‡Ú¸
-//first_index ‡·ÓÚ‡ÂÚ Í‡Í ÌÛÎÂ‚ÓÈ ˝ÎÂÏÂÌÚ Ï‡ÒÒË‚‡
+//firstss_index ‡·ÓÚ‡ÂÚ Í‡Í ÌÛÎÂ‚ÓÈ ˝ÎÂÏÂÌÚ Ï‡ÒÒË‚‡
 {
 public:
     List(int _element_size, int _element_count = LISTSIZE)
@@ -47,7 +47,7 @@ public:
     bool		error() { return _error; } // true if error in last operation
     
     //private:
-public:	//while debug
+private:	//while debug
     struct Segment
     {
         void*    data;

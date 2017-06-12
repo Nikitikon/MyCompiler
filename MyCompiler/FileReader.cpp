@@ -52,8 +52,8 @@ char* FileReader::ReadFile(){
     while (line)
     {
         char* temp = new char[strlen(file) + strlen(line) + 2];
-        Copy(temp, file, (int)strlen(file));
-        Copy(temp + strlen(file), line, (int)strlen(line));
+        Copy(temp, file, strlen(file));
+        Copy(temp + strlen(file), line, strlen(line));
         Copy(temp + strlen(temp), "\n", 1);
         delete[] file;
         delete[] line;

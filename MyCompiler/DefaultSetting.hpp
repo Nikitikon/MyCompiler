@@ -10,6 +10,7 @@
 #define DefaultSetting_hpp
 
 #include <stddef.h>
+#include <iostream>
 
 #define SEGMENTSIZE 65536
 #define LISTSIZE 64
@@ -18,11 +19,12 @@
 #define MAX_OPERATION_NAME_LENGHT 8
 #define MAXRANGE 20
 #define SEGMENTCOUNT 1024
+#define var auto
 
 #define AUTOMAT "Automat.txt"
 #define LOG "Log.txt"
 
-inline void Copy(char* destination, char* source, int lenght)
+inline void Copy(char* destination, char* source, size_t lenght)
 {
     for (int i = 0; i < lenght; i++)
     {

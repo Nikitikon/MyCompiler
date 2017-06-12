@@ -11,18 +11,18 @@
 
 #include <fstream>
 
+
 using namespace std;
 
 class FileWritter
 {
 private:
     ofstream* fileIO;
-    
 public:
-    FileWritter(char*);
+    FileWritter(char* FileName);
     ~FileWritter();
     void CloseFile();
-    void WriteLine(char*);
+    void WriteLine(char* String);
 };
 
 #endif /* FileWriter_hpp */
