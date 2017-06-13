@@ -13,6 +13,7 @@ using namespace std;
 
 
 Parser::Parser(char* FileName){
+
     StartConditionIndex = 0;
     ParseConditions = new List(sizeof(Condition));
     StartConditions = new List(20);
@@ -25,7 +26,7 @@ Parser::Parser(char* FileName){
         ParseString(str);
     }
 
-    delete fileReader;
+   delete fileReader;
 }
 
 Parser::~Parser(){
@@ -39,14 +40,15 @@ Parser::~Parser(){
         delete StartConditions;
 }
 
-void Parser::AddCondition(char* before, char* after, char* word){ // Добавляем состояние в список в список
+void Parser::AddCondition(char* before, char* after, char* word){ // Добавляем состояние в список
+    
     var tempCondition = new Condition(before, after, word);
     ParseConditions->add(tempCondition);
-    
-    delete tempCondition;
+
 }
 
-char* Parser::CreateThreeConcat(char* str1, char* str2, char* str3){
+char* Parser::CreateThreeConcat(char* str1, char* str2, char* str3){ // Для красивого вывода
+    
     var WorkStr = new char[strlen(str1) + strlen(str2) + strlen(str3) + 1];
     strncat(WorkStr, str1, strlen(str1));
     strncat(WorkStr, "\t", 1);
@@ -58,18 +60,19 @@ char* Parser::CreateThreeConcat(char* str1, char* str2, char* str3){
 }
 
 
-List* Parser::SplitWords(char* Str){
+List* Parser::SplitWords(char* Str){ // Разделяет правило на несколько ликсем
+    
     char* word = new char[20];
     memset(word, '\0', strlen(word));
-    List* wordList = new List(20); //Список разделенных слов
+    List* wordList = new List(20); //Список разделенных ликсем
     
-    if (strlen(Str) == 1 && Str[0] == ',') {
+    if (strlen(Str) == 1 && Str[0] == ',') { // если ликсема запятая
         word[0] = ',';
         wordList->add(word);
         return wordList;
     }
     
-    if (strlen(Str) == 2 && Str[0] == '\\') {
+    if (strlen(Str) == 2 && Str[0] == '\\') { // если ликсема - escape-последовательность
         if (Str[1] == 'n')
             word[0] = '\n';
         if (Str[1] == 't')
@@ -79,6 +82,7 @@ List* Parser::SplitWords(char* Str){
         return wordList;
     }
     
+    //если ликсемы соеденены в одну запись и идут через запятую
     int wordPosition = 0;
     for (int i = 0; i < strlen(Str); i++) {
         if (Str[i] == ',') {
@@ -93,22 +97,29 @@ List* Parser::SplitWords(char* Str){
     return wordList;
 }
 
-void Parser::ParseString(char* Str){
+void Parser::ParseString(char* Str){ // Парсит файл с инструкциями и помещает из в лист
     
     if (strlen(Str) == 0)
         return;
     
-    if (Str[0] == '#')
+    if (Str[0] == '#') // комментарий
         return;
     
-    if (!strncmp(Str, "start", 5)){
-        char* StartCondition = new char[strlen(Str) - 6];
-        strncat(StartCondition, Str+6, strlen(Str)-6);
-        StartConditions->add(StartCondition);
-        return;
+    if (strlen(Str)>5) // наодим начальные состояния
+    {
+        char* start = new char[6];
+        Copy(start, Str, 5);
+        
+        if (!strcmp(start, "start"))
+        {
+            char* startCondition = new char[strlen(Str) - 6];
+            Copy(startCondition, Str+6, strlen(Str)-6);
+            StartConditions->add(startCondition);
+            return;
+        }
     }
     
-    int tabulationPosition[2];
+    int tabulationPosition[2]; // в файле все разделено на табуляции
     for (int i = 0, j = 0; i < 2; j++) {
         if(Str[j] == '\t')
             tabulationPosition[i++] = j + 1;
@@ -133,18 +144,18 @@ void Parser::ParseString(char* Str){
     }
     
     delete wordList;
+    
 }
 
-char* Parser::Find(char* ConditionNow, char* Word){
-    
+char* Parser::Find(char* ConditionNow, char* Word){ // находим требуемую инструкцию по состоянию на текущий момент и последовательности символов
     Condition* tempCondition = NULL;
     
     int ConditionListCount = ParseConditions->count();
     
     for (int i = 0; i < ConditionListCount; i++) {
         tempCondition = (Condition*)ParseConditions->get(i);
-        char* tempw = tempCondition->word;
-        char* tempb = tempCondition->before;
+        
+        // если мы нашли подходящую инструкцию
         if (!strcmp(Word, tempCondition->word) && !strcmp(ConditionNow, tempCondition->before)) {
             
             if (fileWritter){
@@ -155,6 +166,7 @@ char* Parser::Find(char* ConditionNow, char* Word){
             return tempCondition->after;
         }
         
+        // ели для данного состояния можно ввести любую последоватьельность символов
         if (!strcmp("...", tempCondition->word) && !strcmp(ConditionNow, tempCondition->before)) {
             
             if (fileWritter){
@@ -170,14 +182,15 @@ char* Parser::Find(char* ConditionNow, char* Word){
 }
 
 
-char* Parser::GetStartCondition(){
+char* Parser::GetStartCondition(){ // возвращает стартовое состояние по текущему индексу и увеличивает индекс
+    
     if (StartConditionIndex < StartConditions->count())
         return ((char*)StartConditions->get(StartConditionIndex++));
     
     return NULL;
 }
 
-void Parser::RestartConditionIndex(){
+void Parser::RestartConditionIndex(){ // обнуляет индекс
     StartConditionIndex = 0;
 }
 

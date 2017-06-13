@@ -24,7 +24,7 @@
 #define AUTOMAT "Automat.txt"
 #define LOG "Log.txt"
 
-inline void Copy(char* destination, char* source, size_t lenght)
+inline void Copy(char* destination, char* source, int lenght)
 {
     for (int i = 0; i < lenght; i++)
     {

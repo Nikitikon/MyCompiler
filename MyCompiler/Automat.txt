@@ -13,11 +13,11 @@
 
 #Однострочный комментарий
 start	SLZSymbolComment
-SLZSymbolComment	/	SLFSymbolComment
+SLZSymbolComment	/	SLFSymbolCom
 SLZSymbolComment	...	error
 
-SLFSymbolComment	/	SLComment
-SLFSymbolComment	...	error0
+SLFSymbolCom	/	SLComment
+SLFSymbolCom	...	error0
 
 SLComment	\n	error
 SLComment	...	SLComment
@@ -25,11 +25,11 @@ SLComment	...	SLComment
 
 #Многострочные Комментарии
 start	MLZSymbolComment
-MLZSymbolComment	/	MLFSymbolComment
+MLZSymbolComment	/	MLFSymbolCom
 MLZSymbolComment	...	error
 
-MLFSymbolComment	*	multilineComment1
-MLFSymbolComment	...	error0
+MLFSymbolCom	*	multilineComment1
+MLFSymbolCom	...	error0
 
 
 multilineComment1	*	multilineComment2
@@ -48,12 +48,12 @@ zeroSymbolString	...	error
 
 string	"	stringEnd
 string	\	backSlashString
-#string	\n	stringerror
+#string	\n	stringError
 string	...	string
 
 backSlashString	"	string
 backSlashString	\	string
-backSlashString	\n	stringerror
+backSlashString	\n	stringError
 backSlashString	...	string
 
 stringEnd	...	error

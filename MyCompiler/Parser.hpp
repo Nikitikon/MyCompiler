@@ -44,7 +44,7 @@ private:
     void AddCondition(char* before, char* after, char* word); //done
     List* SplitWords(char* Str); //done
     char* CreateThreeConcat(char* str1, char* str2, char* str3); //done
-    void ParseString(char* str); //done
+
     
     
 public:
@@ -53,6 +53,7 @@ public:
     char* Find(char* ConditionNow, char* Word); //done
     char* GetStartCondition();//done
     void RestartConditionIndex();//done
+    void ParseString(char* str); //done
     
 };
 

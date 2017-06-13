@@ -7,7 +7,7 @@
 //
 
 #include <iostream>
-#include "Parser.hpp"
+#include "Automat.hpp"
 #include "DefaultSetting.hpp"
 #include "list.hpp"
 
@@ -15,12 +15,13 @@ using namespace std;
 
 int main()
 {
-    Parser* p = new Parser("Automat.txt");
-
-    char* o = (char*)p->GetStartCondition();
-    o = p->GetStartCondition();
-    o = p->Find("newLine", "mmm");
     
+    
+    for (int i = 0; i < 1000; i++) {
+        Automat* p = new Automat("Automat.txt");
+        p->Work("int Ninor = rand(9999);");
+    }
+
     return 0;
 }
 
