@@ -110,6 +110,9 @@ void List::delete_element(int index, int recursion_correction)
 
 void List::add(void* data)
 {
+    if (data == nullptr || data == NULL)
+        return;
+    
     if (first_index == -1)
     {
         _error = true;

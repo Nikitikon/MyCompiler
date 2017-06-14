@@ -11,6 +11,7 @@
 		F6030DD11ED352B100AFE64C /* list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6030DCF1ED352B100AFE64C /* list.cpp */; };
 		F6030DD41ED3530600AFE64C /* hash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6030DD21ED3530600AFE64C /* hash.cpp */; };
 		F6030DD71ED353E500AFE64C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6030DD61ED353E500AFE64C /* main.cpp */; };
+		F616EAB81EF129BA00B2570F /* TypeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F616EAB61EF129BA00B2570F /* TypeList.cpp */; };
 		F66CA68F1EEF408700B17BDE /* Automat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F66CA68D1EEF408700B17BDE /* Automat.cpp */; };
 		F6EC36DE1EEE9625003A1302 /* FileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36DC1EEE9625003A1302 /* FileReader.cpp */; };
 		F6EC36E11EEE9633003A1302 /* FileWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36DF1EEE9633003A1302 /* FileWriter.cpp */; };
@@ -40,6 +41,8 @@
 		F6030DD31ED3530600AFE64C /* hash.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hash.hpp; sourceTree = "<group>"; };
 		F6030DD51ED3538400AFE64C /* list_adv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = list_adv.h; sourceTree = "<group>"; };
 		F6030DD61ED353E500AFE64C /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F616EAB61EF129BA00B2570F /* TypeList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TypeList.cpp; sourceTree = "<group>"; };
+		F616EAB71EF129BA00B2570F /* TypeList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TypeList.hpp; sourceTree = "<group>"; };
 		F66CA68D1EEF408700B17BDE /* Automat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Automat.cpp; sourceTree = "<group>"; };
 		F66CA68E1EEF408700B17BDE /* Automat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Automat.hpp; sourceTree = "<group>"; };
 		F6EC36D91EEE8803003A1302 /* DefaultSetting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DefaultSetting.hpp; sourceTree = "<group>"; };
@@ -84,8 +87,8 @@
 		F6030DC41ED3523400AFE64C /* MyCompiler */ = {
 			isa = PBXGroup;
 			children = (
+				F616EAB31EF1290B00B2570F /* NodeFolder */,
 				F66CA68C1EEF406A00B17BDE /* AutomatFolder */,
-				F6EC36E71EEEC022003A1302 /* ParserFolder */,
 				F6EC36E21EEE986F003A1302 /* ExceptionFolder */,
 				F6EC36DB1EEE9609003A1302 /* FileWorker */,
 				F6EC36D71EEE8799003A1302 /* DefaultSettings */,
@@ -97,9 +100,35 @@
 			path = MyCompiler;
 			sourceTree = "<group>";
 		};
+		F616EAB31EF1290B00B2570F /* NodeFolder */ = {
+			isa = PBXGroup;
+			children = (
+				F616EAB41EF1294100B2570F /* ValueFolder */,
+			);
+			name = NodeFolder;
+			sourceTree = "<group>";
+		};
+		F616EAB41EF1294100B2570F /* ValueFolder */ = {
+			isa = PBXGroup;
+			children = (
+				F616EAB51EF1299700B2570F /* TypeListFoder */,
+			);
+			name = ValueFolder;
+			sourceTree = "<group>";
+		};
+		F616EAB51EF1299700B2570F /* TypeListFoder */ = {
+			isa = PBXGroup;
+			children = (
+				F616EAB61EF129BA00B2570F /* TypeList.cpp */,
+				F616EAB71EF129BA00B2570F /* TypeList.hpp */,
+			);
+			name = TypeListFoder;
+			sourceTree = "<group>";
+		};
 		F66CA68C1EEF406A00B17BDE /* AutomatFolder */ = {
 			isa = PBXGroup;
 			children = (
+				F6EC36E71EEEC022003A1302 /* ParserFolder */,
 				F66CA68D1EEF408700B17BDE /* Automat.cpp */,
 				F66CA68E1EEF408700B17BDE /* Automat.hpp */,
 			);
@@ -230,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6EC36EA1EEEC051003A1302 /* Parser.cpp in Sources */,
+				F616EAB81EF129BA00B2570F /* TypeList.cpp in Sources */,
 				F66CA68F1EEF408700B17BDE /* Automat.cpp in Sources */,
 				F6030DD41ED3530600AFE64C /* hash.cpp in Sources */,
 				F6030DCE1ED3526B00AFE64C /* heap.cpp in Sources */,

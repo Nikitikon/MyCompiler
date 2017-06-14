@@ -16,7 +16,7 @@ Parser::Parser(char* FileName){
 
     StartConditionIndex = 0;
     ParseConditions = new List(sizeof(Condition));
-    StartConditions = new List(20);
+    StartConditions = new List(MAXRANGE);
     
     fileWritter = new FileWritter(LOG);
     fileReader = new FileReader(FileName);
@@ -62,9 +62,9 @@ char* Parser::CreateThreeConcat(char* str1, char* str2, char* str3){ // Для �
 
 List* Parser::SplitWords(char* Str){ // Разделяет правило на несколько ликсем
     
-    char* word = new char[20];
+    char* word = new char[MAXRANGE];
     memset(word, '\0', strlen(word));
-    List* wordList = new List(20); //Список разделенных ликсем
+    List* wordList = new List(MAXRANGE); //Список разделенных ликсем
     
     if (strlen(Str) == 1 && Str[0] == ',') { // если ликсема запятая
         word[0] = ',';

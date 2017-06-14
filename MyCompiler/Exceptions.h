@@ -41,6 +41,7 @@ enum Exceptions
     SystemFunctionIsNotSupported,
     MissingArguments,
     UnexpectedEndOfFile,
+    NullObject
 };
 
 #endif /* Exceptions_h */
