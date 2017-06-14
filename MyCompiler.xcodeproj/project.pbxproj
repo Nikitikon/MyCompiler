@@ -12,6 +12,7 @@
 		F6030DD41ED3530600AFE64C /* hash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6030DD21ED3530600AFE64C /* hash.cpp */; };
 		F6030DD71ED353E500AFE64C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6030DD61ED353E500AFE64C /* main.cpp */; };
 		F616EAB81EF129BA00B2570F /* TypeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F616EAB61EF129BA00B2570F /* TypeList.cpp */; };
+		F616EABC1EF14B5300B2570F /* TValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F616EABA1EF14B5300B2570F /* TValue.cpp */; };
 		F66CA68F1EEF408700B17BDE /* Automat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F66CA68D1EEF408700B17BDE /* Automat.cpp */; };
 		F6EC36DE1EEE9625003A1302 /* FileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36DC1EEE9625003A1302 /* FileReader.cpp */; };
 		F6EC36E11EEE9633003A1302 /* FileWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36DF1EEE9633003A1302 /* FileWriter.cpp */; };
@@ -43,6 +44,8 @@
 		F6030DD61ED353E500AFE64C /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F616EAB61EF129BA00B2570F /* TypeList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TypeList.cpp; sourceTree = "<group>"; };
 		F616EAB71EF129BA00B2570F /* TypeList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TypeList.hpp; sourceTree = "<group>"; };
+		F616EABA1EF14B5300B2570F /* TValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TValue.cpp; sourceTree = "<group>"; };
+		F616EABB1EF14B5300B2570F /* TValue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TValue.hpp; sourceTree = "<group>"; };
 		F66CA68D1EEF408700B17BDE /* Automat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Automat.cpp; sourceTree = "<group>"; };
 		F66CA68E1EEF408700B17BDE /* Automat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Automat.hpp; sourceTree = "<group>"; };
 		F6EC36D91EEE8803003A1302 /* DefaultSetting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DefaultSetting.hpp; sourceTree = "<group>"; };
@@ -111,6 +114,7 @@
 		F616EAB41EF1294100B2570F /* ValueFolder */ = {
 			isa = PBXGroup;
 			children = (
+				F616EAB91EF14B2700B2570F /* TValueFolder */,
 				F616EAB51EF1299700B2570F /* TypeListFoder */,
 			);
 			name = ValueFolder;
@@ -123,6 +127,15 @@
 				F616EAB71EF129BA00B2570F /* TypeList.hpp */,
 			);
 			name = TypeListFoder;
+			sourceTree = "<group>";
+		};
+		F616EAB91EF14B2700B2570F /* TValueFolder */ = {
+			isa = PBXGroup;
+			children = (
+				F616EABA1EF14B5300B2570F /* TValue.cpp */,
+				F616EABB1EF14B5300B2570F /* TValue.hpp */,
+			);
+			name = TValueFolder;
 			sourceTree = "<group>";
 		};
 		F66CA68C1EEF406A00B17BDE /* AutomatFolder */ = {
@@ -259,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6EC36EA1EEEC051003A1302 /* Parser.cpp in Sources */,
+				F616EABC1EF14B5300B2570F /* TValue.cpp in Sources */,
 				F616EAB81EF129BA00B2570F /* TypeList.cpp in Sources */,
 				F66CA68F1EEF408700B17BDE /* Automat.cpp in Sources */,
 				F6030DD41ED3530600AFE64C /* hash.cpp in Sources */,
