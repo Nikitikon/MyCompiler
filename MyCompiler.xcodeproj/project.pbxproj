@@ -20,6 +20,7 @@
 		F6EC36E61EEE98B7003A1302 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36E41EEE98B7003A1302 /* Exception.cpp */; };
 		F6EC36EA1EEEC051003A1302 /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36E81EEEC051003A1302 /* Parser.cpp */; };
 		F6F0B6681EF26848001FEBB9 /* TValueKeeper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F0B6661EF26848001FEBB9 /* TValueKeeper.cpp */; };
+		F6F0B66D1EF3E981001FEBB9 /* VariableTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F0B66B1EF3E981001FEBB9 /* VariableTable.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,6 +65,8 @@
 		F6EC36E91EEEC051003A1302 /* Parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Parser.hpp; sourceTree = "<group>"; };
 		F6F0B6661EF26848001FEBB9 /* TValueKeeper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TValueKeeper.cpp; sourceTree = "<group>"; };
 		F6F0B6671EF26848001FEBB9 /* TValueKeeper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TValueKeeper.hpp; sourceTree = "<group>"; };
+		F6F0B66B1EF3E981001FEBB9 /* VariableTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VariableTable.cpp; sourceTree = "<group>"; };
+		F6F0B66C1EF3E981001FEBB9 /* VariableTable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VariableTable.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,7 @@
 		F616EAB31EF1290B00B2570F /* NodeFolder */ = {
 			isa = PBXGroup;
 			children = (
+				F6F0B66E1EF3EA48001FEBB9 /* Variable */,
 				F6F0B6641EF266B6001FEBB9 /* ScopeFolder */,
 				F616EABD1EF15F9300B2570F /* OperationListFolder */,
 				F616EAB41EF1294100B2570F /* ValueFolder */,
@@ -122,7 +126,6 @@
 		F616EAB41EF1294100B2570F /* ValueFolder */ = {
 			isa = PBXGroup;
 			children = (
-				F6F0B6691EF3E24F001FEBB9 /* KeeperFolder */,
 				F616EAB91EF14B2700B2570F /* TValueFolder */,
 				F616EAB51EF1299700B2570F /* TypeListFoder */,
 			);
@@ -235,16 +238,17 @@
 		F6F0B6641EF266B6001FEBB9 /* ScopeFolder */ = {
 			isa = PBXGroup;
 			children = (
-				F6F0B6651EF267AE001FEBB9 /* VariableTable */,
 			);
 			name = ScopeFolder;
 			sourceTree = "<group>";
 		};
-		F6F0B6651EF267AE001FEBB9 /* VariableTable */ = {
+		F6F0B6651EF267AE001FEBB9 /* VariableTableFolder */ = {
 			isa = PBXGroup;
 			children = (
+				F6F0B66B1EF3E981001FEBB9 /* VariableTable.cpp */,
+				F6F0B66C1EF3E981001FEBB9 /* VariableTable.hpp */,
 			);
-			name = VariableTable;
+			name = VariableTableFolder;
 			sourceTree = "<group>";
 		};
 		F6F0B6691EF3E24F001FEBB9 /* KeeperFolder */ = {
@@ -254,6 +258,15 @@
 				F6F0B6671EF26848001FEBB9 /* TValueKeeper.hpp */,
 			);
 			name = KeeperFolder;
+			sourceTree = "<group>";
+		};
+		F6F0B66E1EF3EA48001FEBB9 /* Variable */ = {
+			isa = PBXGroup;
+			children = (
+				F6F0B6651EF267AE001FEBB9 /* VariableTableFolder */,
+				F6F0B6691EF3E24F001FEBB9 /* KeeperFolder */,
+			);
+			name = Variable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,6 +338,7 @@
 				F6EC36E61EEE98B7003A1302 /* Exception.cpp in Sources */,
 				F6F0B6681EF26848001FEBB9 /* TValueKeeper.cpp in Sources */,
 				F6EC36E11EEE9633003A1302 /* FileWriter.cpp in Sources */,
+				F6F0B66D1EF3E981001FEBB9 /* VariableTable.cpp in Sources */,
 				F6EC36DE1EEE9625003A1302 /* FileReader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

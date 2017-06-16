@@ -22,13 +22,17 @@ public:
     TValue(double value, int type, int size = 0); // Done
     TValue(double* pointer, int type); // Done
     TValue(); // Done
+    
     ~TValue(); // Done
+    
     int GetType(); // Done
     double GetValue(int index = 0); // Done
-    void SetValue(double v, int index = 0); // Done
     double* GetPointer(); // Done
-    void SetPointer(double*); // Done
     TValue* GetElementTValue(int index); // Done
+    
+    void SetValue(double v, int index = 0); // Done
+    void SetPointer(double*); // Done
+
     bool IsReference(); // Done
     void Print(); // Done
 };

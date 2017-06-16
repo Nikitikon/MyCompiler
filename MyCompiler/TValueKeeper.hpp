@@ -20,6 +20,18 @@ private:
     
 public:
     
+    TValueKeeper(char* Name, TValue* Value, bool Const = false); // Done
+    
+    ~TValueKeeper(); // Done
+    
+    
+    char* GetName(); // Done
+    TValue* GetValue(); // Done
+    
+    void SetValue(TValue* Value); // Done
+    
+    bool IsReference(); // Done
+    bool IsConst(); // Done
 };
 
 #endif /* TValueKeeper_hpp */

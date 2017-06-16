@@ -31,7 +31,9 @@ private:
 public:
     static TypeList& Instance(); //Done
     void AddUserType(char* Name); //Done
+    
     bool IsType(char* Name); //Done
+    
     int GetTypeIndex(char* Name); //Done
     char* GetTypeName(int Index); //Done
 };
