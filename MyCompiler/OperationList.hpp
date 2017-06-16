@@ -18,8 +18,9 @@ private:
     List* operations;
     
     OperationList(); // Done
-    void LoadDefaultOperations(); // Done
     ~OperationList(); // Done
+    void LoadDefaultOperations(); // Done
+
     
     OperationList(OperationList const&) = delete;
     OperationList& operator= (OperationList const&) = delete;
@@ -28,6 +29,6 @@ public:
     static OperationList& Instance(); // Done
     bool IsOperation(char* Name); // Done
     int GetOperationIndex(char* Name); // Done
-    char* GetOperationName(int index); // Done
+    char* GetOperationName(int Index); // Done
 };
 #endif /* OperationList_hpp */

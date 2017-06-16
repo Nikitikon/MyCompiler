@@ -14,7 +14,7 @@
 class Scope{
     
 private:
-    VariableTable* table;
+    VariableTable* Table;
     Scope* parentScope;
     
 public:
@@ -22,9 +22,10 @@ public:
     ~Scope(); // Done
     
     void Put(TValueKeeper* Keeper); // Done
-    TValueKeeper* Find(char* Name); // 
-    TValueKeeper* FindInThisScope(char* Name);
-    Scope* GetParentScope();
+    void Put(char* Name, double Value, int Type, int Size = 0); // Done
+    TValueKeeper* Find(char* Name); // Done
+    TValueKeeper* FindInThisScope(char* Name); // Done
+    Scope* GetParentScope(); // Done
 };
 
 #endif /* Scope_hpp */

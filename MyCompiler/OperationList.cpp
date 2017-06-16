@@ -84,6 +84,7 @@ void OperationList::LoadDefaultOperations()
     operations->add((void*)"cos");
     operations->add((void*)"min");
     operations->add((void*)"max");
+    operations->add((void*)"rand");
 }
 
 OperationList& OperationList::Instance(){
@@ -104,11 +105,11 @@ int OperationList::GetOperationIndex(char* Name){
     return -1;
 }
 
-char* OperationList::GetOperationName(int index){
-    if (index >= operations->count() || index < 0)
+char* OperationList::GetOperationName(int Index){
+    if (Index >= operations->count() || Index < 0)
         return NULL;
  
-    char* CopyName = (char*)operations->get(index);
+    char* CopyName = (char*)operations->get(Index);
     char* result = new char[strlen(CopyName)];
     Copy(result, CopyName, (int)strlen(CopyName));
     
