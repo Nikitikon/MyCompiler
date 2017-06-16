@@ -116,7 +116,7 @@ void List::add(void* data)
     if (first_index == -1)
     {
         _error = true;
-        return;
+        return ;
     }
     _error = false;
     
