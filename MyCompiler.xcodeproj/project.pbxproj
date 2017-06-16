@@ -13,11 +13,13 @@
 		F6030DD71ED353E500AFE64C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6030DD61ED353E500AFE64C /* main.cpp */; };
 		F616EAB81EF129BA00B2570F /* TypeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F616EAB61EF129BA00B2570F /* TypeList.cpp */; };
 		F616EABC1EF14B5300B2570F /* TValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F616EABA1EF14B5300B2570F /* TValue.cpp */; };
+		F616EAC01EF15FB000B2570F /* OperationList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F616EABE1EF15FB000B2570F /* OperationList.cpp */; };
 		F66CA68F1EEF408700B17BDE /* Automat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F66CA68D1EEF408700B17BDE /* Automat.cpp */; };
 		F6EC36DE1EEE9625003A1302 /* FileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36DC1EEE9625003A1302 /* FileReader.cpp */; };
 		F6EC36E11EEE9633003A1302 /* FileWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36DF1EEE9633003A1302 /* FileWriter.cpp */; };
 		F6EC36E61EEE98B7003A1302 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36E41EEE98B7003A1302 /* Exception.cpp */; };
 		F6EC36EA1EEEC051003A1302 /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36E81EEEC051003A1302 /* Parser.cpp */; };
+		F6F0B6681EF26848001FEBB9 /* TValueKeeper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F0B6661EF26848001FEBB9 /* TValueKeeper.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +48,8 @@
 		F616EAB71EF129BA00B2570F /* TypeList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TypeList.hpp; sourceTree = "<group>"; };
 		F616EABA1EF14B5300B2570F /* TValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TValue.cpp; sourceTree = "<group>"; };
 		F616EABB1EF14B5300B2570F /* TValue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TValue.hpp; sourceTree = "<group>"; };
+		F616EABE1EF15FB000B2570F /* OperationList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OperationList.cpp; sourceTree = "<group>"; };
+		F616EABF1EF15FB000B2570F /* OperationList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OperationList.hpp; sourceTree = "<group>"; };
 		F66CA68D1EEF408700B17BDE /* Automat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Automat.cpp; sourceTree = "<group>"; };
 		F66CA68E1EEF408700B17BDE /* Automat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Automat.hpp; sourceTree = "<group>"; };
 		F6EC36D91EEE8803003A1302 /* DefaultSetting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DefaultSetting.hpp; sourceTree = "<group>"; };
@@ -58,6 +62,8 @@
 		F6EC36E51EEE98B7003A1302 /* Exception.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Exception.hpp; sourceTree = "<group>"; };
 		F6EC36E81EEEC051003A1302 /* Parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parser.cpp; sourceTree = "<group>"; };
 		F6EC36E91EEEC051003A1302 /* Parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Parser.hpp; sourceTree = "<group>"; };
+		F6F0B6661EF26848001FEBB9 /* TValueKeeper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TValueKeeper.cpp; sourceTree = "<group>"; };
+		F6F0B6671EF26848001FEBB9 /* TValueKeeper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TValueKeeper.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,8 @@
 		F616EAB31EF1290B00B2570F /* NodeFolder */ = {
 			isa = PBXGroup;
 			children = (
+				F6F0B6641EF266B6001FEBB9 /* ScopeFolder */,
+				F616EABD1EF15F9300B2570F /* OperationListFolder */,
 				F616EAB41EF1294100B2570F /* ValueFolder */,
 			);
 			name = NodeFolder;
@@ -114,6 +122,7 @@
 		F616EAB41EF1294100B2570F /* ValueFolder */ = {
 			isa = PBXGroup;
 			children = (
+				F6F0B6691EF3E24F001FEBB9 /* KeeperFolder */,
 				F616EAB91EF14B2700B2570F /* TValueFolder */,
 				F616EAB51EF1299700B2570F /* TypeListFoder */,
 			);
@@ -136,6 +145,15 @@
 				F616EABB1EF14B5300B2570F /* TValue.hpp */,
 			);
 			name = TValueFolder;
+			sourceTree = "<group>";
+		};
+		F616EABD1EF15F9300B2570F /* OperationListFolder */ = {
+			isa = PBXGroup;
+			children = (
+				F616EABF1EF15FB000B2570F /* OperationList.hpp */,
+				F616EABE1EF15FB000B2570F /* OperationList.cpp */,
+			);
+			name = OperationListFolder;
 			sourceTree = "<group>";
 		};
 		F66CA68C1EEF406A00B17BDE /* AutomatFolder */ = {
@@ -214,6 +232,30 @@
 			name = ParserFolder;
 			sourceTree = "<group>";
 		};
+		F6F0B6641EF266B6001FEBB9 /* ScopeFolder */ = {
+			isa = PBXGroup;
+			children = (
+				F6F0B6651EF267AE001FEBB9 /* VariableTable */,
+			);
+			name = ScopeFolder;
+			sourceTree = "<group>";
+		};
+		F6F0B6651EF267AE001FEBB9 /* VariableTable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = VariableTable;
+			sourceTree = "<group>";
+		};
+		F6F0B6691EF3E24F001FEBB9 /* KeeperFolder */ = {
+			isa = PBXGroup;
+			children = (
+				F6F0B6661EF26848001FEBB9 /* TValueKeeper.cpp */,
+				F6F0B6671EF26848001FEBB9 /* TValueKeeper.hpp */,
+			);
+			name = KeeperFolder;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -274,12 +316,14 @@
 				F6EC36EA1EEEC051003A1302 /* Parser.cpp in Sources */,
 				F616EABC1EF14B5300B2570F /* TValue.cpp in Sources */,
 				F616EAB81EF129BA00B2570F /* TypeList.cpp in Sources */,
+				F616EAC01EF15FB000B2570F /* OperationList.cpp in Sources */,
 				F66CA68F1EEF408700B17BDE /* Automat.cpp in Sources */,
 				F6030DD41ED3530600AFE64C /* hash.cpp in Sources */,
 				F6030DCE1ED3526B00AFE64C /* heap.cpp in Sources */,
 				F6030DD71ED353E500AFE64C /* main.cpp in Sources */,
 				F6030DD11ED352B100AFE64C /* list.cpp in Sources */,
 				F6EC36E61EEE98B7003A1302 /* Exception.cpp in Sources */,
+				F6F0B6681EF26848001FEBB9 /* TValueKeeper.cpp in Sources */,
 				F6EC36E11EEE9633003A1302 /* FileWriter.cpp in Sources */,
 				F6EC36DE1EEE9625003A1302 /* FileReader.cpp in Sources */,
 			);

@@ -19,17 +19,17 @@ private:
     bool referenceType;
     
 public:
-    TValue(double value, int type, int size = 0);
-    TValue(double* pointer, int type);
-    TValue();
-    ~TValue();
-    int GetType();
-    double GetValue(int index = 0);
-    void SetValue(double v, int index = 0);
-    double* GetPointer();
-    void SetPointer(double*);
-    TValue* GetElementTValue(int index);
-    bool IsReference();
-    void Print();
+    TValue(double value, int type, int size = 0); // Done
+    TValue(double* pointer, int type); // Done
+    TValue(); // Done
+    ~TValue(); // Done
+    int GetType(); // Done
+    double GetValue(int index = 0); // Done
+    void SetValue(double v, int index = 0); // Done
+    double* GetPointer(); // Done
+    void SetPointer(double*); // Done
+    TValue* GetElementTValue(int index); // Done
+    bool IsReference(); // Done
+    void Print(); // Done
 };
 #endif /* TValue_hpp */

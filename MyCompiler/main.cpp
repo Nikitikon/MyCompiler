@@ -19,7 +19,7 @@ int main()
     
     for (int i = 0; i < 1000; i++) {
         Automat* p = new Automat("Automat.txt");
-        p->Work("int Ninor = rand(9999);");
+        p->Work("Неееееееееееееееееееееееееееееееееееееееееееееееееееееееееее");
     }
 
     return 0;

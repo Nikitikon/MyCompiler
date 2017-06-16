@@ -1,22 +1,17 @@
-SLZSymbolComment	i	error
-MLZSymbolComment	i	error
-zeroSymbolString	i	error
-zeroSymbolChar	i	error
-isReservedType	int	reservedType
-SLZSymbolComment	 	error
-MLZSymbolComment	 	error
-zeroSymbolString	 	error
-zeroSymbolChar	 	error
-zeroSymbolDigit	 	error
-Pn isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
-isStar	 	error
-isLogicOper	 	error
-isBiteOp	 	error
-int Ninor = rand(9999);isAssignment	 	error
-isSeparator	 	error
-isUserType	 	error
-isSpace	 	space
-space	N	error
+SLZSymbolComment	Ð	error
+MLZSymbolComment	Ð	error
+zeroSymbolString	Ð	error
+zeroSymbolChar	Ð	error
+zeroSymbolDigit	Ð	error
+isbracket	Ð	error
+isIncOrDec	Ð	error
+isCompOper	Ð	error
+isArOp	Ð	error
+isStar	Ð	error
+isLogicOper	Ð	error
+isBiteOp	Ð	error
+isAssignment	Ð	error
+isSeparator	Ð	error
+isUserType	Ð	error
+isSpace	Ð	error
+isNewLine	Ð	error
