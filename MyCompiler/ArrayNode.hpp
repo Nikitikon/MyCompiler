@@ -18,10 +18,10 @@ protected:
     TNode* Index;
     
 public:
-    ArrayNode(TValue* Array, TNode Index);
-    ~ArrayNode();
+    ArrayNode(TValue* Array, TNode* Index); // Done
+    ~ArrayNode(); // Done
     
     
-    TValue* Execute();
+    TValue* Execute(); // Done
 };
 #endif /* ArrayNode_hpp */
