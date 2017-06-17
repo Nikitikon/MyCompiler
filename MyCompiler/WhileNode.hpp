@@ -18,10 +18,10 @@ private:
     IndependentOperationsNode* Body;
     
 public:
-    WhileNode(TNode* Condition, IndependentOperationsNode* Body);
-    ~WhileNode();
+    WhileNode(TNode* Condition, IndependentOperationsNode* Body); // Done
+    ~WhileNode(); // Done
     
-    TValue* Execute();
+    TValue* Execute(); // Done
 };
 
 #endif /* WhileNode_hpp */
