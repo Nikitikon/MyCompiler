@@ -24,9 +24,9 @@ private:
     TValue* StandartOperation(char* Operation, TValue* ResultOfOperand); // Done
     
 public:
-    RealizUnarOperation(){}
-    ~RealizUnarOperation(){}
-    TValue* DoUnarOpereation(char* Operation, TValue* ResultOfOperand);
+    RealizUnarOperation(){} // Done
+    ~RealizUnarOperation(){} // Done
+    TValue* DoUnarOpereation(char* Operation, TValue* ResultOfOperand); // Done
     
 };
 

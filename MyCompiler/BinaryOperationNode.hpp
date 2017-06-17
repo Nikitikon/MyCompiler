@@ -11,6 +11,7 @@
 
 #include "TNode.hpp"
 #include "BinaryOperationList.hpp"
+#include "RealizBinaryOperation.hpp"
 
 class BinaryOperationNode : public TNode{
     
@@ -18,10 +19,11 @@ protected:
     int Type;
     TNode* LeftOperand;
     TNode* RightOperand;
+    RealizBinaryOperation* Realization;
     
 public:
-    BinaryOperationNode(int Type, TNode* LeftOperand, TNode* RightOperand);
-    ~BinaryOperationNode();
+    BinaryOperationNode(int Type, TNode* LeftOperand, TNode* RightOperand); // Done
+    ~BinaryOperationNode(); // Done
     
     TValue* Execute();
     

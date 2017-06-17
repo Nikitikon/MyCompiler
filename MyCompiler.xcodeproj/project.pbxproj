@@ -27,6 +27,7 @@
 		F62E2B201EF5336200746498 /* WhileNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F62E2B1E1EF5336200746498 /* WhileNode.cpp */; };
 		F66CA68F1EEF408700B17BDE /* Automat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F66CA68D1EEF408700B17BDE /* Automat.cpp */; };
 		F6E960371EF54FA600294F30 /* RealizUnarOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E960351EF54FA600294F30 /* RealizUnarOperation.cpp */; };
+		F6E9603D1EF55FFC00294F30 /* RealizBinaryOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E9603B1EF55FFC00294F30 /* RealizBinaryOperation.cpp */; };
 		F6EC36DE1EEE9625003A1302 /* FileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36DC1EEE9625003A1302 /* FileReader.cpp */; };
 		F6EC36E11EEE9633003A1302 /* FileWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36DF1EEE9633003A1302 /* FileWriter.cpp */; };
 		F6EC36E61EEE98B7003A1302 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36E41EEE98B7003A1302 /* Exception.cpp */; };
@@ -90,6 +91,8 @@
 		F66CA68E1EEF408700B17BDE /* Automat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Automat.hpp; sourceTree = "<group>"; };
 		F6E960351EF54FA600294F30 /* RealizUnarOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RealizUnarOperation.cpp; sourceTree = "<group>"; };
 		F6E960361EF54FA600294F30 /* RealizUnarOperation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RealizUnarOperation.hpp; sourceTree = "<group>"; };
+		F6E9603B1EF55FFC00294F30 /* RealizBinaryOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RealizBinaryOperation.cpp; sourceTree = "<group>"; };
+		F6E9603C1EF55FFC00294F30 /* RealizBinaryOperation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RealizBinaryOperation.hpp; sourceTree = "<group>"; };
 		F6EC36D91EEE8803003A1302 /* DefaultSetting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DefaultSetting.hpp; sourceTree = "<group>"; };
 		F6EC36DC1EEE9625003A1302 /* FileReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileReader.cpp; sourceTree = "<group>"; };
 		F6EC36DD1EEE9625003A1302 /* FileReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FileReader.hpp; sourceTree = "<group>"; };
@@ -263,6 +266,7 @@
 		F62E2B011EF5309D00746498 /* Binary Operation Node */ = {
 			isa = PBXGroup;
 			children = (
+				F6E960391EF55F0500294F30 /* Realizetion */,
 				F62E2B091EF5315F00746498 /* BinaryOperationNode.cpp */,
 				F62E2B0A1EF5315F00746498 /* BinaryOperationNode.hpp */,
 			);
@@ -321,6 +325,15 @@
 			children = (
 				F6E960361EF54FA600294F30 /* RealizUnarOperation.hpp */,
 				F6E960351EF54FA600294F30 /* RealizUnarOperation.cpp */,
+			);
+			name = Realizetion;
+			sourceTree = "<group>";
+		};
+		F6E960391EF55F0500294F30 /* Realizetion */ = {
+			isa = PBXGroup;
+			children = (
+				F6E9603B1EF55FFC00294F30 /* RealizBinaryOperation.cpp */,
+				F6E9603C1EF55FFC00294F30 /* RealizBinaryOperation.hpp */,
 			);
 			name = Realizetion;
 			sourceTree = "<group>";
@@ -522,6 +535,7 @@
 				F62E2B1A1EF532B400746498 /* UnaryOperationNode.cpp in Sources */,
 				F62E2B111EF5321E00746498 /* IfElseNode.cpp in Sources */,
 				F6EC36DE1EEE9625003A1302 /* FileReader.cpp in Sources */,
+				F6E9603D1EF55FFC00294F30 /* RealizBinaryOperation.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

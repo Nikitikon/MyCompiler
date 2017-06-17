@@ -24,7 +24,7 @@ public:
     UnaryOperationNode(int Type, TNode* Operand); // Done
     ~UnaryOperationNode(); // Done
     
-    TValue* Execute();
+    TValue* Execute(); // Done
 };
 
 #endif /* UnaryOperationNode_hpp */

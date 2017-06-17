@@ -19,21 +19,21 @@ TValue* RealizUnarOperation::UnaryPlasMinus(char* Operation, TValue* ResultOfOpe
 
 
 TValue* RealizUnarOperation::DecrOrIncr(char* Operation, TValue* ResultOfOperand){
-    if (strcmp(Operation, "î++") == 0)
+    if (!strcmp(Operation, "î++"))
     {
         double temp = ResultOfOperand->GetValue();
         ResultOfOperand->SetValue(temp + 1);
         return new TValue(temp, ResultOfOperand->GetType());
     }
     
-    if (strcmp(Operation, "î--") == 0)
+    if (!strcmp(Operation, "î--"))
     {
         double temp = ResultOfOperand->GetValue();
         ResultOfOperand->SetValue(temp - 1);
         return new TValue(temp, ResultOfOperand->GetType());
     }
     
-    if (strcmp(Operation, "++î") == 0)
+    if (!strcmp(Operation, "++î"))
     {
         double temp = ResultOfOperand->GetValue() + 1;
         ResultOfOperand->SetValue(temp);
@@ -112,17 +112,17 @@ TValue* RealizUnarOperation::PrintOperation(char* Operation, TValue* ResultOfOpe
 
 
 TValue* RealizUnarOperation::StandartOperation(char* Operation, TValue* ResultOfOperand){
-    if (strcmp(Operation, "sin") == 0)
+    if (!strcmp(Operation, "sin"))
     {
         return new TValue(sin(ResultOfOperand->GetValue()), TypeList::Instance().GetTypeIndex("double"));
     }
     
-    if (strcmp(Operation, "cos") == 0)
+    if (!strcmp(Operation, "cos"))
     {
         return new TValue(cos(ResultOfOperand->GetValue()), TypeList::Instance().GetTypeIndex("double"));
     }
     
-    if (strcmp(Operation, "rand") == 0)
+    if (!strcmp(Operation, "rand"))
     {
         int random = rand();
         return new TValue(random % (int)ResultOfOperand->GetValue(), TypeList::Instance().GetTypeIndex("int"));

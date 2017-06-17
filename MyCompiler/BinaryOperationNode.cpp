@@ -14,6 +14,7 @@ BinaryOperationNode::BinaryOperationNode(int Type, TNode* LeftOperand, TNode* Ri
         this->Type = Type;
         this->LeftOperand = LeftOperand;
         this->RightOperand = RightOperand;
+        Realization = new RealizBinaryOperation();
     }
     else
     {
@@ -28,6 +29,9 @@ BinaryOperationNode::~BinaryOperationNode()
     
     if (RightOperand)
         delete RightOperand;
+    
+    if (Realization)
+        delete Realization;
 }
 
 
@@ -37,5 +41,15 @@ TValue* BinaryOperationNode::Execute(){
     TValue* ResultRightOperand = RightOperand->Execute();
     char* Operation = BinaryOperationList::Instance().GetOperationName(Type);
     
-    return NULL;
+    if (ResultLeftOperand->IsReference() && strcmp(Operation, "[]"))
+    {
+        throw Exceptions::InvalidOperation;
+    }
+    
+    if (ResultRightOperand->IsReference())
+    {
+        throw Exceptions::InvalidOperation;
+    }
+    
+    return Realization->DoBinaryOpereation(Operation, ResultLeftOperand, ResultRightOperand);
 }
