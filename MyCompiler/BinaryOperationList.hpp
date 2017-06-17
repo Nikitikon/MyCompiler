@@ -2,7 +2,7 @@
 //  BinaryOperationList.hpp
 //  MyCompiler
 //
-//  Created by Nikita-Mac on 16.06.17.
+//  Created by Nikita-Mac on 17.06.17.
 //  Copyright © 2017 Nikita-Mac. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 #define BinaryOperationList_hpp
 
 #include "DefaultSetting.hpp"
-#include "list.cpp"
+#include "list.hpp"
 
 class BinaryOperationList{
     
@@ -20,7 +20,7 @@ private:
     BinaryOperationList(); // Done
     ~BinaryOperationList(); // Done
     void LoadDefaultOperations(); // Done
-
+    
     
     BinaryOperationList(BinaryOperationList const&) = delete;
     BinaryOperationList& operator= (BinaryOperationList const&) = delete;

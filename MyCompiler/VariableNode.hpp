@@ -2,7 +2,7 @@
 //  VariableNode.hpp
 //  MyCompiler
 //
-//  Created by Nikita-Mac on 16.06.17.
+//  Created by Nikita-Mac on 17.06.17.
 //  Copyright © 2017 Nikita-Mac. All rights reserved.
 //
 
@@ -27,5 +27,4 @@ public:
     
     TValue* Execute();
 };
-
 #endif /* VariableNode_hpp */

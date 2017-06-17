@@ -2,7 +2,7 @@
 //  UnaryOperationList.hpp
 //  MyCompiler
 //
-//  Created by Nikita-Mac on 16.06.17.
+//  Created by Nikita-Mac on 17.06.17.
 //  Copyright © 2017 Nikita-Mac. All rights reserved.
 //
 
@@ -17,22 +17,21 @@ class UnaryOperationList{
 private:
     List* unaryOperation;
     
-    UnaryOperationList(); //
-    ~UnaryOperationList(); //
-    void LoadDefaultOperations(); //
+    UnaryOperationList(); // Done
+    ~UnaryOperationList(); // Done
+    void LoadDefaultOperations(); // Done
     
     
     UnaryOperationList(UnaryOperationList const&) = delete;
     UnaryOperationList& operator= (UnaryOperationList const&) = delete;
     
 public:
-    static UnaryOperationList& Instance(); //
+    static UnaryOperationList& Instance(); // Done
     
-    bool IsUnaryOperation(char* Name); //
-    int GetOperationIndex(char* Name); //
-    char* GetOperationName(int Index); // 
+    bool IsUnaryOperation(char* Name); // Done
+    int GetOperationIndex(char* Name); // Done
+    char* GetOperationName(int Index); // Done
     
 };
-
 
 #endif /* UnaryOperationList_hpp */

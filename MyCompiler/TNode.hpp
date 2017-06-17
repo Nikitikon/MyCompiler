@@ -2,7 +2,7 @@
 //  TNode.hpp
 //  MyCompiler
 //
-//  Created by Nikita-Mac on 16.06.17.
+//  Created by Nikita-Mac on 17.06.17.
 //  Copyright © 2017 Nikita-Mac. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 
 #include "DefaultSetting.hpp"
 #include "Scope.hpp"
-#include "OperationList.cpp"
+#include "OperationList.hpp"
 #include "Exceptions.h"
 
 class TNode {
@@ -20,6 +20,4 @@ public:
     virtual TValue* Execute() = 0;
     
 };
-
-
 #endif /* TNode_hpp */

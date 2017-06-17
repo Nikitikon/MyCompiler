@@ -1,13 +1,13 @@
 //
-//  TConst.hpp
+//  ConstNode.hpp
 //  MyCompiler
 //
-//  Created by Nikita-Mac on 16.06.17.
+//  Created by Nikita-Mac on 17.06.17.
 //  Copyright © 2017 Nikita-Mac. All rights reserved.
 //
 
-#ifndef TConst_hpp
-#define TConst_hpp
+#ifndef ConstNode_hpp
+#define ConstNode_hpp
 
 #include "TNode.hpp"
 
@@ -28,4 +28,4 @@ public:
     
 };
 
-#endif /* TConst_hpp */
+#endif /* ConstNode_hpp */

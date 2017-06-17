@@ -7,9 +7,7 @@
 //
 
 #include <iostream>
-#include "Scope.hpp"
-#include "DefaultSetting.hpp"
-#include "list.hpp"
+
 
 using namespace std;
 
@@ -29,6 +27,11 @@ int main()
 //    k = sc->Find("Chop");
 //    k = sc->Find("C");
 
+    int i = 0;
+
+    while (NULL) {
+        i++;
+    }
     
     return 0;
 }
