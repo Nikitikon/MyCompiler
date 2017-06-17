@@ -10,6 +10,7 @@
 #define BinaryOperationNode_hpp
 
 #include "TNode.hpp"
+#include "BinaryOperationList.hpp"
 
 class BinaryOperationNode : public TNode{
     

@@ -129,7 +129,7 @@ isSysFunc	ceil	sysFunc
 isSysFunc	log	sysFunc
 isSysFunc	log10	sysFunc
 isSysFunc	input	sysFunc
-isSysFunc	output	sysFunc
+isSysFunc	print	sysFunc
 isSysFunc	min	sysFunc
 isSysFunc	max	sysFunc
 isSysFunc	rand	sysFunc

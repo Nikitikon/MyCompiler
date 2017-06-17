@@ -7,3 +7,82 @@
 //
 
 #include "UnaryOperationNode.hpp"
+
+
+UnaryOperationNode::UnaryOperationNode(int Type, TNode* Operand){
+    
+    if (UnaryOperationList::Instance().GetOperationName(Type)) {
+        this->Type = Type;
+        this->Operand = Operand;
+        Realization = new RealizUnarOperation();
+    }
+    else
+        throw Exceptions::UnknownOperation;
+}
+
+
+UnaryOperationNode::~UnaryOperationNode(){
+    if (Operand)
+        delete Operand;
+    
+    if (Realization)
+        delete Realization;
+}
+
+
+TValue* UnaryOperationNode::Execute(){
+    TValue* resultOfOperand = Operand->Execute();
+    
+    char* operation = UnaryOperationList::Instance().GetOperationName(Type);
+    
+    if (resultOfOperand->IsReference() && strcmp(operation, "print"))
+        throw Exceptions::InvalidOperation;
+    
+    return Realization->DoUnarOpereation(operation, resultOfOperand);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

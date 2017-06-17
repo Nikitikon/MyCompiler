@@ -32,7 +32,7 @@ void UnaryOperationList::LoadDefaultOperations(){
     unaryOperation->add((void*)"--î");
     
     unaryOperation->add((void*)"input");
-    unaryOperation->add((void*)"output");
+    unaryOperation->add((void*)"print");
     
     unaryOperation->add((void*)"sin");
     unaryOperation->add((void*)"cos");

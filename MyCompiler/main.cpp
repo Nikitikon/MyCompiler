@@ -7,7 +7,8 @@
 //
 
 #include <iostream>
-
+#include "UnaryOperationNode.hpp"
+#include "VariableNode.hpp"
 
 using namespace std;
 
@@ -27,11 +28,12 @@ int main()
 //    k = sc->Find("Chop");
 //    k = sc->Find("C");
 
-    int i = 0;
+    TValue* v = new TValue(1,0);
+    cout << v->GetValue() << endl;
+    VariableNode* vn = new VariableNode(v);
+    UnaryOperationNode *u = new UnaryOperationNode(3, vn);
+    u->Execute();
+    cout << v->GetValue() << endl;
 
-    while (NULL) {
-        i++;
-    }
-    
     return 0;
 }

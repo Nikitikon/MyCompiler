@@ -10,16 +10,19 @@
 #define UnaryOperationNode_hpp
 
 #include "TNode.hpp"
+#include "UnaryOperationList.hpp"
+#include "RealizUnarOperation.hpp"
 
 class UnaryOperationNode : public TNode{
     
 protected:
     int Type;
     TNode* Operand;
+    RealizUnarOperation* Realization;
     
 public:
-    UnaryOperationNode(int Type, TNode* Operand);
-    ~UnaryOperationNode();
+    UnaryOperationNode(int Type, TNode* Operand); // Done
+    ~UnaryOperationNode(); // Done
     
     TValue* Execute();
 };

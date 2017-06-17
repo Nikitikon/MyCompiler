@@ -78,7 +78,7 @@ void OperationList::LoadDefaultOperations()
     operations->add((void*)"delete");
     
     operations->add((void*)"input");
-    operations->add((void*)"output");
+    operations->add((void*)"print");
     
     operations->add((void*)"sin");
     operations->add((void*)"cos");
