@@ -25,7 +25,7 @@ public:
     BinaryOperationNode(int Type, TNode* LeftOperand, TNode* RightOperand); // Done
     ~BinaryOperationNode(); // Done
     
-    TValue* Execute();
+    TValue* Execute(); // Done
     
 };
 

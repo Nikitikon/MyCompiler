@@ -14,23 +14,23 @@
 class IndependentOperationsNode : public TNode{
     
 private:
-    struct ListOperation{
+    struct ListNode{
         TNode* Expression;
-        IndependentOperationsNode* Next;
+        ListNode* Next;
     };
     
 protected:
-    Scope scope;
-    IndependentOperationsNode* First;
+    Scope* scope;
+    ListNode* Current;
     
 public:
-    IndependentOperationsNode(IndependentOperationsNode* scope = NULL);
-    ~IndependentOperationsNode();
+    IndependentOperationsNode(IndependentOperationsNode* ParentScope = NULL); // Done
+    ~IndependentOperationsNode(); // Done
     
-    TValue* Execute();
-    void  Push(TNode*);
+    TValue* Execute(); // Done
+    void  Push(TNode* Node); // Done
     
-    Scope* GetScope();
+    Scope* GetScope(); // Done
     
 };
 #endif /* IndependentOperationsNode_hpp */
