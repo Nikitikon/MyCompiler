@@ -63,7 +63,7 @@ private:
     static bool IsFraction(char* Str);
     static double StringToDouble(char* Str);
     
-    int ClosingBracketIndex(int openingBracketIndex);
+    int ClosingBracketIndex(int OpeningBracketIndex);
     int FindOperationWithMinimalPriority(int start, int finish);
     void Prioritize(List*);
     int FindToken(int, int, char*);
@@ -81,12 +81,12 @@ private:
     void ParseMultiLine(int, int);
     
 public:
-    Builder(char* sourceCode);
-    ~Builder();
+    Builder(char* sourceCode); // Done
+    ~Builder(); // Done
     
-    void Build();
-    void Run();
-    void PrintList(List*);
+    void Build(); // Done
+    void Run(); // Done
+    void PrintList(List*); // Done
 };
 
 #endif /* Builder_hpp */
