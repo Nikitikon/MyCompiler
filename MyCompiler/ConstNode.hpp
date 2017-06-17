@@ -17,14 +17,14 @@ protected:
     TValue* Const;
     
 public:
-    ConstNode(TValue* Const);
-    ~ConstNode();
+    ConstNode(TValue* Const); // Done
+    ~ConstNode(); // Done
     
-    TValue* GetTValue();
-    double GetValue();
-    int GetType();
+    TValue* GetTValue(); // Done
+    double GetValue(); // Done
+    int GetType(); // Done
     
-    TValue* Execute();
+    TValue* Execute(); // Done
     
 };
 

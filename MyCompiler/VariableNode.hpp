@@ -16,15 +16,15 @@ protected:
     TValue* Variable;
     
 public:
-    VariableNode(TValue* Variable);
-    ~VariableNode();
+    VariableNode(TValue* Variable); // Done
+    ~VariableNode(); // Done
     
-    TValue* GetTValue();
-    double GetValue();
-    int GetType();
+    TValue* GetTValue(); // Done
+    double GetValue(); // Done
+    int GetType(); // Done
     
-    void SetValue(double Value);
+    void SetValue(double Value); // Done
     
-    TValue* Execute();
+    TValue* Execute(); // 
 };
 #endif /* VariableNode_hpp */
