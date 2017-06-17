@@ -19,9 +19,9 @@ protected:
     IndependentOperationsNode* Else;
     
 public:
-    IfElseNode(TNode* Condition, IndependentOperationsNode* Then, IndependentOperationsNode* Else);
-    ~IfElseNode();
+    IfElseNode(TNode* Condition, IndependentOperationsNode* Then,IndependentOperationsNode* Else); // Done
+    ~IfElseNode(); // Done
     
-    TValue* Execute();
+    TValue* Execute(); // Done
 };
 #endif /* IfElseNode_hpp */
