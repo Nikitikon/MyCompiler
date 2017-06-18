@@ -60,16 +60,16 @@ private:
     Scope* CurrentScope;
     IndependentOperationsNode* CurrentList;
     
-    static bool IsFraction(char* Str); // Done
-    static double StringToDouble(char* Str); // Done
+     bool IsFraction(char* Str); // Done
+     double StringToDouble(char* Str); // Done
     
     int ClosingBracketIndex(int OpeningBracketIndex); // Done
     int FindOperationWithMinimalPriority(int startPosition , int finishPosition); // Done
     void Prioritize(List* TokenList); // Done
-    int FindToken(int, int, char*);
-    bool isOperator(Automat::Token);
-    bool IsAnExpression(int start, int end);
-    List* OldTokenToNewToken(List*);
+    int FindToken(int startPosition, int finishPosition, char* token); // Done
+    bool isOperator(Automat::Token token); // Done
+    bool IsAnExpression(int startPosition, int finishPosition); // Done
+    List* OldTokenToNewToken(List* OldToken); //
     TNode* ParseLine(int, int);
     
     TNode* ParseSingleTokenLine(int index);

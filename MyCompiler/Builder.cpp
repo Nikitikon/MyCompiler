@@ -172,7 +172,7 @@ int Builder::FindOperationWithMinimalPriority(int startPosition , int finishPosi
     int minPriority = 0;
     int resultPosition = -1;
     
-    for (int i = startPosition; i < finishPosition + 1; i++) {
+    for (int i = startPosition; i < finishPosition + 1 && i < Tokens->count(); i++) {
         NewToken* nextToken = (NewToken*)Tokens->get(i);
         
         if (isOperator(nextToken->Type)){
@@ -308,17 +308,125 @@ void Builder::Prioritize(List* ToketList){
                 continue;
             }
             
-            if (!currentToken->Priority)
-                throw new Exception("InvalidOperation: недопустимая операция.", currentToken->LineIndex);
         }
     }
 }
 
 
 
+//Поиск индекса токена token в списке Tokens с позиции startPosition по finishPosition. Если токен не найден, выбрасывается Exceptions::TokenNotFound.
+int Builder::FindToken(int startPosition, int finishPosition, char* token){
+    for (int i = startPosition; i < finishPosition + 1 && i < Tokens->count(); i++) {
+        if (!strcmp(((NewToken*)Tokens->get(i))->String, token))
+            return i;
+    }
+    
+    throw new Exception("TokenNotFound: токен не найден.", ((NewToken*)Tokens->get(startPosition))->LineIndex);
+}
 
 
+//Возвращает true, если token является операцией и false в противном случае
+bool Builder::isOperator(Automat::Token token){
+    
+    switch (token)
+    {
+        case Automat::Token::ApOp:
+            return true;
+        case Automat::Token::Assignment:
+            return true;
+        case Automat::Token::BiteOp:
+            return true;
+        case Automat::Token::CompOper:
+            return true;
+        case Automat::Token::Condition:
+            return true;
+        case Automat::Token::IncOrDec:
+            return true;
+        case Automat::Token::LogicOper:
+            return true;
+        case Automat::Token::ReservedWord:
+            return true;
+        case Automat::Token::Separator:
+            return true;
+        case Automat::Token::Star:
+            return true;
+        case Automat::Token::SysFunction:
+            return true;
+        default:
+            return false;
+    }
+}
 
+
+//Возвращает true, если участок является выражением, содержащим арфметические, логические операции или системные функции,  и false в противном случае.
+bool Builder::IsAnExpression(int startPosition, int finishPosition){
+    int count = Tokens->count();
+    for (int i = startPosition; i < finishPosition + 1 && i < count; i++) {
+        NewToken* token = (NewToken*)Tokens->get(i);
+        
+        if (token->Type == Automat::Bracket && !strcmp(token->String, "["))
+            i = ClosingBracketIndex(i);
+        
+        if (token->Type == Automat::ApOp || token->Type == Automat::CompOper || token->Type == Automat::IncOrDec || token->Type == Automat::SysFunction || token->Type == Automat::Assignment)
+            return true;
+    }
+    
+    return false;
+}
+
+
+//Конвертация токенов в новый формат NewToken с приоритетами с получением значения Value для чисел
+List* Builder::OldTokenToNewToken(List* OldToken){
+    List* ListFoNewToken = new List(sizeof(NewToken));
+    int CountLines = 1;
+    int OldTokenCount = OldToken->count();
+    
+    for (int i = 0; i < OldTokenCount; i++) {
+        Automat::ResultOfParsing* TempTokenInOldFormat = (Automat::ResultOfParsing*)OldToken->get(i);
+        
+        if (TempTokenInOldFormat->token == Automat::Token::Space ||
+            TempTokenInOldFormat->token == Automat::Token::NewLine ||
+            TempTokenInOldFormat->token == Automat::Token::SingleLineComment ||
+            TempTokenInOldFormat->token == Automat::Token::MultilineComment){
+            
+            if (TempTokenInOldFormat->token == Automat::NewLine)
+                CountLines++;
+            
+            continue;
+        }
+        
+        
+        if (TempTokenInOldFormat->token == Automat::ReservedWord){
+            if (strcmp(TempTokenInOldFormat->Str, "true") == 0){
+                TempTokenInOldFormat->token = Automat::Digit;
+                TempTokenInOldFormat->Str = "1";
+            }
+            if (strcmp(TempTokenInOldFormat->Str, "false") == 0){
+                TempTokenInOldFormat->token = Automat::Digit;
+                TempTokenInOldFormat->Str = "0";
+            }
+        }
+        
+        double value = 0;
+        
+        if (TempTokenInOldFormat->token == Automat::Token::Digit){
+            value = StringToDouble(TempTokenInOldFormat->Str);
+        }
+        
+        //Для системных функций, возвращающих значение (всех, кроме input и output),  значение value = 1.
+        if (TempTokenInOldFormat->token == Automat::Token::SysFunction){
+            
+            if (strcmp(TempTokenInOldFormat->Str, "print") && strcmp(TempTokenInOldFormat->Str, "input")){
+                value = 1;
+            }
+        }
+        
+        NewToken* newToken = new NewToken(TempTokenInOldFormat->token, TempTokenInOldFormat->Str, value, 0, CountLines);
+        ListFoNewToken->add(newToken);
+    }
+    
+    return ListFoNewToken;
+}
 
 
 
