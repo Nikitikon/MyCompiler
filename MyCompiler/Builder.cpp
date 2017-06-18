@@ -929,7 +929,53 @@ TNode* Builder::ParseWhile(int Index){
 
 
 
-
+// Имена переменных и обращения к элементам массивов.
+TNode* Builder::ParseVariableName(int Index, TNodeType Type){
+    // Название переменной
+    NewToken* VariableName = (NewToken*)Tokens->get(Index++);
+    
+    TValueKeeper* Keeper = CurrentScope->Find(VariableName->String);
+    
+    if (Keeper == NULL)
+        throw new Exception("VariableNameNotFound: необъявленная переменная или константа", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    // Переменная хранит ссылку на массив значений
+    // Для доступа к нужному элементу необходимо указание индекса элемента в квадратных скобках
+    if (Keeper->IsReference()) {
+        //  Квадратные скобки
+        NewToken* Brackets = (NewToken*)Tokens->get(Index);
+        if (Brackets->Type == Automat::Bracket && !strcmp(Brackets->String, "[")) {
+            int CloseBracket = ClosingBracketIndex(Index);
+            
+            // Индекс элемента
+            TNode* ElemIndex = ParseLine(Index + 1, CloseBracket - 1);
+            
+            Index = CloseBracket + 1;
+            
+            Type = TNodeType::Array;
+            return new ArrayNode(Keeper->GetValue(), ElemIndex);
+        }
+        else{
+            // Нет скобок после переменной, хранящей ссылку на массив
+            throw new Exception("IndexIsNotSpecified: не указан индекс элемента массива", ((NewToken*)Tokens->get(Index))->LineIndex);
+        }
+    }
+    else
+    {
+        // Константа.
+        if (Keeper->IsConst())
+        {
+            Type = TNodeType::Const;
+            return new ConstNode(Keeper->GetValue());
+        }
+        // Переменная.
+        else
+        {
+            Type = TNodeType::Variable;
+            return new VariableNode(Keeper->GetValue());
+        }
+    }
+}
 
 
 
