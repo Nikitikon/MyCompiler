@@ -504,8 +504,80 @@ TNode* Builder::ParseLine(int StartPosition, int FinishPosition){
         if (OpenBracket->Type != Automat::Bracket)
             throw new Exception("MissingBracket: пропущена скобка", ((NewToken*)Tokens->get(PositionTokenWithMinPriority))->LineIndex);
         
+        int CloseBracket = ClosingBracketIndex(PositionTokenWithMinPriority);
         
+        if (CloseBracket - PositionTokenWithMinPriority == 1)
+            throw new Exception("MissingArguments: пропущены аргументы при вызове функции", ((NewToken*)Tokens->get(PositionTokenWithMinPriority))->LineIndex);
+        
+        if (UnaryOperationList::Instance().IsUnaryOperation(WorkElement->String)){
+            TNode* argument = ParseLine(PositionTokenWithMinPriority, CloseBracket);
+            UnaryOperationNode* unaryOperation = new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(WorkElement->String), argument);
+            return unaryOperation;
+        }
+        
+        
+        if (BinaryOperationList::Instance().IsBinaryOperation(WorkElement->String)){
+            int SeparatorIndex = -1;
+            
+            for (int i = PositionTokenWithMinPriority; i < CloseBracket; i++){
+                NewToken* Separator = (NewToken*)Tokens->get(i);
+                
+                if (Separator->Type == Automat::Separator && strcmp(Separator->String, ",") == 0){
+                    SeparatorIndex = i;
+                    break;
+                }
+            }
+            
+
+            if (SeparatorIndex == -1)
+               throw new Exception("MissingArguments: пропущены аргументы при вызове функции",((NewToken*)Tokens->get(PositionTokenWithMinPriority))->LineIndex);
+            
+            
+            
+            TNode* FirstArgument = ParseLine(PositionTokenWithMinPriority + 1, SeparatorIndex - 1);
+            TNode* SecondArgument = ParseLine(SeparatorIndex + 1, CloseBracket - 1);
+            
+            BinaryOperationNode* BinaryOperation = new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex(WorkElement->String), FirstArgument, SecondArgument);
+            return BinaryOperation;
+        }
+        
+        throw new Exception("SystemFunctionIsNotSupported: неподдерживаемая системная функция", ((NewToken*)Tokens->get(StartPosition))->LineIndex);
     }
+    
+    
+    
+    //Присваевание
+    if (WorkElement->Type == Automat::Assignment){
+        
+        TNodeType ResultType;
+        TNode* LeftArgument = ParseVariableName(StartPosition, ResultType);
+        TNode* RightArgument = ParseLine(PositionTokenWithMinPriority + 1, FinishPosition);
+        
+        if (ResultType == TNodeType::Const)
+            throw new Exception("ConstantReinitialization: изменение значения константы невозможно", ((NewToken*)Tokens->get(StartPosition))->LineIndex);
+        
+        return new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), LeftArgument, RightArgument);
+    }
+    
+    //Логические операции
+    if (WorkElement->Type == Automat::LogicOper){
+        
+        if (strcmp(WorkElement->String, "!")){
+            return new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(StartPosition, PositionTokenWithMinPriority - 1), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition));
+        }
+        else{
+            PositionTokenWithMinPriority++;
+            NewToken* Bracket = (NewToken*)Tokens->get(PositionTokenWithMinPriority);
+            
+            if (Bracket->Type != Automat::Bracket)
+                throw new Exception("MissingBracket: пропущена скобка", ((NewToken*)Tokens->get(PositionTokenWithMinPriority))->LineIndex);
+            
+            int CloseBracket = ClosingBracketIndex(PositionTokenWithMinPriority);
+            return new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(PositionTokenWithMinPriority + 1, CloseBracket - 1));
+        }
+    }
+    
+    throw new Exception("InvalidOperation: недопустимая операция", ((NewToken*)Tokens->get(StartPosition))->LineIndex);
     
 }
 
