@@ -75,9 +75,9 @@ private:
     
     TNode* ParseSingleTokenLine(int Index); // Done
     void ParseConstInitialization(int Index); // Done
-    void ParseInitialization(int Index);
-    TNode* ParseIfElse(int Index);
-    TNode* ParseWhile(int Index);
+    void ParseInitialization(int Index); // Done
+    TNode* ParseIfElse(int Index); // Done
+    TNode* ParseWhile(int Index); // Done
     TNode* ParseVariableName(int Index, TNodeType Type);
     
     void ParseMultiLine(int, int);

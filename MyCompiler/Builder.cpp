@@ -795,9 +795,137 @@ void Builder::ParseInitialization(int Index){
 }
 
 
+// Конструкция if-else
+// if (condition)
+// {
+//		body;
+// }
+// else *
+// { *
+//		body; *
+// } *
+// * - optional
+TNode* Builder::ParseIfElse(int Index){
+    // 1. Условие if.
+    Index++;
+    NewToken* OpeningParenthesis = (NewToken*)Tokens->get(Index);
+    
+    if (strcmp(OpeningParenthesis->String, "("))
+        throw new Exception("MissingBracket: пропущена скобка", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    int ClosingParenthesis = ClosingBracketIndex(Index);
+    
+    TNode* Condition = ParseLine(Index, ClosingParenthesis);
+    Index = ClosingParenthesis;
+    
+    // 2. Тело then.
+    Index++;
+    NewToken* OpeningBrace = (NewToken*)Tokens->get(Index);
+    if (strcmp(OpeningBrace->String, "{"))
+        throw new Exception("MissingBracket: пропущена скобка.", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    int ClosingBrace = ClosingBracketIndex(Index);
+    
+    // Создаем IndependentOperationsNode для тела then с соответствующей областью видимости Scope
+    // Текущую CurrentList сохраняем в TempList
+    // Меняем CurrentList и currentScope на IndependentOperationsNode и Scope тела цикла
+    
+    IndependentOperationsNode* ThenBranch = new IndependentOperationsNode(CurrentList);
+    IndependentOperationsNode* TempList = CurrentList;
+    CurrentList = ThenBranch;
+    CurrentScope = ThenBranch->GetScope();
+    
+    // Парсим тело then.
+    ParseMultiLine(Index + 1, ClosingBrace - 1);
+    
+    // Восстанавливаем CurrentList и область видимости CurrentScope
+    CurrentList = TempList;
+    CurrentScope = CurrentList->GetScope();
+    
+    Index = ClosingBrace;
+    // 3. Тело else
+    
+    // Есть ли вообще код после тела then
+    if (Index == Tokens->count() - 1){
+        return new IfElseNode(Condition, ThenBranch, NULL);
+    }
+    
+    int IndexBeforeElseBranch = Index;
+    
+    Index++;
+    NewToken* ElseToken = (NewToken*)Tokens->get(Index);
+    IndependentOperationsNode* ElseBranch = NULL;
+    
+    // Если есть else
+    if (ElseToken && !strcmp(ElseToken->String, "else")){
+        Index++;
+        NewToken* OpeningBrace = (NewToken*)Tokens->get(Index);
+        if (OpeningBrace->Type != Automat::Bracket)
+            throw new Exception("MissingBracket: пропущена скобка", ((NewToken*)Tokens->get(Index))->LineIndex);
+        
+        int ClosingBrace = ClosingBracketIndex(Index);
+        
+        // Аналогично then.
+        ElseBranch = new IndependentOperationsNode(CurrentList);
+        TempList = CurrentList;
+        CurrentList = ElseBranch;
+        CurrentScope = ElseBranch->GetScope();
+        
+        ParseMultiLine(Index + 1, ClosingBrace - 1);
+        
+        CurrentList = TempList;
+        CurrentScope = CurrentList->GetScope();
+        
+        Index = ClosingBrace;
+    }
+    
+    if (ElseBranch == NULL)
+        Index = IndexBeforeElseBranch;
+    
+    return new IfElseNode(Condition, ThenBranch, ElseBranch);
+}
 
 
-
+// while (condition)
+// {
+//		body;
+// }
+TNode* Builder::ParseWhile(int Index){
+    // 1. Условие
+    Index++;
+    NewToken* OpeningParenthesis = (NewToken*)Tokens->get(Index);
+    
+    if (strcmp(OpeningParenthesis->String, "("))
+        throw new Exception("MissingBracket: пропущена скобка", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    int ClosingParenthesis = ClosingBracketIndex(Index);
+    
+    TNode* Condition = ParseLine(Index, ClosingParenthesis);
+    
+    Index = ClosingParenthesis;
+    
+    // 2. Тело цикла.
+    Index++;
+    NewToken* OpeningBrace = (NewToken*)Tokens->get(Index);
+    if (strcmp(OpeningBrace->String, "{"))
+        throw new Exception("MissingBracket: пропущена скобка", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    int ClosingBrace = ClosingBracketIndex(Index);
+    
+    IndependentOperationsNode* Body = new IndependentOperationsNode(CurrentList);
+    IndependentOperationsNode* TempList = CurrentList;
+    CurrentList = Body;
+    CurrentScope = Body->GetScope();
+    
+    ParseMultiLine(Index + 1, ClosingBrace - 1);
+    
+    Index = ClosingBrace;
+    
+    CurrentList = TempList;
+    CurrentScope = TempList->GetScope();
+    
+    return new WhileNode(Condition, Body);
+}
 
 
 
