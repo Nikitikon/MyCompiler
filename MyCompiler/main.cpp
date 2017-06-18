@@ -12,6 +12,7 @@
 
 using namespace std;
 
+
 int main()
 {
 //    Scope* s = new Scope();
@@ -28,12 +29,8 @@ int main()
 //    k = sc->Find("Chop");
 //    k = sc->Find("C");
 
-    TValue* v = new TValue(1,0);
-    cout << v->GetValue() << endl;
-    VariableNode* vn = new VariableNode(v);
-    UnaryOperationNode *u = new UnaryOperationNode(3, vn);
-    u->Execute();
-    cout << v->GetValue() << endl;
+    int a = 3, b = 2, c = 1;
+    a = b = c;
 
     return 0;
 }

@@ -6,6 +6,9 @@
 //  Copyright © 2017 Nikita-Mac. All rights reserved.
 //
 
+#ifndef hash_hpp
+#define hash_hpp
+
 #include "heap.hpp"
 #include "list.hpp"
 #include "DefaultSetting.hpp"
@@ -151,3 +154,4 @@ public:
     }
 };
 
+#endif
