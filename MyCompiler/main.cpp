@@ -29,8 +29,6 @@ int main()
 //    k = sc->Find("Chop");
 //    k = sc->Find("C");
 
-    int a = 3, b = 2, c = 1;
-    a = b = c;
 
     return 0;
 }

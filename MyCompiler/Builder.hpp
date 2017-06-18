@@ -71,14 +71,15 @@ private:
     bool IsAnExpression(int startPosition, int finishPosition); // Done
     List* ConvertToNewToken(List* OldToken); // Done
     
-    TNode* ParseLine(int startPosition, int finishPosition); //
+    TNode* ParseLine(int startPosition, int finishPosition); // Done
     
-    TNode* ParseSingleTokenLine(int index);
-    void ParseConstInitialization(int& index);
-    void ParseInitialization(int& index);
-    TNode* ParseIfElse(int& index);
-    TNode* ParseWhile(int& index);
-    TNode* ParseVariableName(int& index, TNodeType& type);
+    TNode* ParseSingleTokenLine(int Index); // Done
+    void ParseConstInitialization(int Index); // Done
+    void ParseInitialization(int Index);
+    TNode* ParseIfElse(int Index);
+    TNode* ParseWhile(int Index);
+    TNode* ParseVariableName(int Index, TNodeType Type);
+    
     void ParseMultiLine(int, int);
     
 public:

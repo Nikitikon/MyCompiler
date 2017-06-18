@@ -584,6 +584,242 @@ TNode* Builder::ParseLine(int StartPosition, int FinishPosition){
 
 
 
+//Если единственный токен в строке, он может быть или константой или переменной.
+//Возвращает (TConst : TNode) или (TVariable : TNode), для добавления в дерево TList* root.
+//Если токен не является константой или переменной, Exceptions::InvalidOperation.
+//Если переменная не найдена, Exceptions::VariableNameNotFound.
+TNode* Builder::ParseSingleTokenLine(int Index){
+    NewToken* FirstElement = (NewToken*)Tokens->get(Index);
+    
+    if (FirstElement->Type == Automat::Digit || FirstElement->Type == Automat::Char) {
+        if (FirstElement->Type == Automat::Digit){
+            TValue* Value = new TValue(FirstElement->Value, TypeList::Instance().GetTypeIndex("double"));
+            return new ConstNode(Value);
+        }
+        
+        char Symbol = FirstElement->String[1];
+        TValue* Value = new TValue(Symbol, TypeList::Instance().GetTypeIndex("char"));
+        return new ConstNode(Value);
+    }
+    
+    if (FirstElement->Type == Automat::UserType){
+        TValueKeeper* Var = CurrentScope->Find(FirstElement->String);
+        
+        if (Var == NULL)
+            throw new Exception("VariableNameNotFound: необъявленная переменная или константа", ((NewToken*)Tokens->get(Index))->LineIndex);
+        
+        if (Var->IsReference())
+            throw new Exception("MissingBracket: пропущена скобка", ((NewToken*)Tokens->get(Index))->LineIndex);
+        
+        if (Var->IsConst()){
+            return new ConstNode(Var->GetValue());
+        }
+        else{
+            return new VariableNode(Var->GetValue());
+        }
+    }
+    
+    throw new Exception("InvalidCharacter: недопустимый символ", ((NewToken*)Tokens->get(Index))->LineIndex);
+}
+
+
+
+//Объявление и инициализация константы const.
+//Значение константы должно быть явно указано и известно при компиляции: ect.: const int a = 5;
+// index	index + 1	index + 2	index + 3	index + 4	index + 5 = semicolon
+// const	type		name		=			value		;
+
+// index	index + 1	index + 2	index + 3	index + 4	index + 5	index + 6 = semicolon
+// const	type		name		=			- (+)		value		;
+void Builder::ParseConstInitialization(int Index){
+    int Semicolon = FindToken(Index, Tokens->count(), ";");
+    int LenghtExpression = Semicolon - Index;
+    
+    if (LenghtExpression != 5 && LenghtExpression != 6)
+        throw new Exception("ConstInitializationError: ошибка инициализации константы.", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    Index++;
+    NewToken* Type = (NewToken*)Tokens->get(Index);
+    
+    if (!TypeList::Instance().IsType(Type->String))
+        throw new Exception("UnknownType: неподдерживаемый тип данных", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    Index++;
+    NewToken* Name = (NewToken*)Tokens->get(Index);
+    
+    if (Name->Type != Automat::UserType)
+        throw new Exception("ConstInitializationError: ошибка инициализации константы", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    if (CurrentScope->FindInThisScope(Name->String) != NULL)
+        throw new Exception("RedefinitionVariable: недопустимое переопределение переменной", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    Index++;
+    NewToken* Assignment = (NewToken*)Tokens->get(Index);
+    
+    if (Assignment->Type != Automat::Assignment)
+        throw new Exception("UninitializedConstant: неинициализированная константа", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    int sign = 1;
+    
+    if (LenghtExpression == 6){
+        Index++;
+        NewToken* SignToken = (NewToken*)Tokens->get(Index);
+        
+        if (strcmp(SignToken->String, "-") == 0)
+            sign = -1;
+        else
+            if (strcmp(SignToken->String, "+") == 0)
+            sign = 1;
+        else
+            throw new Exception("ConstInitializationError: ошибка инициализации константы", ((NewToken*)Tokens->get(Index))->LineIndex);
+    }
+    
+    Index++;
+    NewToken* Value = (NewToken*)Tokens->get(Index);
+    
+    if (Value->Type == Automat::Digit){
+        CurrentScope->Put(new TValueKeeper(Name->String, new TValue(sign * (Value->Value), TypeList::Instance().GetTypeIndex(Type->String), 0), true));
+        return;
+    }
+    
+    throw new Exception("ConstInitializationError: ошибка инициализации константы", ((NewToken*)Tokens->get(Index))->LineIndex);
+}
+
+// Объявление (и инициализация) переменной или объявление статического массива.
+// Не инициализированным пользователю переменным и элементам массивов присваивается значение 0.
+// Если переменная инициализируется значением явно, соответствующая BinaryOperationNode* для операции =  добавляется в CurrentList для последующего вычисления.
+
+// 1. Переменная
+// index	index + 1	index + 2 = semicolon
+// type		name		;
+
+// 2. Переменная с присваиванием значения
+// index	index + 1	index + 2	index + 3	index + 4
+// type		name		=			value		;
+
+// 3. Массив
+// index	index + 1	index + 2	index + 3	index + 4	index + 5
+// type		name		[			size		]			;
+void Builder::ParseInitialization(int Index){
+    int Semicolon = FindToken(Index, Tokens->count(), ";");
+    
+    if (Semicolon - Index < 2)
+        throw new Exception("VariableNameIsNotSpecified: не указано имя переменной", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    NewToken* Type = (NewToken*)Tokens->get(Index);
+    
+    if (!TypeList::Instance().IsType(Type->String))
+        throw new Exception("UnknownType: неподдерживаемый тип данных", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    Index++;
+    NewToken* Name = (NewToken*)Tokens->get(Index);
+    if (Name->Type != Automat::UserType)
+        throw new Exception("ConstInitializationError: недопустимое имя переменной", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    if (CurrentScope->FindInThisScope(Name->String) != NULL)
+        throw new Exception("RedefinitionVariable: недопустимое переопределение переменной", ((NewToken*)Tokens->get(Index))->LineIndex);
+    
+    if (Semicolon - Index == 1){
+        // 1. Переменная без присваивания: добавляем в хеш со значением по умолчанию 0
+        CurrentScope->Put(new TValueKeeper(Name->String, new TValue(0, TypeList::Instance().GetTypeIndex(Type->String), 0)));
+        return;
+    }
+    Index++;
+    NewToken* BracketOrAssignment = (NewToken*)Tokens->get(Index);
+    
+    // 2. Переменная с присваиванием
+    if (BracketOrAssignment->Type == Automat::Assignment){
+        TValue* tValue = new TValue(0, TypeList::Instance().GetTypeIndex(Type->String), 0);
+        
+        //Добавляем переменную в хеш со значением по умолчанию 0
+        CurrentScope->Put(new TValueKeeper(Name->String, tValue));
+        
+        // Символьный тип данных
+        if (!strcmp(Type->String, "char")){
+            Index++;
+            char Symbol = ((NewToken*)Tokens->get(Index))->String[1];
+            
+            CurrentList->Push(new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), new VariableNode(CurrentScope->FindInThisScope(Name->String)->GetValue()), new ConstNode(new TValue(Symbol, TypeList::Instance().GetTypeIndex("char")))));
+            return;
+        }
+        
+        Index++;
+        TNode* value = ParseLine(Index, Semicolon - 1);
+        
+        CurrentList->Push(new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), new VariableNode(CurrentScope->FindInThisScope(Name->String)->GetValue()), value));
+        return;
+    }
+    
+    
+    // 3. Массив
+    if (BracketOrAssignment-Type == Automat::Bracket && Semicolon - Index == 3){
+        Index++;
+        NewToken* Size = (NewToken*)Tokens->get(Index);
+        int IntegerSize = 0;
+        
+        // Целое положительное числовое значение
+        if (Size->Type == Automat::Digit){
+            if (Size->Value <= 0 || IsFraction(Size->String))
+                throw new Exception("ArraySizeIsNotAnInteger: размер массива должен быть целым положительным числом", ((NewToken*)Tokens->get(Index))->LineIndex);
+            
+            IntegerSize = (int)Size->Value;
+        }
+        else // Константа, объявленная ранее
+            if (Size->Type == Automat::UserType){
+                TValueKeeper* ConstSize = (CurrentScope->Find(Size->String));
+                if (ConstSize == NULL){
+                    throw new Exception("VariableNameNotFound: необъявленная переменная или константа", ((NewToken*)Tokens->get(Index))->LineIndex);
+                }
+                else{
+                    if (ConstSize->IsConst()){
+                        if (ConstSize->GetValue()->GetType() == TypeList::Instance().GetTypeIndex("int")){
+                            IntegerSize = (int)ConstSize->GetValue()->GetValue();
+                            
+                            if (IntegerSize <= 0)
+                                throw new Exception("ArraySizeIsNotAnInteger: размер массива должен быть целым положительным числом", ((NewToken*)Tokens->get(Index))->LineIndex);
+                        }else
+                            throw new Exception("ArraySizeIsNotAnInteger: размер массива должен быть целым положительным числом", ((NewToken*)Tokens->get(Index))->LineIndex);
+                    }
+                    throw new Exception("ArraySizeIsNotAConstant: размер массива должен быть задан константой", ((NewToken*)Tokens->get(Index))->LineIndex);
+                }
+            }
+        // Закрывающая скобка
+        Index++;
+        if (Index != ClosingBracketIndex(Index - 2))
+            throw new Exception("ArrayInitializationError: ошибка объявления массива", ((NewToken*)Tokens->get(Index))->LineIndex);
+        
+        CurrentScope->Put(new TValueKeeper(Name->String, new TValue(0, TypeList::Instance().GetTypeIndex(Type->String), IntegerSize)));
+        return;
+    }
+    throw new Exception("InitializationError: ошибка объявления или инициализации.", ((NewToken*)Tokens->get(Index))->LineIndex);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
