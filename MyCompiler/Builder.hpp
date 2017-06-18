@@ -69,8 +69,9 @@ private:
     int FindToken(int startPosition, int finishPosition, char* token); // Done
     bool isOperator(Automat::Token token); // Done
     bool IsAnExpression(int startPosition, int finishPosition); // Done
-    List* OldTokenToNewToken(List* OldToken); //
-    TNode* ParseLine(int, int);
+    List* ConvertToNewToken(List* OldToken); // Done
+    
+    TNode* ParseLine(int startPosition, int finishPosition); //
     
     TNode* ParseSingleTokenLine(int index);
     void ParseConstInitialization(int& index);

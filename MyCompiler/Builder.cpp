@@ -24,7 +24,7 @@ Builder::Builder(char* sourceCode){
     if (fileReader)
         delete fileReader;
     
-    Tokens = OldTokenToNewToken(Tokens);
+    Tokens = ConvertToNewToken(Tokens);
     
     PrintList(Tokens);
     
@@ -167,19 +167,19 @@ int Builder::ClosingBracketIndex(int OpeningBracketIndex){
 
 
 //Находит индекс операции с минимальным приоритетом в списке tokens
-int Builder::FindOperationWithMinimalPriority(int startPosition , int finishPosition){
+int Builder::FindOperationWithMinimalPriority(int StartPosition , int FinishPosition){
     //16 уровней приоритета операций от 1 до 16
     int minPriority = 0;
     int resultPosition = -1;
     
-    for (int i = startPosition; i < finishPosition + 1 && i < Tokens->count(); i++) {
+    for (int i = StartPosition; i < FinishPosition + 1 && i < Tokens->count(); i++) {
         NewToken* nextToken = (NewToken*)Tokens->get(i);
         
         if (isOperator(nextToken->Type)){
             if (!strcmp("[", nextToken->String) && minPriority == 0){
                 int temp = ClosingBracketIndex(i);
                 
-                if (temp == finishPosition)
+                if (temp == FinishPosition)
                     return i;
                 else
                     i = temp;
@@ -203,7 +203,7 @@ int Builder::FindOperationWithMinimalPriority(int startPosition , int finishPosi
     }
     
     if (resultPosition == -1){
-        throw new Exception("InvalidOperation: недопустимая операция.", ((NewToken*)Tokens->get (startPosition))->LineIndex);
+        throw new Exception("InvalidOperation: недопустимая операция.", ((NewToken*)Tokens->get (StartPosition))->LineIndex);
     }
     
     return resultPosition;
@@ -315,13 +315,13 @@ void Builder::Prioritize(List* ToketList){
 
 
 //Поиск индекса токена token в списке Tokens с позиции startPosition по finishPosition. Если токен не найден, выбрасывается Exceptions::TokenNotFound.
-int Builder::FindToken(int startPosition, int finishPosition, char* token){
-    for (int i = startPosition; i < finishPosition + 1 && i < Tokens->count(); i++) {
+int Builder::FindToken(int StartPosition, int FinishPosition, char* token){
+    for (int i = StartPosition; i < FinishPosition + 1 && i < Tokens->count(); i++) {
         if (!strcmp(((NewToken*)Tokens->get(i))->String, token))
             return i;
     }
     
-    throw new Exception("TokenNotFound: токен не найден.", ((NewToken*)Tokens->get(startPosition))->LineIndex);
+    throw new Exception("TokenNotFound: токен не найден.", ((NewToken*)Tokens->get(StartPosition))->LineIndex);
 }
 
 
@@ -359,9 +359,9 @@ bool Builder::isOperator(Automat::Token token){
 
 
 //Возвращает true, если участок является выражением, содержащим арфметические, логические операции или системные функции,  и false в противном случае.
-bool Builder::IsAnExpression(int startPosition, int finishPosition){
+bool Builder::IsAnExpression(int StartPosition, int FinishPosition){
     int count = Tokens->count();
-    for (int i = startPosition; i < finishPosition + 1 && i < count; i++) {
+    for (int i = StartPosition; i < FinishPosition + 1 && i < count; i++) {
         NewToken* token = (NewToken*)Tokens->get(i);
         
         if (token->Type == Automat::Bracket && !strcmp(token->String, "["))
@@ -376,7 +376,7 @@ bool Builder::IsAnExpression(int startPosition, int finishPosition){
 
 
 //Конвертация токенов в новый формат NewToken с приоритетами с получением значения Value для чисел
-List* Builder::OldTokenToNewToken(List* OldToken){
+List* Builder::ConvertToNewToken(List* OldToken){
     List* ListFoNewToken = new List(sizeof(NewToken));
     int CountLines = 1;
     int OldTokenCount = OldToken->count();
@@ -430,6 +430,84 @@ List* Builder::OldTokenToNewToken(List* OldToken){
 
 
 
+
+//Для парсинга единственной строки (TNode*)
+TNode* Builder::ParseLine(int StartPosition, int FinishPosition){
+    NewToken* Token = (NewToken*)Tokens->get(StartPosition);
+    
+    //Убираем окаймляющие скобки
+    while (Token->Type == Automat::Token::Bracket && ClosingBracketIndex(StartPosition) == FinishPosition){
+        
+        StartPosition++;
+        FinishPosition--;
+        
+        Token = (NewToken*)Tokens->get(StartPosition);
+    }
+    
+    //Единственный токен в строке
+    if (StartPosition == FinishPosition){
+        return ParseSingleTokenLine(StartPosition);
+    }
+    
+    //Line не является выражением, содержащим арифметические, логические операции, операции присваивания или системные функции.
+    
+    if (!IsAnExpression(StartPosition, FinishPosition)){
+        TNodeType type;
+        return ParseVariableName(StartPosition, type);
+    }
+    
+    int PositionTokenWithMinPriority = FindOperationWithMinimalPriority(StartPosition, FinishPosition);
+    NewToken* WorkElement = (NewToken*)Tokens->get(PositionTokenWithMinPriority);
+    
+    //Арифметические операции
+    if (WorkElement->Type == Automat::ApOp){
+        
+        if (WorkElement->Priority == 2)
+            return new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition));
+        
+        return new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(StartPosition, PositionTokenWithMinPriority - 1), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition));
+    }
+    
+    
+    //Инкремент и декремент
+    if (WorkElement->Type == Automat::IncOrDec){
+        if (!strcmp(WorkElement->String, "++")){
+            if (((NewToken*)Tokens->get(PositionTokenWithMinPriority + 1))->Type == Automat::UserType)
+                return new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex("++î"), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition));
+            
+            return new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex("î++"), ParseLine(StartPosition, PositionTokenWithMinPriority - 1));
+        }
+        
+        if (!strcmp(WorkElement->String, "--")){
+            if (((NewToken*)Tokens->get(PositionTokenWithMinPriority + 1))->Type == Automat::UserType){
+                return new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex("--î"), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition));
+            }
+            
+            return new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex("î--"), ParseLine(StartPosition, PositionTokenWithMinPriority - 1));
+        }
+        
+        throw new Exception("UnknownOperation: неподдерживаемая операция.", ((NewToken*)Tokens->get(StartPosition))->LineIndex);
+    }
+    
+    //Операторы сравнения
+    if (WorkElement->Type == Automat::CompOper)
+    {
+        return new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(StartPosition, PositionTokenWithMinPriority - 1), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition));
+    }
+    
+    
+    //Системные функции, возвращающие значение
+    if (WorkElement->Type == Automat::SysFunction && WorkElement->Value){
+        PositionTokenWithMinPriority++;
+        NewToken* OpenBracket = (NewToken*)Tokens->get(PositionTokenWithMinPriority);
+        
+        if (OpenBracket->Type != Automat::Bracket)
+            throw new Exception("MissingBracket: пропущена скобка", ((NewToken*)Tokens->get(PositionTokenWithMinPriority))->LineIndex);
+        
+        
+    }
+    
+}
 
 
 
