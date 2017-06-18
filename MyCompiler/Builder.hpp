@@ -74,13 +74,13 @@ private:
     TNode* ParseLine(int startPosition, int finishPosition); // Done
     
     TNode* ParseSingleTokenLine(int Index); // Done
-    void ParseConstInitialization(int Index); // Done
-    void ParseInitialization(int Index); // Done
-    TNode* ParseIfElse(int Index); // Done
-    TNode* ParseWhile(int Index); // Done
-    TNode* ParseVariableName(int Index, TNodeType Type); // Done
+    void ParseConstInitialization(int& Index); // Done
+    void ParseInitialization(int& Index); // Done
+    TNode* ParseIfElse(int& Index); // Done
+    TNode* ParseWhile(int& Index); // Done
+    TNode* ParseVariableName(int& Index, TNodeType& Type); // Done
     
-    void ParseMultiLine(int, int);
+    void ParseMultiLine(int StartPosition, int EndPosition); //
     
 public:
     Builder(char* sourceCode); // Done

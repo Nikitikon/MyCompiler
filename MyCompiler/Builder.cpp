@@ -631,7 +631,7 @@ TNode* Builder::ParseSingleTokenLine(int Index){
 
 // index	index + 1	index + 2	index + 3	index + 4	index + 5	index + 6 = semicolon
 // const	type		name		=			- (+)		value		;
-void Builder::ParseConstInitialization(int Index){
+void Builder::ParseConstInitialization(int& Index){
     int Semicolon = FindToken(Index, Tokens->count(), ";");
     int LenghtExpression = Semicolon - Index;
     
@@ -700,7 +700,7 @@ void Builder::ParseConstInitialization(int Index){
 // 3. Массив
 // index	index + 1	index + 2	index + 3	index + 4	index + 5
 // type		name		[			size		]			;
-void Builder::ParseInitialization(int Index){
+void Builder::ParseInitialization(int& Index){
     int Semicolon = FindToken(Index, Tokens->count(), ";");
     
     if (Semicolon - Index < 2)
@@ -805,7 +805,7 @@ void Builder::ParseInitialization(int Index){
 //		body; *
 // } *
 // * - optional
-TNode* Builder::ParseIfElse(int Index){
+TNode* Builder::ParseIfElse(int& Index){
     // 1. Условие if.
     Index++;
     NewToken* OpeningParenthesis = (NewToken*)Tokens->get(Index);
@@ -890,7 +890,7 @@ TNode* Builder::ParseIfElse(int Index){
 // {
 //		body;
 // }
-TNode* Builder::ParseWhile(int Index){
+TNode* Builder::ParseWhile(int& Index){
     // 1. Условие
     Index++;
     NewToken* OpeningParenthesis = (NewToken*)Tokens->get(Index);
@@ -930,7 +930,7 @@ TNode* Builder::ParseWhile(int Index){
 
 
 // Имена переменных и обращения к элементам массивов.
-TNode* Builder::ParseVariableName(int Index, TNodeType Type){
+TNode* Builder::ParseVariableName(int& Index, TNodeType& Type){
     // Название переменной
     NewToken* VariableName = (NewToken*)Tokens->get(Index++);
     
@@ -976,6 +976,128 @@ TNode* Builder::ParseVariableName(int Index, TNodeType Type){
         }
     }
 }
+
+
+
+// Для парсинга программы и тела конструкций if и циклов
+// Не возвращает значение, все TNode* цепляются к CurrentList
+void Builder::ParseMultiLine(int Start, int End){
+    for (int i = Start; i < End && i < Tokens->count(); i++){
+        NewToken* Token = (NewToken*)Tokens->get(i);
+        
+        // Пропуск точки с запятой
+        if (Token->Type == Automat::Separator)
+            continue;
+        
+        // 1. Объявление константы.
+        if (!strcmp(Token->String, "const")){
+            // const int a = <expression>;
+            ParseConstInitialization(i);
+            continue;
+        }
+        
+        // 2. Объявление переменных и массивов.
+        // тип имя = <expression>;
+        // тип имя[размер];
+        if (Token->Type == Automat::Token::ReservedType){
+            ParseInitialization(i);
+            continue;
+        }
+        
+        
+        // 3. Конструкции if и while.
+        if (Token->Type == Automat::Token::Condition){
+            if (!strcmp(Token->String, "if")){
+                CurrentList->Push(ParseIfElse(i));
+                continue;
+            }
+            else
+                if (!strcmp(Token->String, "while")){
+                CurrentList->Push(ParseWhile(i));
+                continue;
+            }
+            else
+            {
+                throw new Exception("InvalidOperation: недопустимая операция.", ((NewToken*)Tokens->get(i))->LineIndex);
+            }
+        }
+        
+        // 4. Системные функции c одним аргументом input и output, не возвращающие значение
+        if (Token->Type == Automat::Token::SysFunction && Token->Value == 0){
+            // Аргумент функции в круглых скобках.
+            NewToken* Bracket = (NewToken*)Tokens->get(++i);
+            if (Bracket->Type != Automat::Token::Bracket)
+                throw new Exception("MissingBracket: пропущена скобка", ((NewToken*)Tokens->get(i))->LineIndex);
+            
+            int CloseBracketIndex = ClosingBracketIndex(i);
+            
+            if (CloseBracketIndex - i == 1)
+                throw new Exception("MissingArguments: пропущены аргументы при вызове функции.", ((NewToken*)Tokens->get(i))->LineIndex);
+            i++;
+            
+            NewToken* DigitOrChar = (NewToken*)Tokens->get(i);
+            
+            if (DigitOrChar->Type == Automat::UserType){
+                TNode* Argument = ParseLine(i, CloseBracketIndex - 1);
+                
+                // Вывод.
+                if (!strcmp(Token->String, "print")){
+                    CurrentList->Push(new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(Token->String), Argument));
+                }
+                // Ввод.
+                else{
+                    CurrentList->Push(new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), Argument, new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(Token->String), Argument)));
+                }
+            }
+            else if (DigitOrChar->Type == Automat::String){
+                // Создание символьного массива
+                int StringLenght = strlen(DigitOrChar->String) - 2 + 1;
+                
+                TValue* tValueString = new TValue(0, TypeList::Instance().GetTypeIndex("char"), StringLenght);
+                
+                double* DoubleString = new double[StringLenght];
+                for (int i = 0, j = 1; i < StringLenght - 1; i++, j++){
+                    DoubleString[i] = DigitOrChar->String[j];
+                }
+                DoubleString[StringLenght] = '\0';
+                
+                tValueString->SetPointer(DoubleString);
+                
+                // Имена переменных не обязаны быть уникальными, так как они тут же выводятся.
+                CurrentScope->Put(new TValueKeeper("@string", tValueString));
+                
+                CurrentList->Push(new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(Token->String), new VariableNode(tValueString)));
+            }
+            else
+            {
+                TNode* Argument = ParseLine(i, CloseBracketIndex - 1);
+                CurrentList->Push(new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(Token->String), Argument));
+            }
+            
+            i = CloseBracketIndex;
+            
+            continue;
+        }
+        
+        
+        // 5. Обращение к переменной и массивам
+        // a = <expression>;
+        // a [i] = <expression>;
+        int semicolon = FindToken(i, Tokens->count(), ";");
+        CurrentList->Push(ParseLine(i, semicolon - 1));
+        i = semicolon;
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
