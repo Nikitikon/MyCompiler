@@ -26,7 +26,7 @@ Builder::Builder(char* sourceCode){
     
     Tokens = ConvertToNewToken(Tokens);
     
-    PrintList(Tokens);
+  //  PrintList(Tokens);
     
     Prioritize(Tokens);
     
@@ -331,25 +331,15 @@ bool Builder::isOperator(Automat::Token token){
     switch (token)
     {
         case Automat::Token::ApOp:
-            return true;
         case Automat::Token::Assignment:
-            return true;
         case Automat::Token::BiteOp:
-            return true;
         case Automat::Token::CompOper:
-            return true;
         case Automat::Token::Condition:
-            return true;
         case Automat::Token::IncOrDec:
-            return true;
         case Automat::Token::LogicOper:
-            return true;
         case Automat::Token::ReservedWord:
-            return true;
         case Automat::Token::Separator:
-            return true;
         case Automat::Token::Star:
-            return true;
         case Automat::Token::SysFunction:
             return true;
         default:
@@ -593,7 +583,7 @@ TNode* Builder::ParseSingleTokenLine(int Index){
     
     if (FirstElement->Type == Automat::Digit || FirstElement->Type == Automat::Char) {
         if (FirstElement->Type == Automat::Digit){
-            TValue* Value = new TValue(FirstElement->Value, TypeList::Instance().GetTypeIndex("double"));
+            TValue* Value = new TValue(FirstElement->Value, TypeList::Instance().GetTypeIndex("double"), 0);
             return new ConstNode(Value);
         }
         
@@ -752,7 +742,7 @@ void Builder::ParseInitialization(int& Index){
     
     
     // 3. Массив
-    if (BracketOrAssignment-Type == Automat::Bracket && Semicolon - Index == 3){
+    if (BracketOrAssignment->Type == Automat::Bracket && Semicolon - Index == 3){
         Index++;
         NewToken* Size = (NewToken*)Tokens->get(Index);
         int IntegerSize = 0;

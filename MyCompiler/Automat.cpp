@@ -241,27 +241,20 @@ Automat::ResultOfParsing* Automat::ParseString(char* Str){ // Парсим ст�
 
 
 
-List* Automat::Work(char* Str){//выполняет работу
-    ResultOfParsing* result = NULL;
+List* Automat::Work(char* S){//выполняет работу
+    ResultOfParsing* result;
     
     List* tokens = new List(sizeof(ResultOfParsing));
     
-    char* workStr = new char[strlen(Str)];
-    Copy(workStr, Str, strlen(Str));
-    
-    while (strlen(workStr))
+    while (strlen(S))
     {
-        result = ParseString(workStr);
-        
-        if (result == NULL)
-            throw Exceptions::TokenNotFound;
+        result = ParseString(S);
         
         tokens->add(result);
         
-        char* temp = new char[strlen(workStr) - strlen(result->Str) + 1];
-        Copy(temp, workStr + strlen(result->Str), strlen(workStr) - strlen(result->Str));
-        delete[] workStr;
-        workStr = temp;
+        char* temp = new char[strlen(S) - strlen(result->Str) + 1];
+        Copy(temp, S + strlen(result->Str), strlen(S) - strlen(result->Str));
+        S = temp;
     }
     
     return tokens;
