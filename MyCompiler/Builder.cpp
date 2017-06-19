@@ -265,7 +265,7 @@ void Builder::Prioritize(List* ToketList){
             
             
             //Разыменование указателя , взятие адреса, унарные плюс и минус, префиксные инкремент и декремент.
-            if (!strcmp(tempStr, "*") || !strcmp(tempStr, "&") || !strcmp(tempStr, "+") || !strcmp(tempStr, "-") || !strcmp(tempStr, "++") || !strcmp(tempStr, "--"))
+            if (!strcmp(tempStr, "&") || !strcmp(tempStr, "+") || !strcmp(tempStr, "-") || !strcmp(tempStr, "++") || !strcmp(tempStr, "--"))
                 currentToken->Priority = 2;
             
             if ((!strcmp(tempStr, "+") || !strcmp(tempStr, "-")) && ((previousToken->Type == Automat::Token::Digit) || previousToken->Type == Automat::Token::UserType || previousToken->Type == Automat::Token::IncOrDec || !strcmp(previousToken->String, ")") || !strcmp(previousToken->String, "]"))){
@@ -893,6 +893,9 @@ TNode* Builder::ParseWhile(int& Index){
         throw new Exception("MissingBracket: пропущена скобка", ((NewToken*)Tokens->get(Index))->LineIndex);
     
     int ClosingParenthesis = ClosingBracketIndex(Index);
+    
+    if (ClosingParenthesis - Index == 1)
+        throw new Exception("MissingOperator: пропущено условие цикла", ((NewToken*)Tokens->get(Index))->LineIndex);
     
     TNode* Condition = ParseLine(Index, ClosingParenthesis);
     

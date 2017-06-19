@@ -1,4 +1,4 @@
-int N = rand(9999);
+int N = 0;
 N = N + 1000;
 int oldN = N;
 
@@ -32,7 +32,7 @@ print(arrayN[3]);
 
 bool win = 0;
 int game = 0;
-while (game < 20)
+while ()
 {
     print("Enter four-digit number: ");
     int t;

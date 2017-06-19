@@ -30,5 +30,7 @@ TValue* IfElseNode::Execute(){
     if (Condition->Execute()->GetValue())
         return Then->Execute();
     else
+        if (Else)
         return Else->Execute();
+    return NULL;
 }
