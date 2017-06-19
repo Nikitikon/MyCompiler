@@ -712,6 +712,7 @@ void Builder::ParseInitialization(int& Index){
     if (Semicolon - Index == 1){
         // 1. Переменная без присваивания: добавляем в хеш со значением по умолчанию 0
         CurrentScope->Put(new TValueKeeper(Name->String, new TValue(0, TypeList::Instance().GetTypeIndex(Type->String), 0)));
+        Index = Semicolon;
         return;
     }
     Index++;
@@ -737,6 +738,8 @@ void Builder::ParseInitialization(int& Index){
         TNode* value = ParseLine(Index, Semicolon - 1);
         
         CurrentList->Push(new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), new VariableNode(CurrentScope->FindInThisScope(Name->String)->GetValue()), value));
+        Index = Semicolon;
+
         return;
     }
     
@@ -779,6 +782,7 @@ void Builder::ParseInitialization(int& Index){
             throw new Exception("ArrayInitializationError: ошибка объявления массива", ((NewToken*)Tokens->get(Index))->LineIndex);
         
         CurrentScope->Put(new TValueKeeper(Name->String, new TValue(0, TypeList::Instance().GetTypeIndex(Type->String), IntegerSize)));
+        Index = Semicolon;
         return;
     }
     throw new Exception("InitializationError: ошибка объявления или инициализации.", ((NewToken*)Tokens->get(Index))->LineIndex);

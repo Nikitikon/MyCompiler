@@ -1,4 +1,4 @@
-int N = rand(1998);
+int N = rand(9999);
 N = N + 1000;
 int oldN = N;
 

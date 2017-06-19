@@ -19,6 +19,365 @@ risAssignment	 	error
 risSeparator	 	error
 risUserType	 	error
 risSpace	 	space
+space	a	error
+SLZSymbolComment	a	error
+MLZSymbolComment	a	error
+zeroSymbolString	a	error
+zeroSymbolChar	a	error
+isReservedType	a	error
+isCondition	a	error
+isReservedWord	a	error
+isSysFunc	a	error
+rzeroSymbolDigit	a	error
+risbracket	a	error
+orisIncOrDec	a	error
+orisCompOper	a	error
+orisArOp	a	error
+isStar	a	error
+isLogicOper	a	error
+isBiteOp	a	error
+isAssignment	a	error
+isSeparator	a	error
+isUserType	a	UserType
+UserType	;	error
+SLZSymbolComment	;	error
+MLZSymbolComment	;	error
+zeroSymbolString	;	error
+zeroSymbolChar	;	error
+zeroSymbolDigit	;	error
+isbracket	;	error
+risIncOrDec	;	error
+risCompOper	;	error
+risArOp	;	error
+risStar	;	error
+risLogicOper	;	error
+risBiteOp	;	error
+risAssignment	;	error
+risSeparator	;	Separator
+rSeparator	
+	error
+orSLZSymbolComment	
+	error
+orMLZSymbolComment	
+	error
+orzeroSymbolString	
+	error
+orzeroSymbolChar	
+	error
+orzeroSymbolDigit	
+	error
+orisbracket	
+	error
+rorisIncOrDec	
+	error
+rorisCompOper	
+	error
+rorisArOp	
+	error
+risStar	
+	error
+isLogicOper	
+	error
+isBiteOp	
+	error
+isAssignment	
+	error
+isSeparator	
+	error
+isUserType	
+	error
+isSpace	
+	error
+isNewLine	
+	newLine
+newLine	a	error
+SLZSymbolComment	a	error
+MLZSymbolComment	a	error
+zeroSymbolString	a	error
+zeroSymbolChar	a	error
+isReservedType	a	error
+isCondition	a	error
+isReservedWord	a	error
+isSysFunc	a	error
+zeroSymbolDigit	a	error
+isbracket	a	error
+isIncOrDec	a	error
+isCompOper	a	error
+isArOp	a	error
+isStar	a	error
+isLogicOper	a	error
+isBiteOp	a	error
+isAssignment	a	error
+isSeparator	a	error
+isUserType	a	UserType
+UserType	 	error
+SLZSymbolComment	 	error
+MLZSymbolComment	 	error
+zeroSymbolString	 	error
+zeroSymbolChar	 	error
+zeroSymbolDigit	 	error
+isbracket	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
+isSeparator	 	error
+isUserType	 	error
+isSpace	 	space
+space	=	error
+SLZSymbolComment	=	error
+MLZSymbolComment	=	error
+zeroSymbolString	=	error
+zeroSymbolChar	=	error
+zeroSymbolDigit	=	error
+isbracket	=	error
+isIncOrDec	=	error
+isCompOper	=	isAsCompOp
+isAsCompOp	 	error0
+isArOp	=	error
+isStar	=	error
+isLogicOper	=	error
+isBiteOp	=	error
+isAssignment	=	Assignment
+Assignment	 	error
+SLZSymbolComment	 	error
+MLZSymbolComment	 	error
+zeroSymbolString	 	error
+zeroSymbolChar	 	error
+zeroSymbolDigit	 	error
+isbracket	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
+isSeparator	 	error
+isUserType	 	error
+isSpace	 	space
+space	(	error
+SLZSymbolComment	(	error
+MLZSymbolComment	(	error
+zeroSymbolString	(	error
+zeroSymbolChar	(	error
+zeroSymbolDigit	(	error
+isbracket	(	bracket
+bracket	2	error
+SLZSymbolComment	2	error
+MLZSymbolComment	2	error
+zeroSymbolString	2	error
+zeroSymbolChar	2	error
+zeroSymbolDigit	2	digit
+digit	+	error
+SLZSymbolComment	+	error
+MLZSymbolComment	+	error
+zeroSymbolString	+	error
+zeroSymbolChar	+	error
+zeroSymbolDigit	+	error
+isbracket	+	error
+isIncOrDec	+	increment
+increment	1	error0
+isCompOper	+	error
+isArOp	+	arOp
+arOp	1	error
+SLZSymbolComment	1	error
+MLZSymbolComment	1	error
+zeroSymbolString	1	error
+zeroSymbolChar	1	error
+zeroSymbolDigit	1	digit
+digit	)	error
+SLZSymbolComment	)	error
+MLZSymbolComment	)	error
+zeroSymbolString	)	error
+zeroSymbolChar	)	error
+zeroSymbolDigit	)	error
+isbracket	)	bracket
+bracket	*	error
+SLZSymbolComment	*	error
+MLZSymbolComment	*	error
+zeroSymbolString	*	error
+zeroSymbolChar	*	error
+zeroSymbolDigit	*	error
+isbracket	*	error
+isIncOrDec	*	error
+isCompOper	*	error
+isArOp	*	arOp
+arOp	2	error
+SLZSymbolComment	2	error
+MLZSymbolComment	2	error
+zeroSymbolString	2	error
+zeroSymbolChar	2	error
+zeroSymbolDigit	2	digit
+digit	;	error
+SLZSymbolComment	;	error
+MLZSymbolComment	;	error
+zeroSymbolString	;	error
+zeroSymbolChar	;	error
+zeroSymbolDigit	;	error
+isbracket	;	error
+isIncOrDec	;	error
+isCompOper	;	error
+isArOp	;	error
+isStar	;	error
+isLogicOper	;	error
+isBiteOp	;	error
+isAssignment	;	error
+isSeparator	;	Separator
+Separator	
+	error
+SLZSymbolComment	
+	error
+MLZSymbolComment	
+	error
+zeroSymbolString	
+	error
+zeroSymbolChar	
+	error
+zeroSymbolDigit	
+	error
+isbracket	
+	error
+isIncOrDec	
+	error
+isCompOper	
+	error
+isArOp	
+	error
+isStar	
+	error
+isLogicOper	
+	error
+isBiteOp	
+	error
+isAssignment	
+	error
+isSeparator	
+	error
+isUserType	
+	error
+isSpace	
+	error
+isNewLine	
+	newLine
+newLine	p	error
+SLZSymbolComment	p	error
+MLZSymbolComment	p	error
+zeroSymbolString	p	error
+zeroSymbolChar	p	error
+isReservedType	print	error
+isCondition	print	error
+isReservedWord	print	error
+isSysFunc	print	sysFunc
+SLZSymbolComment	(	error
+MLZSymbolComment	(	error
+zeroSymbolString	(	error
+zeroSymbolChar	(	error
+zeroSymbolDigit	(	error
+isbracket	(	bracket
+bracket	a	error
+SLZSymbolComment	a	error
+MLZSymbolComment	a	error
+zeroSymbolString	a	error
+zeroSymbolChar	a	error
+isReservedType	a	error
+isCondition	a	error
+isReservedWord	a	error
+isSysFunc	a	error
+zeroSymbolDigit	a	error
+isbracket	a	error
+isIncOrDec	a	error
+isCompOper	a	error
+isArOp	a	error
+isStar	a	error
+isLogicOper	a	error
+isBiteOp	a	error
+isAssignment	a	error
+isSeparator	a	error
+isUserType	a	UserType
+UserType	)	error
+SLZSymbolComment	)	error
+MLZSymbolComment	)	error
+zeroSymbolString	)	error
+zeroSymbolChar	)	error
+zeroSymbolDigit	)	error
+isbracket	)	bracket
+bracket	;	error
+SLZSymbolComment	;	error
+MLZSymbolComment	;	error
+zeroSymbolString	;	error
+zeroSymbolChar	;	error
+zeroSymbolDigit	;	error
+isbracket	;	error
+isIncOrDec	;	error
+isCompOper	;	error
+isArOp	;	error
+isStar	;	error
+isLogicOper	;	error
+isBiteOp	;	error
+isAssignment	;	error
+isSeparator	;	Separator
+Separator	
+	error
+SLZSymbolComment	
+	error
+MLZSymbolComment	
+	error
+zeroSymbolString	
+	error
+zeroSymbolChar	
+	error
+zeroSymbolDigit	
+	error
+isbracket	
+	error
+isIncOrDec	
+	error
+isCompOper	
+	error
+isArOp	
+	error
+isStar	
+	error
+isLogicOper	
+	error
+isBiteOp	
+	error
+isAssignment	
+	error
+isSeparator	
+	error
+isUserType	
+	error
+isSpace	
+	error
+isNewLine	
+	newLine
+newLine	i	error
+SLZSymbolComment	i	error
+MLZSymbolComment	i	error
+zeroSymbolString	i	error
+zeroSymbolChar	i	error
+isReservedType	int	reservedType
+SLZSymbolComment	 	error
+MLZSymbolComment	 	error
+zeroSymbolString	 	error
+zeroSymbolChar	 	error
+zeroSymbolDigit	 	error
+isbracket	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
+isSeparator	 	error
+isUserType	 	error
+isSpace	 	space
 space	N	error
 SLZSymbolComment	N	error
 MLZSymbolComment	N	error
@@ -28,11 +387,11 @@ isReservedType	N	error
 isCondition	N	error
 isReservedWord	N	error
 isSysFunc	N	error
-rzeroSymbolDigit	N	error
-risbracket	N	error
-orisIncOrDec	N	error
-orisCompOper	N	error
-orisArOp	N	error
+zeroSymbolDigit	N	error
+isbracket	N	error
+isIncOrDec	N	error
+isCompOper	N	error
+isArOp	N	error
 isStar	N	error
 isLogicOper	N	error
 isBiteOp	N	error
@@ -103,15 +462,15 @@ zeroSymbolString	(	error
 zeroSymbolChar	(	error
 zeroSymbolDigit	(	error
 isbracket	(	bracket
-bracket	1	error
-SLZSymbolComment	1	error
-MLZSymbolComment	1	error
-zeroSymbolString	1	error
-zeroSymbolChar	1	error
-zeroSymbolDigit	1	digit
+bracket	9	error
+SLZSymbolComment	9	error
+MLZSymbolComment	9	error
+zeroSymbolString	9	error
+zeroSymbolChar	9	error
+zeroSymbolDigit	9	digit
 digit	9	digit
 digit	9	digit
-digit	8	digit
+digit	9	digit
 digit	)	error
 SLZSymbolComment	)	error
 MLZSymbolComment	)	error
@@ -126,47 +485,47 @@ zeroSymbolString	;	error
 zeroSymbolChar	;	error
 zeroSymbolDigit	;	error
 isbracket	;	error
-risIncOrDec	;	error
-risCompOper	;	error
-risArOp	;	error
-risStar	;	error
-risLogicOper	;	error
-risBiteOp	;	error
-risAssignment	;	error
-risSeparator	;	Separator
-rSeparator	
+isIncOrDec	;	error
+isCompOper	;	error
+isArOp	;	error
+isStar	;	error
+isLogicOper	;	error
+isBiteOp	;	error
+isAssignment	;	error
+isSeparator	;	Separator
+Separator	
 	error
-orSLZSymbolComment	
+SLZSymbolComment	
 	error
-orMLZSymbolComment	
+MLZSymbolComment	
 	error
-orzeroSymbolString	
+zeroSymbolString	
 	error
-orzeroSymbolChar	
+zeroSymbolChar	
 	error
-orzeroSymbolDigit	
+zeroSymbolDigit	
 	error
-orisbracket	
+isbracket	
 	error
-rorisIncOrDec	
+isIncOrDec	
 	error
-rorisCompOper	
+isCompOper	
 	error
-rorisArOp	
+isArOp	
 	error
-risStar	
+isStar	
 	error
-risLogicOper	
+isLogicOper	
 	error
-risBiteOp	
+isBiteOp	
 	error
-risAssignment	
+isAssignment	
 	error
-risSeparator	
+isSeparator	
 	error
-risUserType	
+isUserType	
 	error
-risSpace	
+isSpace	
 	error
 isNewLine	
 	newLine
@@ -179,11 +538,11 @@ isReservedType	N	error
 isCondition	N	error
 isReservedWord	N	error
 isSysFunc	N	error
-rzeroSymbolDigit	N	error
-risbracket	N	error
-orisIncOrDec	N	error
-orisCompOper	N	error
-orisArOp	N	error
+zeroSymbolDigit	N	error
+isbracket	N	error
+isIncOrDec	N	error
+isCompOper	N	error
+isArOp	N	error
 isStar	N	error
 isLogicOper	N	error
 isBiteOp	N	error
@@ -197,13 +556,13 @@ zeroSymbolString	 	error
 zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
-risIncOrDec	 	error
-risCompOper	 	error
-risArOp	 	error
-risStar	 	error
-risLogicOper	 	error
-risBiteOp	 	error
-risAssignment	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
 isSeparator	 	error
 isUserType	 	error
 isSpace	 	space
@@ -749,13 +1108,13 @@ zeroSymbolString	=	error
 zeroSymbolChar	=	error
 zeroSymbolDigit	=	error
 isbracket	=	error
-isIncOrDec	=	error
-isCompOper	=	isAsCompOp
-isAsCompOp	 	error0
-isArOp	=	error
-isStar	=	error
-isLogicOper	=	error
-isBiteOp	=	error
+risIncOrDec	=	error
+risCompOper	=	isAsCompOp
+risAsCompOp	 	error0
+risArOp	=	error
+risStar	=	error
+risLogicOper	=	error
+risBiteOp	=	error
 isAssignment	=	Assignment
 Assignment	 	error
 SLZSymbolComment	 	error
@@ -881,8 +1240,8 @@ zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
 isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
+risCompOper	 	error
+risArOp	 	error
 isStar	 	error
 isLogicOper	 	error
 isBiteOp	 	error
@@ -961,20 +1320,20 @@ isAssignment	 	error
 isSeparator	 	error
 isUserType	 	error
 isSpace	 	space
-space	0	error
-SLZSymbolComment	0	error
-MLZSymbolComment	0	error
-zeroSymbolString	0	error
-zeroSymbolChar	0	error
-zeroSymbolDigit	0	zero
-zero	)	error
-SLZSymbolComment	)	error
-MLZSymbolComment	)	error
+rspace	0	error
+rSLZSymbolComment	0	error
+rMLZSymbolComment	0	error
+rzeroSymbolString	0	error
+rzeroSymbolChar	0	error
+rzeroSymbolDigit	0	zero
+rzero	)	error
+rSLZSymbolComment	)	error
+rMLZSymbolComment	)	error
 zeroSymbolString	)	error
 zeroSymbolChar	)	error
 zeroSymbolDigit	)	error
 isbracket	)	bracket
-bracket	
+rbracket	
 	error
 SLZSymbolComment	
 	error
@@ -1132,17 +1491,17 @@ isReservedWord	arrayN	error
 isSysFunc	arrayN	error
 zeroSymbolDigit	a	error
 isbracket	a	error
-isIncOrDec	a	error
+risIncOrDec	a	error
 isCompOper	a	error
 isArOp	a	error
 isStar	a	error
 isLogicOper	a	error
 risBiteOp	a	error
-isAssignment	a	error
-isSeparator	a	error
-isUserType	a	UserType
-UserType	r	UserType
-UserType	r	UserType
+risAssignment	a	error
+risSeparator	a	error
+risUserType	a	UserType
+rUserType	r	UserType
+rUserType	r	UserType
 UserType	a	UserType
 UserType	y	UserType
 UserType	N	UserType
@@ -1154,15 +1513,15 @@ zeroSymbolChar	[	error
 zeroSymbolDigit	[	error
 isbracket	[	bracket
 bracket	i	error
-SLZSymbolComment	i	error
-MLZSymbolComment	i	error
-zeroSymbolString	i	error
-zeroSymbolChar	i	error
-isReservedType	i	error
-isCondition	i	error
-isReservedWord	i	error
-isSysFunc	i	error
-zeroSymbolDigit	i	error
+rSLZSymbolComment	i	error
+rMLZSymbolComment	i	error
+rzeroSymbolString	i	error
+rzeroSymbolChar	i	error
+risReservedType	i	error
+risCondition	i	error
+risReservedWord	i	error
+risSysFunc	i	error
+orzeroSymbolDigit	i	error
 isbracket	i	error
 isIncOrDec	i	error
 isCompOper	i	error
@@ -1170,26 +1529,26 @@ isArOp	i	error
 isStar	i	error
 isLogicOper	i	error
 isBiteOp	i	error
-isAssignment	i	error
-isSeparator	i	error
-isUserType	i	UserType
-UserType	]	error
-SLZSymbolComment	]	error
-MLZSymbolComment	]	error
-zeroSymbolString	]	error
-zeroSymbolChar	]	error
-zeroSymbolDigit	]	error
-isbracket	]	bracket
-bracket	 	error
-SLZSymbolComment	 	error
-MLZSymbolComment	 	error
-zeroSymbolString	 	error
-zeroSymbolChar	 	error
-zeroSymbolDigit	 	error
-isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
+orisAssignment	i	error
+orisSeparator	i	error
+orisUserType	i	UserType
+orUserType	]	error
+orSLZSymbolComment	]	error
+orMLZSymbolComment	]	error
+orzeroSymbolString	]	error
+orzeroSymbolChar	]	error
+orzeroSymbolDigit	]	error
+orisbracket	]	bracket
+orbracket	 	error
+rSLZSymbolComment	 	error
+rMLZSymbolComment	 	error
+rzeroSymbolString	 	error
+rzeroSymbolChar	 	error
+rzeroSymbolDigit	 	error
+risbracket	 	error
+orisIncOrDec	 	error
+orisCompOper	 	error
+orisArOp	 	error
 isStar	 	error
 isLogicOper	 	error
 isBiteOp	 	error
@@ -1204,24 +1563,24 @@ zeroSymbolString	=	error
 zeroSymbolChar	=	error
 zeroSymbolDigit	=	error
 isbracket	=	error
-isIncOrDec	=	error
-isCompOper	=	isAsCompOp
-isAsCompOp	 	error0
-isArOp	=	error
-isStar	=	error
-isLogicOper	=	error
-isBiteOp	=	error
-isAssignment	=	Assignment
-Assignment	 	error
-SLZSymbolComment	 	error
-MLZSymbolComment	 	error
-zeroSymbolString	 	error
-zeroSymbolChar	 	error
-zeroSymbolDigit	 	error
-isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
+risIncOrDec	=	error
+risCompOper	=	isAsCompOp
+risAsCompOp	 	error0
+risArOp	=	error
+risStar	=	error
+risLogicOper	=	error
+risBiteOp	=	error
+risAssignment	=	Assignment
+rAssignment	 	error
+rSLZSymbolComment	 	error
+rMLZSymbolComment	 	error
+rzeroSymbolString	 	error
+rzeroSymbolChar	 	error
+rzeroSymbolDigit	 	error
+risbracket	 	error
+orisIncOrDec	 	error
+orisCompOper	 	error
+orisArOp	 	error
 isStar	 	error
 isLogicOper	 	error
 isBiteOp	 	error
@@ -1238,11 +1597,11 @@ isReservedType	N	error
 isCondition	N	error
 isReservedWord	N	error
 isSysFunc	N	error
-zeroSymbolDigit	N	error
-isbracket	N	error
-isIncOrDec	N	error
-isCompOper	N	error
-isArOp	N	error
+rzeroSymbolDigit	N	error
+risbracket	N	error
+orisIncOrDec	N	error
+orisCompOper	N	error
+orisArOp	N	error
 isStar	N	error
 isLogicOper	N	error
 isBiteOp	N	error
@@ -1256,16 +1615,16 @@ zeroSymbolString	 	error
 zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
-isStar	 	error
-isLogicOper	 	error
-isBiteOp	 	error
-isAssignment	 	error
-isSeparator	 	error
-isUserType	 	error
-isSpace	 	space
+risIncOrDec	 	error
+risCompOper	 	error
+risArOp	 	error
+risStar	 	error
+risLogicOper	 	error
+risBiteOp	 	error
+risAssignment	 	error
+risSeparator	 	error
+risUserType	 	error
+risSpace	 	space
 space	%	error
 SLZSymbolComment	%	error
 MLZSymbolComment	%	error
@@ -1273,19 +1632,19 @@ zeroSymbolString	%	error
 zeroSymbolChar	%	error
 zeroSymbolDigit	%	error
 isbracket	%	error
-isIncOrDec	%	error
-isCompOper	%	error
-isArOp	%	arOp
-arOp	 	error
-SLZSymbolComment	 	error
-MLZSymbolComment	 	error
-zeroSymbolString	 	error
-zeroSymbolChar	 	error
-zeroSymbolDigit	 	error
-isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
+risIncOrDec	%	error
+risCompOper	%	error
+risArOp	%	arOp
+rarOp	 	error
+rSLZSymbolComment	 	error
+rMLZSymbolComment	 	error
+rzeroSymbolString	 	error
+rzeroSymbolChar	 	error
+rzeroSymbolDigit	 	error
+risbracket	 	error
+orisIncOrDec	 	error
+orisCompOper	 	error
+orisArOp	 	error
 isStar	 	error
 isLogicOper	 	error
 isBiteOp	 	error
@@ -1307,47 +1666,47 @@ zeroSymbolString	;	error
 zeroSymbolChar	;	error
 zeroSymbolDigit	;	error
 isbracket	;	error
-isIncOrDec	;	error
-isCompOper	;	error
-isArOp	;	error
-isStar	;	error
-isLogicOper	;	error
-isBiteOp	;	error
-isAssignment	;	error
-isSeparator	;	Separator
-Separator	
+risIncOrDec	;	error
+risCompOper	;	error
+risArOp	;	error
+risStar	;	error
+risLogicOper	;	error
+risBiteOp	;	error
+risAssignment	;	error
+risSeparator	;	Separator
+rSeparator	
 	error
-SLZSymbolComment	
+orSLZSymbolComment	
 	error
-MLZSymbolComment	
+orMLZSymbolComment	
 	error
-zeroSymbolString	
+orzeroSymbolString	
 	error
-zeroSymbolChar	
+orzeroSymbolChar	
 	error
-zeroSymbolDigit	
+orzeroSymbolDigit	
 	error
-isbracket	
+orisbracket	
 	error
-isIncOrDec	
+rorisIncOrDec	
 	error
-isCompOper	
+rorisCompOper	
 	error
-isArOp	
+rorisArOp	
 	error
-isStar	
+risStar	
 	error
-isLogicOper	
+risLogicOper	
 	error
-isBiteOp	
+risBiteOp	
 	error
-isAssignment	
+risAssignment	
 	error
-isSeparator	
+risSeparator	
 	error
-isUserType	
+risUserType	
 	error
-isSpace	
+risSpace	
 	error
 isNewLine	
 	newLine
@@ -1358,16 +1717,16 @@ zeroSymbolString	 	error
 zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
-isStar	 	error
-isLogicOper	 	error
-isBiteOp	 	error
-isAssignment	 	error
-isSeparator	 	error
-isUserType	 	error
-isSpace	 	space
+risIncOrDec	 	error
+risCompOper	 	error
+risArOp	 	error
+risStar	 	error
+risLogicOper	 	error
+risBiteOp	 	error
+risAssignment	 	error
+risSeparator	 	error
+risUserType	 	error
+risSpace	 	space
 space	 	error
 SLZSymbolComment	 	error
 MLZSymbolComment	 	error
@@ -1375,16 +1734,16 @@ zeroSymbolString	 	error
 zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
-isStar	 	error
-isLogicOper	 	error
-isBiteOp	 	error
-isAssignment	 	error
-isSeparator	 	error
-isUserType	 	error
-isSpace	 	space
+risIncOrDec	 	error
+risCompOper	 	error
+risArOp	 	error
+risStar	 	error
+risLogicOper	 	error
+risBiteOp	 	error
+risAssignment	 	error
+risSeparator	 	error
+risUserType	 	error
+risSpace	 	space
 space	 	error
 SLZSymbolComment	 	error
 MLZSymbolComment	 	error
@@ -1392,14 +1751,14 @@ zeroSymbolString	 	error
 zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
-isStar	 	error
-isLogicOper	 	error
-isBiteOp	 	error
-isAssignment	 	error
-isSeparator	 	error
+risIncOrDec	 	error
+risCompOper	 	error
+risArOp	 	error
+risStar	 	error
+risLogicOper	 	error
+risBiteOp	 	error
+risAssignment	 	error
+risSeparator	 	error
 isUserType	 	error
 isSpace	 	space
 space	 	error
@@ -2480,7 +2839,7 @@ zeroSymbolString	a	error
 zeroSymbolChar	a	error
 isReservedType	arrayN	error
 isCondition	arrayN	error
-isReservedWord	arrayN	error
+risReservedWord	arrayN	error
 isSysFunc	arrayN	error
 zeroSymbolDigit	a	error
 isbracket	a	error
