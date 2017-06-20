@@ -24,6 +24,7 @@ WhileNode::~WhileNode(){
 
 TValue* WhileNode::Execute(){
     while (Condition->Execute()->GetValue()) {
+        if (Body)
         Body->Execute();
     }
     

@@ -29,6 +29,10 @@
 		F6E960371EF54FA600294F30 /* RealizUnarOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E960351EF54FA600294F30 /* RealizUnarOperation.cpp */; };
 		F6E9603D1EF55FFC00294F30 /* RealizBinaryOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E9603B1EF55FFC00294F30 /* RealizBinaryOperation.cpp */; };
 		F6E960411EF594D200294F30 /* Builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E9603F1EF594D200294F30 /* Builder.cpp */; };
+		F6E960471EF927EC00294F30 /* FunctionTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E960451EF927EC00294F30 /* FunctionTable.cpp */; };
+		F6E9604D1EF92E2A00294F30 /* FunctionData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E9604B1EF92E2A00294F30 /* FunctionData.cpp */; };
+		F6E960501EF9355C00294F30 /* FunctionKeeper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E9604E1EF9355C00294F30 /* FunctionKeeper.cpp */; };
+		F6E960541EF9783400294F30 /* FunctionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E960521EF9783400294F30 /* FunctionNode.cpp */; };
 		F6EC36DE1EEE9625003A1302 /* FileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36DC1EEE9625003A1302 /* FileReader.cpp */; };
 		F6EC36E11EEE9633003A1302 /* FileWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36DF1EEE9633003A1302 /* FileWriter.cpp */; };
 		F6EC36E61EEE98B7003A1302 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6EC36E41EEE98B7003A1302 /* Exception.cpp */; };
@@ -96,6 +100,14 @@
 		F6E9603C1EF55FFC00294F30 /* RealizBinaryOperation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RealizBinaryOperation.hpp; sourceTree = "<group>"; };
 		F6E9603F1EF594D200294F30 /* Builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Builder.cpp; sourceTree = "<group>"; };
 		F6E960401EF594D200294F30 /* Builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Builder.hpp; sourceTree = "<group>"; };
+		F6E960451EF927EC00294F30 /* FunctionTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionTable.cpp; sourceTree = "<group>"; };
+		F6E960461EF927EC00294F30 /* FunctionTable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FunctionTable.hpp; sourceTree = "<group>"; };
+		F6E9604B1EF92E2A00294F30 /* FunctionData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionData.cpp; sourceTree = "<group>"; };
+		F6E9604C1EF92E2A00294F30 /* FunctionData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FunctionData.hpp; sourceTree = "<group>"; };
+		F6E9604E1EF9355C00294F30 /* FunctionKeeper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionKeeper.cpp; sourceTree = "<group>"; };
+		F6E9604F1EF9355C00294F30 /* FunctionKeeper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FunctionKeeper.hpp; sourceTree = "<group>"; };
+		F6E960521EF9783400294F30 /* FunctionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionNode.cpp; sourceTree = "<group>"; };
+		F6E960531EF9783400294F30 /* FunctionNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FunctionNode.hpp; sourceTree = "<group>"; };
 		F6EC36D91EEE8803003A1302 /* DefaultSetting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DefaultSetting.hpp; sourceTree = "<group>"; };
 		F6EC36DC1EEE9625003A1302 /* FileReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileReader.cpp; sourceTree = "<group>"; };
 		F6EC36DD1EEE9625003A1302 /* FileReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FileReader.hpp; sourceTree = "<group>"; };
@@ -144,6 +156,7 @@
 		F6030DC41ED3523400AFE64C /* MyCompiler */ = {
 			isa = PBXGroup;
 			children = (
+				F6E960441EF927C800294F30 /* Fanction */,
 				F6E9603E1EF5940D00294F30 /* Builder */,
 				F62E2AFC1EF5303A00746498 /* Node */,
 				F6F0B66E1EF3EA48001FEBB9 /* Variable */,
@@ -218,6 +231,7 @@
 		F62E2AFC1EF5303A00746498 /* Node */ = {
 			isa = PBXGroup;
 			children = (
+				F6E960511EF9781D00294F30 /* Function Node */,
 				F62E2B051EF5310A00746498 /* While Node */,
 				F62E2B041EF530F700746498 /* If-Else Node */,
 				F62E2B031EF530DB00746498 /* Independent Operations Node */,
@@ -349,6 +363,52 @@
 				F6E960401EF594D200294F30 /* Builder.hpp */,
 			);
 			name = Builder;
+			sourceTree = "<group>";
+		};
+		F6E960441EF927C800294F30 /* Fanction */ = {
+			isa = PBXGroup;
+			children = (
+				F6E9604A1EF92DBA00294F30 /* Function Keeper */,
+				F6E960491EF92DA600294F30 /* Function Data */,
+				F6E960481EF92D9700294F30 /* Function Table */,
+			);
+			name = Fanction;
+			sourceTree = "<group>";
+		};
+		F6E960481EF92D9700294F30 /* Function Table */ = {
+			isa = PBXGroup;
+			children = (
+				F6E960451EF927EC00294F30 /* FunctionTable.cpp */,
+				F6E960461EF927EC00294F30 /* FunctionTable.hpp */,
+			);
+			name = "Function Table";
+			sourceTree = "<group>";
+		};
+		F6E960491EF92DA600294F30 /* Function Data */ = {
+			isa = PBXGroup;
+			children = (
+				F6E9604B1EF92E2A00294F30 /* FunctionData.cpp */,
+				F6E9604C1EF92E2A00294F30 /* FunctionData.hpp */,
+			);
+			name = "Function Data";
+			sourceTree = "<group>";
+		};
+		F6E9604A1EF92DBA00294F30 /* Function Keeper */ = {
+			isa = PBXGroup;
+			children = (
+				F6E9604E1EF9355C00294F30 /* FunctionKeeper.cpp */,
+				F6E9604F1EF9355C00294F30 /* FunctionKeeper.hpp */,
+			);
+			name = "Function Keeper";
+			sourceTree = "<group>";
+		};
+		F6E960511EF9781D00294F30 /* Function Node */ = {
+			isa = PBXGroup;
+			children = (
+				F6E960521EF9783400294F30 /* FunctionNode.cpp */,
+				F6E960531EF9783400294F30 /* FunctionNode.hpp */,
+			);
+			name = "Function Node";
 			sourceTree = "<group>";
 		};
 		F6EC36D41EEE875F003A1302 /* Heap */ = {
@@ -526,6 +586,7 @@
 				F62E2B1D1EF5333B00746498 /* VariableNode.cpp in Sources */,
 				F616EABC1EF14B5300B2570F /* TValue.cpp in Sources */,
 				F616EAB81EF129BA00B2570F /* TypeList.cpp in Sources */,
+				F6E960501EF9355C00294F30 /* FunctionKeeper.cpp in Sources */,
 				F6F0B6721EF42C6F001FEBB9 /* Scope.cpp in Sources */,
 				F616EAC01EF15FB000B2570F /* OperationList.cpp in Sources */,
 				F6E960411EF594D200294F30 /* Builder.cpp in Sources */,
@@ -538,7 +599,9 @@
 				F62E2B201EF5336200746498 /* WhileNode.cpp in Sources */,
 				F6030DD11ED352B100AFE64C /* list.cpp in Sources */,
 				F62E2B0B1EF5315F00746498 /* BinaryOperationNode.cpp in Sources */,
+				F6E9604D1EF92E2A00294F30 /* FunctionData.cpp in Sources */,
 				F6E960371EF54FA600294F30 /* RealizUnarOperation.cpp in Sources */,
+				F6E960471EF927EC00294F30 /* FunctionTable.cpp in Sources */,
 				F62E2B081EF5313400746498 /* ArrayNode.cpp in Sources */,
 				F62E2AF71EF52F6E00746498 /* BinaryOperationList.cpp in Sources */,
 				F6EC36E61EEE98B7003A1302 /* Exception.cpp in Sources */,
@@ -546,6 +609,7 @@
 				F6F0B6681EF26848001FEBB9 /* TValueKeeper.cpp in Sources */,
 				F6EC36E11EEE9633003A1302 /* FileWriter.cpp in Sources */,
 				F6F0B66D1EF3E981001FEBB9 /* VariableTable.cpp in Sources */,
+				F6E960541EF9783400294F30 /* FunctionNode.cpp in Sources */,
 				F62E2B1A1EF532B400746498 /* UnaryOperationNode.cpp in Sources */,
 				F62E2B111EF5321E00746498 /* IfElseNode.cpp in Sources */,
 				F6EC36DE1EEE9625003A1302 /* FileReader.cpp in Sources */,

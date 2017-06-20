@@ -16,6 +16,8 @@
 
 class TNode {
     
+protected:
+    
 public:
     virtual TValue* Execute() = 0;
     

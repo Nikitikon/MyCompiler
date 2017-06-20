@@ -51,14 +51,34 @@ static char* messages[] =
     "Null Object: Объект не существует"
 };
 
+void exep (){
+    throw new Exception("boo",3);
+}
+
+void temp2 (){
+    exep();
+}
+
+void temp (){
+    try {
+        temp2();
+    } catch (Exception* e) {
+        if (!strcmp(e->GetMessage(), "bool"))
+            cout << "bool";
+        else
+            throw e;
+    }
+}
 
 int main()
 {
     try
     {
-        Builder* builder = new Builder(R);
-        builder->Build();
-        builder->Run();
+        //Builder* builder = new Builder(R);
+        //builder->FindFunction();
+       // builder->Build();
+       // builder->Run();
+        temp();
     }
     catch (Exceptions e)
     {

@@ -60,6 +60,7 @@ TValue* IndependentOperationsNode::Execute(){
     while (WorkListNode) {
         WorkListNode->Expression->Execute();
         WorkListNode = WorkListNode->Next;
+        
     }
     
     return NULL;

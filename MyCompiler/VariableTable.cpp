@@ -13,8 +13,7 @@ VariableTable::~VariableTable(){
 }
 
 
-unsigned int VariableTable::Key1(char* Key)
-{
+unsigned int VariableTable::Key1(char* Key){
     if (Key == NULL)
         return 0;
     

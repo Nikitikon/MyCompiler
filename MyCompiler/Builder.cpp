@@ -26,6 +26,8 @@ Builder::Builder(char* sourceCode){
     
     Tokens = ConvertToNewToken(Tokens);
     
+    FTable = new FunctionTable();
+    
   //  PrintList(Tokens);
     
     Prioritize(Tokens);
@@ -55,6 +57,87 @@ Builder::~Builder(){
     CurrentScope = NULL;
 }
 
+
+
+VariableTable* Builder::CreateTableParametrFunction(int StartPosition, int FinishPosition){
+    VariableTable* FunctionParametr = new VariableTable();
+    if (StartPosition - FinishPosition == -1)
+        throw new Exception("MissingParameter: пропущен параметр фунцкии", ((NewToken*)Tokens->get(StartPosition))->LineIndex);
+    
+    for (int i = StartPosition + 1; i < FinishPosition; i += 3) {
+        int Index = i;
+        NewToken* Type = (NewToken*)Tokens->get(Index);
+        
+        if (StartPosition - FinishPosition == -2 && TypeList::Instance().GetTypeIndex("void") == TypeList::Instance().GetTypeIndex(Type->String))
+            return new VariableTable();
+        
+        Index++;
+        NewToken* Name = (NewToken*)Tokens->get(Index);
+        
+        if (Name->Type != Automat::UserType)
+            throw new Exception("MissingUserType: пропущено объявление параметра", Name->LineIndex);
+        
+        if (FTable->Find(Name->String) != NULL)
+            throw new Exception("FunctionInitializationError: функция уже объявлена", Name->LineIndex);
+        
+        if (FunctionParametr->Find(Name->String) != NULL)
+            throw new Exception("FunctionInitializationError: переменная уже объявлена", Name->LineIndex);
+        
+        Index++;
+        NewToken* CommaOrBracket = (NewToken*)Tokens->get(Index);
+        if ((!strcmp(CommaOrBracket->String, ")") && Index != FinishPosition))
+            if (strcmp(CommaOrBracket->String, ","))
+                throw new Exception("InvalidParametr: ожидалась запятая", CommaOrBracket->LineIndex);
+        
+        TValue* Value = new TValue(0, TypeList::Instance().GetTypeIndex(Type->String), 0);
+        TValueKeeper* Keeper = new TValueKeeper(Name->String, Value);
+        FunctionParametr->Put(Keeper);
+    }
+    
+    return FunctionParametr;
+}
+
+
+
+void Builder::FindFunction(){
+    int Count = Tokens->count();
+    
+    for (int i = 0; i < Count; i++){
+        NewToken* Type = (NewToken*)Tokens->get(i);
+        
+        if (Type->Type == Automat::ReservedType){
+            int Index = i + 1;
+            
+            NewToken* Name = (NewToken*)Tokens->get(Index);
+            
+            if (Name->Type != Automat::UserType)
+                throw new Exception("MissingUserType: пропущено объявление функции", Name->LineIndex);
+            
+            if (FTable->Find(Name->String) != NULL)
+                throw new Exception("FunctionInitializationError: функция уже объявлена", Name->LineIndex);
+            
+            Index++;
+            NewToken* OpenParenthesis = (NewToken*)Tokens->get(Index);
+            if (strcmp(OpenParenthesis->String, "("))
+                throw new Exception("MissingOpenParenthesis: пропущена скобка", OpenParenthesis->LineIndex);
+            
+            int IndexCloseParenthesis = ClosingBracketIndex(Index);
+            
+            VariableTable* Parametr = CreateTableParametrFunction(Index, IndexCloseParenthesis);
+            
+            Index = IndexCloseParenthesis + 1;
+            if (strcmp(((NewToken*)Tokens->get(Index))->String, "{"))
+                throw new Exception("MissingBrace: промущена фигурная скобака", ((NewToken*)Tokens->get(Index))->LineIndex);
+            
+            i = ClosingBracketIndex(Index);
+            
+            FunctionData* Data = new FunctionData(TypeList::Instance().GetTypeIndex(Type->String), Parametr);
+            FunctionKeeper* Keeper = new FunctionKeeper(Name->String, Data);
+            
+            FTable->Put(Keeper);
+        }
+    }
+}
 
 
 // Запуск выполения дерева.

@@ -23,6 +23,7 @@ void TypeList::AddPrimitiveTypes(){
     Types->add((void*)"bool");
     Types->add((void*)"float");
     Types->add((void*)"char");
+    Types->add((void*)"void");
 
 }
 

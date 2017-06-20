@@ -25,6 +25,7 @@
 #include "IfElseNode.hpp"
 #include "WhileNode.hpp"
 #include "Exception.hpp"
+#include "FunctionTable.hpp"
 
 enum TNodeType
 {
@@ -60,8 +61,10 @@ private:
     Scope* CurrentScope;
     IndependentOperationsNode* CurrentList;
     
-     bool IsFraction(char* Str); // Done
-     double StringToDouble(char* Str); // Done
+    FunctionTable* FTable;
+    
+    bool IsFraction(char* Str); // Done
+    double StringToDouble(char* Str); // Done
     
     int ClosingBracketIndex(int OpeningBracketIndex); // Done
     int FindOperationWithMinimalPriority(int startPosition , int finishPosition); // Done
@@ -80,7 +83,9 @@ private:
     TNode* ParseWhile(int& Index); // Done
     TNode* ParseVariableName(int& Index, TNodeType& Type); // Done
     
-    void ParseMultiLine(int StartPosition, int EndPosition); //
+    void ParseMultiLine(int StartPosition, int EndPosition); // Done
+    
+    VariableTable* CreateTableParametrFunction(int StartPosition, int FinishPosition); // Done
     
 public:
     Builder(char* sourceCode); // Done
@@ -89,6 +94,8 @@ public:
     void Build(); // Done
     void Run(); // Done
     void PrintList(List*); // Done
+    
+    void FindFunction();
 };
 
 #endif /* Builder_hpp */
