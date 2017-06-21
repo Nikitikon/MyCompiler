@@ -8,10 +8,11 @@
 
 #include "FunctionData.hpp"
 
-FunctionData::FunctionData(int ReturnType, VariableTable* Argument){
+FunctionData::FunctionData(int ReturnType, VariableTable* Argument, List* ArgumentNameList){
     this->Argument = Argument;
     this->ReturnType = ReturnType;
     this->FunctionTree = new IndependentOperationsNode();
+    this->ArgumentNameList = ArgumentNameList;
 }
 
 

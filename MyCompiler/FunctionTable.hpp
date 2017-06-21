@@ -19,6 +19,7 @@ class FunctionTable : public Hash{
 protected:
     unsigned int Key1(char* Key);
     
+    
 public:
     
     FunctionTable() : Hash(9,0,0,0,0) {};

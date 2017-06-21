@@ -51,41 +51,33 @@ static char* messages[] =
     "Null Object: Объект не существует"
 };
 
-void exep (){
-    throw new Exception("boo",3);
+class ClassName{
+public:
+    char* s;
+    ClassName(){
+    cout << "classname_constructor" << endl;
 }
-
-void temp2 (){
-    exep();
+ClassName(const ClassName &obj){
+    cout << "copy_object";
 }
-
-void temp (){
-    try {
-        temp2();
-    } catch (Exception* e) {
-        if (!strcmp(e->GetMessage(), "bool"))
-            cout << "bool";
-        else
-            throw e;
-    }
+~ClassName(){
+    cout <<"~classname_destructor" << endl;
 }
+};
 
 int main()
 {
-    try
-    {
-        //Builder* builder = new Builder(R);
+    try{
+        Builder* builder = new Builder(R);
         //builder->FindFunction();
-       // builder->Build();
-       // builder->Run();
-        temp();
+        builder->Build();
+        builder->Run();
+
     }
-    catch (Exceptions e)
-    {
+    catch (Exceptions e){
         setlocale(LC_ALL, "Russian");
     }
-    catch (Exception* eline)
-    {
+    catch (Exception* eline){
         setlocale(LC_ALL, "Russian");
         cout << eline->GetMessage() << " Строка: " << eline->GetLine() << "." << endl;
     }

@@ -59,8 +59,9 @@ Builder::~Builder(){
 
 
 
-VariableTable* Builder::CreateTableParametrFunction(int StartPosition, int FinishPosition){
+VariableTable* Builder::CreateTableParametrFunction(int StartPosition, int FinishPosition, List* ArgumentList){
     VariableTable* FunctionParametr = new VariableTable();
+    
     if (StartPosition - FinishPosition == -1)
         throw new Exception("MissingParameter: пропущен параметр фунцкии", ((NewToken*)Tokens->get(StartPosition))->LineIndex);
     
@@ -92,6 +93,7 @@ VariableTable* Builder::CreateTableParametrFunction(int StartPosition, int Finis
         TValue* Value = new TValue(0, TypeList::Instance().GetTypeIndex(Type->String), 0);
         TValueKeeper* Keeper = new TValueKeeper(Name->String, Value);
         FunctionParametr->Put(Keeper);
+        ArgumentList->add(Name->String);
     }
     
     return FunctionParametr;
@@ -123,7 +125,8 @@ void Builder::FindFunction(){
             
             int IndexCloseParenthesis = ClosingBracketIndex(Index);
             
-            VariableTable* Parametr = CreateTableParametrFunction(Index, IndexCloseParenthesis);
+            List* ArgumentList = new List(MAX_OPERATION_NAME_LENGHT);
+            VariableTable* Parametr = CreateTableParametrFunction(Index, IndexCloseParenthesis, ArgumentList);
             
             Index = IndexCloseParenthesis + 1;
             if (strcmp(((NewToken*)Tokens->get(Index))->String, "{"))
@@ -131,9 +134,8 @@ void Builder::FindFunction(){
             
             i = ClosingBracketIndex(Index);
             
-            FunctionData* Data = new FunctionData(TypeList::Instance().GetTypeIndex(Type->String), Parametr);
+            FunctionData* Data = new FunctionData(TypeList::Instance().GetTypeIndex(Type->String), Parametr, ArgumentList);
             FunctionKeeper* Keeper = new FunctionKeeper(Name->String, Data);
-            
             FTable->Put(Keeper);
         }
     }
@@ -142,11 +144,14 @@ void Builder::FindFunction(){
 
 // Запуск выполения дерева.
 void Builder::Run(){
-    
+
     if (Root)
         Root->Execute();
     else
         throw new Exception("Необходимо построить синтексное дерево до выполнения", 0);
+    
+    
+
 }
 
 
@@ -306,7 +311,7 @@ void Builder::Prioritize(List* ToketList){
         if (isOperator(currentToken->Type)){
             char* tempStr = currentToken->String;
             
-            if (!strcmp(tempStr, ",")){
+            if (!strcmp(tempStr, ",") || !strcmp(tempStr, "return")){
                 currentToken->Priority = 16;
                 continue;
             }
@@ -518,19 +523,26 @@ TNode* Builder::ParseLine(int StartPosition, int FinishPosition){
     }
     
     //Единственный токен в строке
-    if (StartPosition == FinishPosition){
+    if (StartPosition == FinishPosition && strcmp(Token->String, "return")){
         return ParseSingleTokenLine(StartPosition);
     }
     
     //Line не является выражением, содержащим арифметические, логические операции, операции присваивания или системные функции.
     
-    if (!IsAnExpression(StartPosition, FinishPosition)){
+    if (!IsAnExpression(StartPosition, FinishPosition) && strcmp(Token->String, "return")){
         TNodeType type;
         return ParseVariableName(StartPosition, type);
     }
     
     int PositionTokenWithMinPriority = FindOperationWithMinimalPriority(StartPosition, FinishPosition);
     NewToken* WorkElement = (NewToken*)Tokens->get(PositionTokenWithMinPriority);
+    
+    if (!strcmp("return", WorkElement->String)){
+        if (FinishPosition == PositionTokenWithMinPriority)
+            return new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(WorkElement->String), NULL);
+        
+        return new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition));
+    }
     
     //Арифметические операции
     if (WorkElement->Type == Automat::ApOp){
@@ -1159,6 +1171,9 @@ void Builder::ParseMultiLine(int Start, int End){
             continue;
         }
         
+        if (!strcmp("return", Token->String)){
+            
+        }
         
         // 5. Обращение к переменной и массивам
         // a = <expression>;

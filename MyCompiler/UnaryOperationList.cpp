@@ -37,6 +37,7 @@ void UnaryOperationList::LoadDefaultOperations(){
     unaryOperation->add((void*)"sin");
     unaryOperation->add((void*)"cos");
     unaryOperation->add((void*)"rand");
+    unaryOperation->add((void*)"return");
 }
 
 UnaryOperationList& UnaryOperationList::Instance(){

@@ -20,7 +20,9 @@ private:
     IndependentOperationsNode* FunctionTree;
     
 public:
-    FunctionData(int ReturnType, VariableTable* Argument); // Done
+    List* ArgumentNameList;
+
+    FunctionData(int ReturnType, VariableTable* Argument, List* ArgumentNameList); // Done
     ~FunctionData(); // Done
     
     int GetReturnType(); // Done

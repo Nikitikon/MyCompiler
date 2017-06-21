@@ -7,7 +7,7 @@
 //
 
 #include "Exception.hpp"
-Exception::Exception(char* message, int line)
+Exception::Exception(char* message, double line)
 {
     _message = message;
     _line = line;
@@ -19,7 +19,7 @@ char* Exception::GetMessage()
 {
     return _message;
 }
-int Exception::GetLine()
+double Exception::GetLine()
 {
     return _line;
 }

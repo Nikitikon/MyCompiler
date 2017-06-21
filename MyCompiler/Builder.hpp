@@ -85,7 +85,7 @@ private:
     
     void ParseMultiLine(int StartPosition, int EndPosition); // Done
     
-    VariableTable* CreateTableParametrFunction(int StartPosition, int FinishPosition); // Done
+    VariableTable* CreateTableParametrFunction(int StartPosition, int FinishPosition,List* ArgumentList); // Done
     
 public:
     Builder(char* sourceCode); // Done

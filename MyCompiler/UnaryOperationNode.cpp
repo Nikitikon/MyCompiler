@@ -31,6 +31,12 @@ UnaryOperationNode::~UnaryOperationNode(){
 
 
 TValue* UnaryOperationNode::Execute(){
+    if (Operand == NULL){
+        if (Type == UnaryOperationList::Instance().GetOperationIndex("return"))
+            return Realization->DoUnarOpereation("return", NULL);
+        else
+            throw new Exception("MissingOperand: пропущен операнд", 0);
+    }
     TValue* resultOfOperand = Operand->Execute();
     
     char* operation = UnaryOperationList::Instance().GetOperationName(Type);

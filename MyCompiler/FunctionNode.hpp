@@ -15,8 +15,7 @@ class FunctionNode : public TNode{
     
 private:
     TValue* ReturnValue;
-    IndependentOperationsNode* 
-public:
+    IndependentOperationsNode* a;
     
 };
 

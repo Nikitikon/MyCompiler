@@ -132,38 +132,43 @@ TValue* RealizUnarOperation::StandartOperation(char* Operation, TValue* ResultOf
 }
 
 
+TValue* RealizUnarOperation::BreakOperation(char* Operation, TValue* ResultOfOperand){
+    if (ResultOfOperand != NULL)
+        throw new Exception("return", ResultOfOperand->GetValue());
+    
+    throw new Exception("return", NULL);
+}
+
+
 
 TValue* RealizUnarOperation::DoUnarOpereation(char* Operation, TValue* ResultOfOperand){
-    if (!strcmp(Operation, "+") || !strcmp(Operation, "-"))
-    {
+    if (!strcmp(Operation, "+") || !strcmp(Operation, "-")){
         return UnaryPlasMinus(Operation, ResultOfOperand);
     }
     
-    if (!strcmp(Operation, "!"))
-    {
+    if (!strcmp(Operation, "!")){
         return NotLogicOperation(Operation, ResultOfOperand);
     }
     
-    if (!strcmp(Operation, "î++") || !strcmp(Operation, "î--") || !strcmp(Operation, "++î") || !strcmp(Operation, "--î"))
-    {
+    if (!strcmp(Operation, "î++") || !strcmp(Operation, "î--") || !strcmp(Operation, "++î") || !strcmp(Operation, "--î")){
         return DecrOrIncr(Operation, ResultOfOperand);
     }
     
-    if (!strcmp(Operation, "input"))
-    {
+    if (!strcmp(Operation, "input")){
         return InputOperation(Operation, ResultOfOperand);
     }
     
-    if (!strcmp(Operation, "print"))
-    {
+    if (!strcmp(Operation, "print")){
         return PrintOperation(Operation, ResultOfOperand);
     }
     
-    if (!strcmp(Operation, "sin") || !strcmp(Operation, "cos") || !strcmp(Operation, "rand"))
-    {
+    if (!strcmp(Operation, "sin") || !strcmp(Operation, "cos") || !strcmp(Operation, "rand")){
         return StandartOperation(Operation, ResultOfOperand);
     }
     
+    if (!strcmp(Operation, "return")){
+        return BreakOperation(Operation, ResultOfOperand);
+    }
     
     throw Exceptions::UnknownOperation;
 }

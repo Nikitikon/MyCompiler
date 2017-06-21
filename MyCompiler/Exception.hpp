@@ -12,14 +12,14 @@
 class Exception
 {
     char* _message;
-    int _line;
+    double _line;
     
 public:
-    Exception(char* message, int line);
+    Exception(char* message, double line);
     ~Exception();
     
     char* GetMessage();
-    int GetLine();
+    double GetLine();
 };
 
 #endif /* Exception_hpp */

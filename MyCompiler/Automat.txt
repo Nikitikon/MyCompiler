@@ -112,6 +112,7 @@ isReservedWord	false	reservedWord
 isReservedWord	for	reservedWord
 isReservedWord	switch	reservedWord
 isReservedWord	true	reservedWord
+isReservedWord	return	reservedWord
 isReservedWord	...	error
 
 reservedWord	...	error

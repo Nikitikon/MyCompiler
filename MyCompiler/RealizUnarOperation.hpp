@@ -12,6 +12,7 @@
 #include "UnaryOperationList.hpp"
 #include "TValue.hpp"
 #include <cmath>
+#include "Exception.hpp"
 
 class RealizUnarOperation {
     
@@ -22,6 +23,7 @@ private:
     TValue* InputOperation(char* Operation, TValue* ResultOfOperand); // Done
     TValue* PrintOperation(char* Operation, TValue* ResultOfOperand); // Done
     TValue* StandartOperation(char* Operation, TValue* ResultOfOperand); // Done
+    TValue* BreakOperation(char* Operation, TValue* ResultOfOperand);
     
 public:
     RealizUnarOperation(){} // Done
