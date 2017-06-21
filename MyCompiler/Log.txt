@@ -424,16 +424,16 @@ zeroSymbolString	 	error
 zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
-isStar	 	error
-isLogicOper	 	error
-isBiteOp	 	error
-isAssignment	 	error
-isSeparator	 	error
-isUserType	 	error
-isSpace	 	space
+risIncOrDec	 	error
+risCompOper	 	error
+risArOp	 	error
+risStar	 	error
+risLogicOper	 	error
+risBiteOp	 	error
+risAssignment	 	error
+risSeparator	 	error
+risUserType	 	error
+risSpace	 	space
 space	 	error
 SLZSymbolComment	 	error
 MLZSymbolComment	 	error
@@ -441,16 +441,16 @@ zeroSymbolString	 	error
 zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
-isStar	 	error
-isLogicOper	 	error
-isBiteOp	 	error
-isAssignment	 	error
-isSeparator	 	error
-isUserType	 	error
-isSpace	 	space
+risIncOrDec	 	error
+risCompOper	 	error
+risArOp	 	error
+risStar	 	error
+risLogicOper	 	error
+risBiteOp	 	error
+risAssignment	 	error
+risSeparator	 	error
+risUserType	 	error
+risSpace	 	space
 space	 	error
 SLZSymbolComment	 	error
 MLZSymbolComment	 	error
@@ -458,16 +458,16 @@ zeroSymbolString	 	error
 zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
-isStar	 	error
-isLogicOper	 	error
-isBiteOp	 	error
-isAssignment	 	error
-isSeparator	 	error
-isUserType	 	error
-isSpace	 	space
+risIncOrDec	 	error
+risCompOper	 	error
+risArOp	 	error
+risStar	 	error
+risLogicOper	 	error
+risBiteOp	 	error
+risAssignment	 	error
+risSeparator	 	error
+risUserType	 	error
+risSpace	 	space
 space	 	error
 SLZSymbolComment	 	error
 MLZSymbolComment	 	error
@@ -475,16 +475,16 @@ zeroSymbolString	 	error
 zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
-isStar	 	error
-isLogicOper	 	error
-isBiteOp	 	error
-isAssignment	 	error
-isSeparator	 	error
-isUserType	 	error
-isSpace	 	space
+risIncOrDec	 	error
+risCompOper	 	error
+risArOp	 	error
+risStar	 	error
+risLogicOper	 	error
+risBiteOp	 	error
+risAssignment	 	error
+risSeparator	 	error
+risUserType	 	error
+risSpace	 	space
 space	i	error
 SLZSymbolComment	i	error
 MLZSymbolComment	i	error
@@ -498,16 +498,16 @@ zeroSymbolString	 	error
 zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
-isStar	 	error
-isLogicOper	 	error
-isBiteOp	 	error
-isAssignment	 	error
-isSeparator	 	error
-isUserType	 	error
-isSpace	 	space
+risIncOrDec	 	error
+risCompOper	 	error
+risArOp	 	error
+risStar	 	error
+risLogicOper	 	error
+risBiteOp	 	error
+risAssignment	 	error
+risSeparator	 	error
+risUserType	 	error
+risSpace	 	space
 space	(	error
 SLZSymbolComment	(	error
 MLZSymbolComment	(	error
@@ -526,29 +526,29 @@ isReservedWord	quantity	error
 isSysFunc	quantity	error
 zeroSymbolDigit	q	error
 isbracket	q	error
-isIncOrDec	q	error
-isCompOper	q	error
-isArOp	q	error
-isStar	q	error
-isLogicOper	q	error
-isBiteOp	q	error
-isAssignment	q	error
-isSeparator	q	error
-isUserType	q	UserType
-UserType	u	UserType
-UserType	a	UserType
-UserType	n	UserType
-UserType	t	UserType
-UserType	i	UserType
-UserType	t	UserType
-UserType	y	UserType
-UserType	 	error
-SLZSymbolComment	 	error
-MLZSymbolComment	 	error
-zeroSymbolString	 	error
-zeroSymbolChar	 	error
-zeroSymbolDigit	 	error
-isbracket	 	error
+risIncOrDec	q	error
+risCompOper	q	error
+risArOp	q	error
+risStar	q	error
+risLogicOper	q	error
+risBiteOp	q	error
+risAssignment	q	error
+risSeparator	q	error
+risUserType	q	UserType
+rUserType	u	UserType
+rUserType	a	UserType
+rUserType	n	UserType
+rUserType	t	UserType
+rUserType	i	UserType
+rUserType	t	UserType
+rUserType	y	UserType
+rUserType	 	error
+rSLZSymbolComment	 	error
+rMLZSymbolComment	 	error
+rzeroSymbolString	 	error
+rzeroSymbolChar	 	error
+rzeroSymbolDigit	 	error
+risbracket	 	error
 isIncOrDec	 	error
 isCompOper	 	error
 isArOp	 	error
@@ -579,7 +579,7 @@ isbracket	 	error
 isIncOrDec	 	error
 isCompOper	 	error
 isArOp	 	error
-isStar	 	error
+orisStar	 	error
 isLogicOper	 	error
 isBiteOp	 	error
 isAssignment	 	error
@@ -753,8 +753,8 @@ zeroSymbolString	 	error
 zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
+risIncOrDec	 	error
+risCompOper	 	error
 isArOp	 	error
 isStar	 	error
 isLogicOper	 	error
@@ -774,12 +774,12 @@ isIncOrDec	 	error
 isCompOper	 	error
 isArOp	 	error
 isStar	 	error
-isLogicOper	 	error
+risLogicOper	 	error
 isBiteOp	 	error
-isAssignment	 	error
-isSeparator	 	error
-isUserType	 	error
-isSpace	 	space
+risAssignment	 	error
+risSeparator	 	error
+risUserType	 	error
+risSpace	 	space
 space	 	error
 SLZSymbolComment	 	error
 MLZSymbolComment	 	error
@@ -928,7 +928,7 @@ isIncOrDec	q	error
 isCompOper	q	error
 isArOp	q	error
 isStar	q	error
-risLogicOper	q	error
+isLogicOper	q	error
 isBiteOp	q	error
 isAssignment	q	error
 isSeparator	q	error
@@ -1463,7 +1463,7 @@ zeroSymbolChar	 	error
 zeroSymbolDigit	 	error
 isbracket	 	error
 isIncOrDec	 	error
-risCompOper	 	error
+isCompOper	 	error
 isArOp	 	error
 isStar	 	error
 isLogicOper	 	error
@@ -4408,6 +4408,150 @@ isBiteOp	i	error
 isAssignment	i	error
 isSeparator	i	error
 isUserType	i	UserType
+UserType	 	error
+SLZSymbolComment	 	error
+MLZSymbolComment	 	error
+zeroSymbolString	 	error
+zeroSymbolChar	 	error
+zeroSymbolDigit	 	error
+isbracket	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
+isSeparator	 	error
+isUserType	 	error
+isSpace	 	space
+space	=	error
+SLZSymbolComment	=	error
+MLZSymbolComment	=	error
+zeroSymbolString	=	error
+zeroSymbolChar	=	error
+zeroSymbolDigit	=	error
+isbracket	=	error
+isIncOrDec	=	error
+isCompOper	=	isAsCompOp
+isAsCompOp	 	error0
+isArOp	=	error
+isStar	=	error
+isLogicOper	=	error
+isBiteOp	=	error
+isAssignment	=	Assignment
+Assignment	 	error
+SLZSymbolComment	 	error
+MLZSymbolComment	 	error
+zeroSymbolString	 	error
+zeroSymbolChar	 	error
+zeroSymbolDigit	 	error
+isbracket	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
+isSeparator	 	error
+isUserType	 	error
+isSpace	 	space
+space	s	error
+SLZSymbolComment	s	error
+MLZSymbolComment	s	error
+zeroSymbolString	s	error
+zeroSymbolChar	s	error
+isReservedType	star	error
+isCondition	star	error
+isReservedWord	star	error
+isSysFunc	star	error
+zeroSymbolDigit	s	error
+isbracket	s	error
+isIncOrDec	s	error
+isCompOper	s	error
+isArOp	s	error
+isStar	s	error
+isLogicOper	s	error
+isBiteOp	s	error
+isAssignment	s	error
+isSeparator	s	error
+isUserType	s	UserType
+UserType	t	UserType
+UserType	a	UserType
+UserType	r	UserType
+UserType	 	error
+SLZSymbolComment	 	error
+MLZSymbolComment	 	error
+zeroSymbolString	 	error
+zeroSymbolChar	 	error
+zeroSymbolDigit	 	error
+isbracket	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
+isSeparator	 	error
+isUserType	 	error
+isSpace	 	space
+space	=	error
+SLZSymbolComment	=	error
+MLZSymbolComment	=	error
+zeroSymbolString	=	error
+zeroSymbolChar	=	error
+zeroSymbolDigit	=	error
+isbracket	=	error
+isIncOrDec	=	error
+isCompOper	=	isAsCompOp
+isAsCompOp	 	error0
+isArOp	=	error
+isStar	=	error
+isLogicOper	=	error
+isBiteOp	=	error
+isAssignment	=	Assignment
+Assignment	 	error
+SLZSymbolComment	 	error
+MLZSymbolComment	 	error
+zeroSymbolString	 	error
+zeroSymbolChar	 	error
+zeroSymbolDigit	 	error
+isbracket	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
+isSeparator	 	error
+isUserType	 	error
+isSpace	 	space
+space	s	error
+SLZSymbolComment	s	error
+MLZSymbolComment	s	error
+zeroSymbolString	s	error
+zeroSymbolChar	s	error
+isReservedType	star	error
+isCondition	star	error
+isReservedWord	star	error
+isSysFunc	star	error
+zeroSymbolDigit	s	error
+isbracket	s	error
+isIncOrDec	s	error
+isCompOper	s	error
+isArOp	s	error
+isStar	s	error
+isLogicOper	s	error
+isBiteOp	s	error
+isAssignment	s	error
+isSeparator	s	error
+isUserType	s	UserType
+UserType	t	UserType
+UserType	a	UserType
+UserType	r	UserType
 UserType	;	error
 SLZSymbolComment	;	error
 MLZSymbolComment	;	error
@@ -4527,84 +4671,15 @@ isAssignment	 	error
 isSeparator	 	error
 isUserType	 	error
 isSpace	 	space
-space	i	error
-SLZSymbolComment	i	error
-MLZSymbolComment	i	error
-zeroSymbolString	i	error
-zeroSymbolChar	i	error
-isReservedType	i	error
-isCondition	i	error
-isReservedWord	i	error
-isSysFunc	i	error
-zeroSymbolDigit	i	error
-isbracket	i	error
-isIncOrDec	i	error
-isCompOper	i	error
-isArOp	i	error
-isStar	i	error
-isLogicOper	i	error
-isBiteOp	i	error
-isAssignment	i	error
-isSeparator	i	error
-isUserType	i	UserType
-UserType	 	error
-SLZSymbolComment	 	error
-MLZSymbolComment	 	error
-zeroSymbolString	 	error
-zeroSymbolChar	 	error
-zeroSymbolDigit	 	error
-isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
-isStar	 	error
-isLogicOper	 	error
-isBiteOp	 	error
-isAssignment	 	error
-isSeparator	 	error
-isUserType	 	error
-isSpace	 	space
-space	=	error
-SLZSymbolComment	=	error
-MLZSymbolComment	=	error
-zeroSymbolString	=	error
-zeroSymbolChar	=	error
-zeroSymbolDigit	=	error
-isbracket	=	error
-isIncOrDec	=	error
-isCompOper	=	isAsCompOp
-isAsCompOp	 	error0
-isArOp	=	error
-isStar	=	error
-isLogicOper	=	error
-isBiteOp	=	error
-isAssignment	=	Assignment
-Assignment	 	error
-SLZSymbolComment	 	error
-MLZSymbolComment	 	error
-zeroSymbolString	 	error
-zeroSymbolChar	 	error
-zeroSymbolDigit	 	error
-isbracket	 	error
-isIncOrDec	 	error
-isCompOper	 	error
-isArOp	 	error
-isStar	 	error
-isLogicOper	 	error
-isBiteOp	 	error
-isAssignment	 	error
-isSeparator	 	error
-isUserType	 	error
-isSpace	 	space
 space	h	error
 SLZSymbolComment	h	error
 MLZSymbolComment	h	error
 zeroSymbolString	h	error
 zeroSymbolChar	h	error
-isReservedType	hanoi	error
-isCondition	hanoi	error
-isReservedWord	hanoi	error
-isSysFunc	hanoi	error
+isReservedType	hanoii	error
+isCondition	hanoii	error
+isReservedWord	hanoii	error
+isSysFunc	hanoii	error
 zeroSymbolDigit	h	error
 isbracket	h	error
 isIncOrDec	h	error
@@ -4619,6 +4694,7 @@ isUserType	h	UserType
 UserType	a	UserType
 UserType	n	UserType
 UserType	o	UserType
+UserType	i	UserType
 UserType	i	UserType
 UserType	(	error
 SLZSymbolComment	(	error

@@ -20,8 +20,8 @@ int main (void){
     int des = 3;
     int buf = 2;
     int plate = 3;
-    int i;
-    i = hanoi(plate, star, des, buf);
+    int i = star = star;
+    hanoi(plate, star, des, buf);
     
     return 0;
 }

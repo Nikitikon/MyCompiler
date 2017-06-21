@@ -1125,8 +1125,12 @@ TNode* Builder::ParseVariableName(int& Index, TNodeType& Type){
     
     TValueKeeper* Keeper = CurrentScope->Find(VariableName->String);
     
-    if (Keeper == NULL)
+    if (Keeper == NULL){
+        if (!strcmp(((NewToken*)Tokens->get(Index))->String, "("))
+            throw new Exception("FunctionNameNotFound: необъявленная функция", ((NewToken*)Tokens->get(Index))->LineIndex);
+        
         throw new Exception("VariableNameNotFound: необъявленная переменная или константа", ((NewToken*)Tokens->get(Index))->LineIndex);
+    }
     
     // Переменная хранит ссылку на массив значений
     // Для доступа к нужному элементу необходимо указание индекса элемента в квадратных скобках
