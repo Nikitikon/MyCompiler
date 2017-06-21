@@ -11,6 +11,7 @@
 
 #include <stddef.h>
 #include <iostream>
+#include "Exception.hpp"
 
 #define SEGMENTSIZE 65536
 #define LISTSIZE 64

@@ -20,9 +20,10 @@ protected:
     TNode* LeftOperand;
     TNode* RightOperand;
     RealizBinaryOperation* Realization;
+    int Line;
     
 public:
-    BinaryOperationNode(int Type, TNode* LeftOperand, TNode* RightOperand); // Done
+    BinaryOperationNode(int Type, TNode* LeftOperand, TNode* RightOperand, int Line); // Done
     ~BinaryOperationNode(); // Done
     
     TValue* Execute(); // Done

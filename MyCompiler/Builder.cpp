@@ -443,7 +443,7 @@ int Builder::FindToken(int StartPosition, int FinishPosition, char* token){
             return i;
     }
     
-    throw new Exception("TokenNotFound: токен не найден.", ((NewToken*)Tokens->get(StartPosition))->LineIndex);
+    throw new Exception("TokenNotFound: не найден ожидаемый символ.", ((NewToken*)Tokens->get(StartPosition))->LineIndex);
 }
 
 
@@ -560,6 +560,18 @@ TNode* Builder::ParseFunction(int& Index){
     if (CloseBreacket - Index == 1 && ArgName->count()!=0)
         throw Exception("MissingArgument: пропущены аргументы при вызове функции",Brecket->LineIndex);
     int Count = 0;
+    int CommonCount = 0;
+    for (int i = Index; i < CloseBreacket; i++){
+        char* temp = ((NewToken*)Tokens->get(i))->String;
+        if (!strcmp(",", temp))
+            CommonCount++;
+    }
+    if (CommonCount + 1 < ArgName->count())
+        throw new Exception("InvalidSepareteFunction: пропущена запятая или аргумент", Brecket->LineIndex);
+    
+    if (CommonCount + 1 > ArgName->count())
+        throw new Exception("InvalidSepareteFunction: лишняя запятая или аргумент", Brecket->LineIndex);
+    
     if (ArgName->count() > 1){
         while (Index < CloseBreacket) {
             if (Count != ArgName->count() - 1){
@@ -634,7 +646,7 @@ TNode* Builder::ParseLine(int StartPosition, int FinishPosition){
         if (WorkElement->Priority == 2)
             return new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition));
         
-        return new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(StartPosition, PositionTokenWithMinPriority - 1), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition));
+        return new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(StartPosition, PositionTokenWithMinPriority - 1), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition), WorkElement->LineIndex);
     }
     
     
@@ -661,7 +673,7 @@ TNode* Builder::ParseLine(int StartPosition, int FinishPosition){
     //Операторы сравнения
     if (WorkElement->Type == Automat::CompOper)
     {
-        return new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(StartPosition, PositionTokenWithMinPriority - 1), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition));
+        return new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(StartPosition, PositionTokenWithMinPriority - 1), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition), WorkElement->LineIndex);
     }
     
     
@@ -706,7 +718,7 @@ TNode* Builder::ParseLine(int StartPosition, int FinishPosition){
             TNode* FirstArgument = ParseLine(PositionTokenWithMinPriority + 1, SeparatorIndex - 1);
             TNode* SecondArgument = ParseLine(SeparatorIndex + 1, CloseBracket - 1);
             
-            BinaryOperationNode* BinaryOperation = new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex(WorkElement->String), FirstArgument, SecondArgument);
+            BinaryOperationNode* BinaryOperation = new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex(WorkElement->String), FirstArgument, SecondArgument, WorkElement->LineIndex);
             return BinaryOperation;
         }
         
@@ -725,14 +737,14 @@ TNode* Builder::ParseLine(int StartPosition, int FinishPosition){
         if (ResultType == TNodeType::Const)
             throw new Exception("ConstantReinitialization: изменение значения константы невозможно", ((NewToken*)Tokens->get(StartPosition))->LineIndex);
         
-        return new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), LeftArgument, RightArgument);
+        return new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), LeftArgument, RightArgument, WorkElement->LineIndex);
     }
     
     //Логические операции
     if (WorkElement->Type == Automat::LogicOper){
         
         if (strcmp(WorkElement->String, "!")){
-            return new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(StartPosition, PositionTokenWithMinPriority - 1), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition));
+            return new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(StartPosition, PositionTokenWithMinPriority - 1), ParseLine(PositionTokenWithMinPriority + 1, FinishPosition), WorkElement->LineIndex);
         }
         else{
             PositionTokenWithMinPriority++;
@@ -910,14 +922,14 @@ void Builder::ParseInitialization(int& Index){
             Index++;
             char Symbol = ((NewToken*)Tokens->get(Index))->String[1];
             
-            CurrentList->Push(new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), new VariableNode(CurrentScope->FindInThisScope(Name->String)->GetValue()), new ConstNode(new TValue(Symbol, TypeList::Instance().GetTypeIndex("char")))));
+            CurrentList->Push(new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), new VariableNode(CurrentScope->FindInThisScope(Name->String)->GetValue()), new ConstNode(new TValue(Symbol, TypeList::Instance().GetTypeIndex("char"))), ((NewToken*)Tokens->get(Index))->LineIndex));
             return;
         }
         
         Index++;
         TNode* value = ParseLine(Index, Semicolon - 1);
         
-        CurrentList->Push(new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), new VariableNode(CurrentScope->FindInThisScope(Name->String)->GetValue()), value));
+        CurrentList->Push(new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), new VariableNode(CurrentScope->FindInThisScope(Name->String)->GetValue()), value, ((NewToken*)Tokens->get(Index))->LineIndex));
         Index = Semicolon;
 
         return;
@@ -1223,7 +1235,7 @@ void Builder::ParseMultiLine(int Start, int End){
                 }
                 // Ввод.
                 else{
-                    CurrentList->Push(new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), Argument, new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(Token->String), Argument)));
+                    CurrentList->Push(new BinaryOperationNode(BinaryOperationList::Instance().GetOperationIndex("="), Argument, new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(Token->String), Argument), Token->LineIndex));
                 }
             }
             else if (DigitOrChar->Type == Automat::String){

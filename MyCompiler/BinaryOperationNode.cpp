@@ -8,12 +8,13 @@
 
 #include "BinaryOperationNode.hpp"
 
-BinaryOperationNode::BinaryOperationNode(int Type, TNode* LeftOperand, TNode* RightOperand){
+BinaryOperationNode::BinaryOperationNode(int Type, TNode* LeftOperand, TNode* RightOperand, int Line){
     if (BinaryOperationList::Instance().GetOperationName(Type))
     {
         this->Type = Type;
         this->LeftOperand = LeftOperand;
         this->RightOperand = RightOperand;
+        this->Line = Line;
         Realization = new RealizBinaryOperation();
     }
     else
@@ -40,6 +41,9 @@ TValue* BinaryOperationNode::Execute(){
     TValue* ResultLeftOperand = LeftOperand->Execute();
     TValue* ResultRightOperand = RightOperand->Execute();
     char* Operation = BinaryOperationList::Instance().GetOperationName(Type);
+    
+    if (ResultLeftOperand == NULL || ResultRightOperand == NULL)
+        throw new Exception("InvalideOperation: невозможно выполнить операцию", Line);
     
     if (ResultLeftOperand->IsReference() && strcmp(Operation, "[]"))
     {
