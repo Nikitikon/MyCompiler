@@ -14,8 +14,6 @@
 // size - Размер массива, 0 для переменной
 TValue::TValue(double value, int type, int size){
     if (TypeList::Instance().GetTypeName(type)) {
-        if (TypeList::Instance().GetTypeIndex("void") == type)
-            throw Exceptions::UnknownType;
             
         this->type = type;
         

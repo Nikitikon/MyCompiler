@@ -28,10 +28,12 @@ IfElseNode::~IfElseNode(){
 TValue* IfElseNode::Execute(){
     
     if (Condition->Execute()->GetValue())
+    {
         if (Then)
-        return Then->Execute();
+            return Then->Execute();
+    }
     else
         if (Else)
-        return Else->Execute();
+            return Else->Execute();
     return NULL;
 }

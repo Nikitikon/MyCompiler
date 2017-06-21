@@ -8,12 +8,14 @@
 
 #include "FunctionKeeper.hpp"
 
-FunctionKeeper::FunctionKeeper(char* Name, FunctionData* Data){
+FunctionKeeper::FunctionKeeper(char* Name, FunctionData* Data, int StartPosition, int FinishPosition){
     if (Name == NULL || Data == NULL)
         throw Exceptions::NullObject;
     
     this->Name = Name;
     this->Data = Data;
+    this->StartPosition = StartPosition;
+    this->FinishPosition = FinishPosition;
 }
 
 FunctionKeeper::~FunctionKeeper(){
@@ -23,12 +25,10 @@ FunctionKeeper::~FunctionKeeper(){
     if (Data)
         delete Data;
     
-    if (ReturnValue)
-        delete ReturnValue;
+
     
     Name = NULL;
     Data = NULL;
-    ReturnValue = NULL;
 }
 
 
@@ -40,17 +40,4 @@ FunctionData* FunctionKeeper::GetData(){
     return Data;
 }
 
-
-TValue* FunctionKeeper::GetRetuenValue(){
-    return ReturnValue;
-}
-
-
-void FunctionKeeper::SetFunctionTree(IndependentOperationsNode* FunctionTree){
-    
-    if (FunctionTree == NULL)
-        throw Exceptions::NullObject;
-    
-    Data->SetFunctionTree(FunctionTree);
-}
 

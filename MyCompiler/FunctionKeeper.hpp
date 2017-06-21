@@ -16,18 +16,19 @@ class FunctionKeeper {
 private:
     char* Name;
     FunctionData* Data;
-    TValue* ReturnValue;
+
     
     
 public:
-    FunctionKeeper(char* Name, FunctionData* Data); // Done
+    int StartPosition;
+    int FinishPosition;
+    FunctionKeeper(char* Name, FunctionData* Data, int StartPosition, int FinishPosition); // Done
     ~FunctionKeeper(); // Done
     
     char* GetName(); // Done
     FunctionData* GetData(); // Done
-    TValue* GetRetuenValue(); // Done
     
-    void SetFunctionTree(IndependentOperationsNode* FunctionTree); // Done
+
     
 };
 

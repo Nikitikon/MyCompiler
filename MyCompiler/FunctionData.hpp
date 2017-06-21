@@ -16,20 +16,14 @@ class FunctionData{
     
 private:
     int ReturnType;
-    VariableTable* Argument;
-    IndependentOperationsNode* FunctionTree;
     
 public:
     List* ArgumentNameList;
-
-    FunctionData(int ReturnType, VariableTable* Argument, List* ArgumentNameList); // Done
+    List* ArgumentTypeList;
+    
+    FunctionData(int ReturnType, List* ArgumentNameList, List* ArgumentTypeList); // Done
     ~FunctionData(); // Done
-    
-    int GetReturnType(); // Done
-    VariableTable* GetArgument(); // Done
-    IndependentOperationsNode* GetFunctionTree(); // Done
-    
-    void SetFunctionTree(IndependentOperationsNode* FunctionTree); // Done
+    int GetReturnType();
 };
 
 #endif /* FunctionData_hpp */

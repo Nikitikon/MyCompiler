@@ -20,6 +20,7 @@
 #define MAXRANGE 20
 #define SEGMENTCOUNT 1024
 #define var auto
+#define MAX_VARIABLE_NAME 16
 
 #define AUTOMAT "Automat.txt"
 #define LOG "Log.txt"

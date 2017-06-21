@@ -79,7 +79,12 @@ int main()
     }
     catch (Exception* eline){
         setlocale(LC_ALL, "Russian");
-        cout << eline->GetMessage() << " Строка: " << eline->GetLine() << "." << endl;
+        if (!strcmp("return", eline->GetMessage()))
+            cout << "Программа завершилась с кодом: " << eline->GetLine()<< "." << endl;
+        else
+            if (!strcmp("returnNULL", eline->GetMessage())){}
+                else
+                    cout << eline->GetMessage() << " Строка: " << eline->GetLine() << "." << endl;
     }
     
 

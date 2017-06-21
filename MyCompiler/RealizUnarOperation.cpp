@@ -136,7 +136,7 @@ TValue* RealizUnarOperation::BreakOperation(char* Operation, TValue* ResultOfOpe
     if (ResultOfOperand != NULL)
         throw new Exception("return", ResultOfOperand->GetValue());
     
-    throw new Exception("return", NULL);
+    throw new Exception("returnNULL", NULL);
 }
 
 

@@ -8,23 +8,19 @@
 
 #include "FunctionData.hpp"
 
-FunctionData::FunctionData(int ReturnType, VariableTable* Argument, List* ArgumentNameList){
-    this->Argument = Argument;
+FunctionData::FunctionData(int ReturnType, List* ArgumentNameList, List* ArgumentTypeList){
     this->ReturnType = ReturnType;
-    this->FunctionTree = new IndependentOperationsNode();
     this->ArgumentNameList = ArgumentNameList;
+    this->ArgumentTypeList = ArgumentTypeList;
 }
 
 
 FunctionData::~FunctionData(){
-    if (Argument)
-        delete Argument;
+    if (ArgumentTypeList)
+        delete ArgumentTypeList;
     
-    if (FunctionTree)
-        delete FunctionTree;
-    
-    Argument = NULL;
-    FunctionTree = NULL;
+    if (ArgumentNameList)
+        delete ArgumentNameList;
 }
 
 
@@ -32,20 +28,6 @@ int FunctionData::GetReturnType(){
     return ReturnType;
 }
 
-
-VariableTable* FunctionData::GetArgument(){
-    return Argument;
-}
-
-
-IndependentOperationsNode* FunctionData::GetFunctionTree(){
-    return FunctionTree;
-}
-
-
-void FunctionData::SetFunctionTree(IndependentOperationsNode* FunctionTree){
-    this->FunctionTree = FunctionTree;
-}
 
 
 

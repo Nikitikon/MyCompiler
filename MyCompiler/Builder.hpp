@@ -58,8 +58,6 @@ private:
     IndependentOperationsNode* Root;
     List* Tokens;
     
-    Scope* CurrentScope;
-    IndependentOperationsNode* CurrentList;
     
     FunctionTable* FTable;
     
@@ -83,9 +81,9 @@ private:
     TNode* ParseWhile(int& Index); // Done
     TNode* ParseVariableName(int& Index, TNodeType& Type); // Done
     
-    void ParseMultiLine(int StartPosition, int EndPosition); // Done
     
-    VariableTable* CreateTableParametrFunction(int StartPosition, int FinishPosition,List* ArgumentList); // Done
+    void CreateTableParametrFunction(int StartPosition, int FinishPosition,List* ArgumentList, List* TypeList); // Done
+    TNode* ParseFunction(int& Index); //
     
 public:
     Builder(char* sourceCode); // Done
@@ -95,7 +93,33 @@ public:
     void Run(); // Done
     void PrintList(List*); // Done
     
+    void ParseMultiLine(int StartPosition, int EndPosition); // Done
+
+    
     void FindFunction();
+    
+    Scope* CurrentScope;
+    IndependentOperationsNode* CurrentList;
 };
+
+class FunctionNode : public TNode{
+    
+private:
+    TValue* ReturnValue;
+    IndependentOperationsNode* CurrentNode;
+    int Start;
+    int Finish;
+    Builder* builder;
+    List* ArgumentName;
+    List* ValueList;
+    List* ArgumentType;
+    int Line;
+    
+public:
+    FunctionNode(List* ArgumentType, int Start, int Finish, Builder* builder, List* ArgumentName, int ReturnType, List* ValueList, int Line);
+    ~FunctionNode();
+    TValue* Execute();
+};
+
 
 #endif /* Builder_hpp */

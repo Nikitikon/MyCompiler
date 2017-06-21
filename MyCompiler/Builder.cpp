@@ -28,6 +28,8 @@ Builder::Builder(char* sourceCode){
     
     FTable = new FunctionTable();
     
+    FindFunction();
+    
   //  PrintList(Tokens);
     
     Prioritize(Tokens);
@@ -59,21 +61,22 @@ Builder::~Builder(){
 
 
 
-VariableTable* Builder::CreateTableParametrFunction(int StartPosition, int FinishPosition, List* ArgumentList){
-    VariableTable* FunctionParametr = new VariableTable();
+void Builder::CreateTableParametrFunction(int StartPosition, int FinishPosition, List* ArgumentList, List* TypeList){
     
     if (StartPosition - FinishPosition == -1)
-        throw new Exception("MissingParameter: пропущен параметр фунцкии", ((NewToken*)Tokens->get(StartPosition))->LineIndex);
+        return;
     
     for (int i = StartPosition + 1; i < FinishPosition; i += 3) {
         int Index = i;
         NewToken* Type = (NewToken*)Tokens->get(Index);
         
         if (StartPosition - FinishPosition == -2 && TypeList::Instance().GetTypeIndex("void") == TypeList::Instance().GetTypeIndex(Type->String))
-            return new VariableTable();
+            return;
         
         Index++;
         NewToken* Name = (NewToken*)Tokens->get(Index);
+        if (Type->Type != Automat::ReservedType || !strcmp("void", Type->String))
+            throw new Exception("InvalideType: недопустимый тип переменной", Type->LineIndex);
         
         if (Name->Type != Automat::UserType)
             throw new Exception("MissingUserType: пропущено объявление параметра", Name->LineIndex);
@@ -81,8 +84,9 @@ VariableTable* Builder::CreateTableParametrFunction(int StartPosition, int Finis
         if (FTable->Find(Name->String) != NULL)
             throw new Exception("FunctionInitializationError: функция уже объявлена", Name->LineIndex);
         
-        if (FunctionParametr->Find(Name->String) != NULL)
-            throw new Exception("FunctionInitializationError: переменная уже объявлена", Name->LineIndex);
+        for(int j = 0; j < ArgumentList->count(); j++)
+            if (!strcmp((char*)ArgumentList->get(j), Name->String))
+                throw new Exception("FunctionInitializationError: переменная уже объявлена", Name->LineIndex);
         
         Index++;
         NewToken* CommaOrBracket = (NewToken*)Tokens->get(Index);
@@ -90,13 +94,11 @@ VariableTable* Builder::CreateTableParametrFunction(int StartPosition, int Finis
             if (strcmp(CommaOrBracket->String, ","))
                 throw new Exception("InvalidParametr: ожидалась запятая", CommaOrBracket->LineIndex);
         
-        TValue* Value = new TValue(0, TypeList::Instance().GetTypeIndex(Type->String), 0);
-        TValueKeeper* Keeper = new TValueKeeper(Name->String, Value);
-        FunctionParametr->Put(Keeper);
-        ArgumentList->add(Name->String);
+        ArgumentList->add((Name->String));
+        int temp = TypeList::Instance().GetTypeIndex(Type->String);
+        TypeList->add(&temp);
     }
     
-    return FunctionParametr;
 }
 
 
@@ -125,8 +127,9 @@ void Builder::FindFunction(){
             
             int IndexCloseParenthesis = ClosingBracketIndex(Index);
             
-            List* ArgumentList = new List(MAX_OPERATION_NAME_LENGHT);
-            VariableTable* Parametr = CreateTableParametrFunction(Index, IndexCloseParenthesis, ArgumentList);
+            List* ArgumentList = new List(MAX_VARIABLE_NAME);
+            List* TypeList = new List(sizeof(int*));
+            CreateTableParametrFunction(Index, IndexCloseParenthesis, ArgumentList, TypeList);
             
             Index = IndexCloseParenthesis + 1;
             if (strcmp(((NewToken*)Tokens->get(Index))->String, "{"))
@@ -134,23 +137,39 @@ void Builder::FindFunction(){
             
             i = ClosingBracketIndex(Index);
             
-            FunctionData* Data = new FunctionData(TypeList::Instance().GetTypeIndex(Type->String), Parametr, ArgumentList);
-            FunctionKeeper* Keeper = new FunctionKeeper(Name->String, Data);
+            FunctionData* Data = new FunctionData(TypeList::Instance().GetTypeIndex(Type->String), ArgumentList, TypeList);
+            FunctionKeeper* Keeper = new FunctionKeeper(Name->String, Data, Index + 1, i - 1);
             FTable->Put(Keeper);
         }
+        else
+        throw new Exception("InvalideType: недопустимый тип", Type->LineIndex);
     }
 }
 
 
 // Запуск выполения дерева.
 void Builder::Run(){
-
-    if (Root)
-        Root->Execute();
-    else
-        throw new Exception("Необходимо построить синтексное дерево до выполнения", 0);
+    int Type = 0;
+    int Start = 0;
+    FunctionKeeper* MainKeeper = FTable->Find("main");
+    FunctionData* Data = MainKeeper->GetData();
+    Type = Data->GetReturnType();
+    Start = MainKeeper->StartPosition;
+    try{
+        if (Root)
+            Root->Execute();
+        else
+            throw new Exception("Необходимо построить синтексное дерево до выполнения", 0);
     
-    
+    }catch (Exception* enline){
+        if (!strcmp("void", TypeList::Instance().GetTypeName(Type)) && !strcmp("return", enline->GetMessage()))
+            throw new Exception("InvalidReturnValue: неверное возвращаемое значение", Start);
+        
+        if (!strcmp("int", TypeList::Instance().GetTypeName(Type)) && !strcmp("returnNULL", enline->GetMessage()))
+            throw new Exception("InvalidReturnValue: неверное возвращаемое значение", Start);
+        
+        throw enline;
+    }
 
 }
 
@@ -176,18 +195,29 @@ void Builder::PrintList(List* tokens)
 
 //Построение дерева операций, которое затем выполняется командой Execute() и дерева областей видимости, хранящего константы, переменные, массивы.
 void Builder::Build(){
+    int Type = 0;
+    int Start = 0;
     try {
         Root = CurrentList = new IndependentOperationsNode();
         CurrentScope = CurrentList->GetScope();
         
-        ParseMultiLine(0, Tokens->count());
+        FunctionKeeper* MainKeeper = FTable->Find("main");
+        if (MainKeeper == NULL)
+            throw new Exception("NotFoundMain: не найден main", 0);
+        
+        FunctionData* Data = MainKeeper->GetData();
+        Type = Data->GetReturnType();
+        Start = MainKeeper->StartPosition;
+        if (strcmp("void", TypeList::Instance().GetTypeName(Type)) && strcmp("int", TypeList::Instance().GetTypeName(Type)))
+            throw new Exception("InvalidReturnTypeMain: недопустимй тип main.", MainKeeper->StartPosition);
+        
+        ParseMultiLine(MainKeeper->StartPosition, MainKeeper->FinishPosition);
     } catch (Exceptions e) {
         if (e == Exceptions::ArgumentOutOfRange)
             throw new Exception("UnexpectedEndOfFile: неожиданный конец файла.", 0);
-            
+        
         throw e;
     }
-    
 }
 
 
@@ -307,6 +337,8 @@ void Builder::Prioritize(List* ToketList){
             previousToken = currentToken;
         
         currentToken = (NewToken*)ToketList->get(i);
+        if (currentToken->Type == Automat::UserType && FTable->Find(currentToken->String) != NULL)
+            currentToken->Priority = 2;
         
         if (isOperator(currentToken->Type)){
             char* tempStr = currentToken->String;
@@ -390,6 +422,8 @@ void Builder::Prioritize(List* ToketList){
             
             if (currentToken->Type == Automat::SysFunction)
                 currentToken->Priority = 2;
+            
+            
             
             if (!strcmp(tempStr, "<<") || !strcmp(tempStr, ">>")){
                 currentToken->Priority = 6;
@@ -507,6 +541,54 @@ List* Builder::ConvertToNewToken(List* OldToken){
 }
 
 
+TNode* Builder::ParseFunction(int& Index){
+    char* Name = ((NewToken*)Tokens->get(Index))->String;
+    FunctionKeeper* TempFunkKeeper = FTable->Find(Name);
+    FunctionData* TempData = TempFunkKeeper->GetData();
+    
+    List* ArgName = TempData->ArgumentNameList;
+    List* ArgType = TempData->ArgumentTypeList;
+    List* ListOfArgumentValue = new List(32);
+    
+    Index++;
+    NewToken* Brecket = (NewToken*)Tokens->get(Index);
+    if (strcmp("(", Brecket->String)){
+        throw new Exception("MissBrecket: пропущена скобка", Brecket->LineIndex);
+    }
+    
+    int CloseBreacket = ClosingBracketIndex(Index);
+    if (CloseBreacket - Index == 1 && ArgName->count()!=0)
+        throw Exception("MissingArgument: пропущены аргументы при вызове функции",Brecket->LineIndex);
+    int Count = 0;
+    if (ArgName->count() > 1){
+        while (Index < CloseBreacket) {
+            if (Count != ArgName->count() - 1){
+                int CommonIndex = FindToken(Index + 1, CloseBreacket, ",");
+                ListOfArgumentValue->add(ParseLine(Index + 1, CommonIndex - 1));
+                Index = CommonIndex;
+                Count++;
+            }
+            else{
+                ListOfArgumentValue->add(ParseLine(Index + 1, CloseBreacket - 1));
+                Index = CloseBreacket + 1;
+                Count++;
+            }
+        }
+    }
+    else{
+        if(ArgName->count() == 1){
+            ListOfArgumentValue->add((void*)ParseLine(Index + 1, CloseBreacket - 1));
+            Index = CloseBreacket + 1;
+            Count = 1;
+        }
+    }
+    
+    if (Count != ArgName->count())
+        throw new Exception("InvalidArgumentFunction: неожианное количество аргументов", Brecket->LineIndex);
+    
+    return new FunctionNode(ArgType, TempFunkKeeper->StartPosition, TempFunkKeeper->FinishPosition, this, ArgName ,TempData->GetReturnType(), ListOfArgumentValue, Brecket->LineIndex);
+}
+
 
 
 //Для парсинга единственной строки (TNode*)
@@ -528,6 +610,8 @@ TNode* Builder::ParseLine(int StartPosition, int FinishPosition){
     }
     
     //Line не является выражением, содержащим арифметические, логические операции, операции присваивания или системные функции.
+    if (FTable->Find(Token->String) != NULL)
+        return ParseFunction(StartPosition);
     
     if (!IsAnExpression(StartPosition, FinishPosition) && strcmp(Token->String, "return")){
         TNodeType type;
@@ -661,6 +745,7 @@ TNode* Builder::ParseLine(int StartPosition, int FinishPosition){
             return new UnaryOperationNode(UnaryOperationList::Instance().GetOperationIndex(WorkElement->String), ParseLine(PositionTokenWithMinPriority + 1, CloseBracket - 1));
         }
     }
+    
     
     throw new Exception("InvalidOperation: недопустимая операция", ((NewToken*)Tokens->get(StartPosition))->LineIndex);
     
@@ -920,15 +1005,16 @@ TNode* Builder::ParseIfElse(int& Index){
     // Меняем CurrentList и currentScope на IndependentOperationsNode и Scope тела цикла
     
     IndependentOperationsNode* ThenBranch = new IndependentOperationsNode(CurrentList);
-    IndependentOperationsNode* TempList = CurrentList;
+    IndependentOperationsNode* tempList = CurrentList;
     CurrentList = ThenBranch;
     CurrentScope = ThenBranch->GetScope();
+
     
     // Парсим тело then.
     ParseMultiLine(Index + 1, ClosingBrace - 1);
     
     // Восстанавливаем CurrentList и область видимости CurrentScope
-    CurrentList = TempList;
+    CurrentList = tempList;
     CurrentScope = CurrentList->GetScope();
     
     Index = ClosingBrace;
@@ -956,13 +1042,12 @@ TNode* Builder::ParseIfElse(int& Index){
         
         // Аналогично then.
         ElseBranch = new IndependentOperationsNode(CurrentList);
-        TempList = CurrentList;
+        tempList = CurrentList;
         CurrentList = ElseBranch;
         CurrentScope = ElseBranch->GetScope();
         
         ParseMultiLine(Index + 1, ClosingBrace - 1);
-        
-        CurrentList = TempList;
+        CurrentList = tempList;
         CurrentScope = CurrentList->GetScope();
         
         Index = ClosingBrace;
@@ -1193,6 +1278,68 @@ void Builder::ParseMultiLine(int Start, int End){
 
 
 
+FunctionNode::FunctionNode(List* ArgumentType, int Start, int Finish, Builder* builder, List* ArgumentName, int ReturnType,List* ValueList, int Line){
+    this->CurrentNode = new IndependentOperationsNode();
+    Scope* scope = CurrentNode->GetScope();
+    
+    this->Start = Start;
+    this->Finish = Finish;
+    this->builder = builder;
+    this->ArgumentName = ArgumentName;
+    this->ArgumentType = ArgumentType;
+    this->ValueList = ValueList;
+    this->Line = Line;
+    ReturnValue = new TValue(0, ReturnType, 0);
+}
+
+
+FunctionNode::~FunctionNode(){
+    if (ReturnValue)
+        delete ReturnValue;
+    
+    if (CurrentNode)
+        delete CurrentNode;
+}
+
+
+TValue* FunctionNode::Execute(){
+    try {
+        for(int i = 0; i < ValueList->count(); i++){
+            TValue* TempValue = ((TNode*)ValueList->get(i))->Execute();
+//            if (TempValue->GetType() > *(int*)ArgumentType->get(i))
+//                throw new Exception("InvalidArgument: ожидался другой тип аргумента", Line);
+            TValue* NewValue = new TValue(TempValue->GetValue(), TempValue->GetType(), 0);
+            char* Name = (char*)ArgumentName->get(i);
+            TValueKeeper* TempKeeper = new TValueKeeper(Name, NewValue, false);
+            this->CurrentNode->GetScope()->Put(TempKeeper);
+        }
+        IndependentOperationsNode* TempList = builder->CurrentList;
+        builder->CurrentList = CurrentNode;
+        builder->CurrentScope = CurrentNode->GetScope();
+        builder->ParseMultiLine(Start, Finish);
+        builder->CurrentList = TempList;
+        builder->CurrentScope = TempList->GetScope();
+        this->CurrentNode->Execute();
+        
+        return NULL;
+    } catch (Exception* e) {
+        if (!strcmp("return", e->GetMessage())){
+            if (!strcmp("void", TypeList::Instance().GetTypeName(ReturnValue->GetType()))){
+                throw new Exception("InvalidReturnType: невозможно вернуть значение", Line);
+            }
+            ReturnValue->SetValue(e->GetLine());
+            return ReturnValue;
+        }
+        
+        if (!strcmp("returnNULL", e->GetMessage())){
+            if (strcmp("void", TypeList::Instance().GetTypeName(ReturnValue->GetType()))){
+                throw new Exception("InvalidReturnType: невозможно вернуть значение", Line);
+            }
+            return NULL;
+        }
+        throw e;
+    }
+}
 
 
 

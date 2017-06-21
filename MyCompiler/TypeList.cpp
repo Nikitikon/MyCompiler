@@ -18,11 +18,11 @@ TypeList::~TypeList(){
 }
 
 void TypeList::AddPrimitiveTypes(){
-    Types->add((void*)"int");
     Types->add((void*)"double");
-    Types->add((void*)"bool");
     Types->add((void*)"float");
+    Types->add((void*)"int");
     Types->add((void*)"char");
+    Types->add((void*)"bool");
     Types->add((void*)"void");
 
 }
